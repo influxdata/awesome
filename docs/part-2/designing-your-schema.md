@@ -2,7 +2,7 @@
 layout: default
 title: Designing Your Schema
 parent: Part 2
-nav_order: 4
+nav_order: 3
 ---
 
 # Designing Your Schema
