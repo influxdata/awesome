@@ -3,8 +3,6 @@
     <p align="center">A book on InfluxDB<br>Helping IoT Application Developers build on top of InfluxDB and experience time to awesome. </p>
 </p>
 
-![jtd](https://user-images.githubusercontent.com/896475/47384541-89053c80-d6d5-11e8-98dc-dba16e192de9.gif)
-
 ## Installation
 
 
