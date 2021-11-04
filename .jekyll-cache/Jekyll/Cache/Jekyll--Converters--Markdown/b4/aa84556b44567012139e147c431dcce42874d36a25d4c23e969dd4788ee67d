@@ -1,0 +1,28 @@
+I"ý<h1 class="fs-9" id="time-to-awesome">Time to Awesome</h1>
+
+<p class="fs-6 fw-300">A book on InfluxDB</p>
+<hr />
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<p><a href="/time-to-awesome/docs/part-1" class="btn btn-purple">Part 1</a></p>
+<ul>
+  <li>dfd
+    <ul>
+      <li>dfd
+<a href="/time-to-awesome/docs/part-2" class="btn btn-purple">Part 2</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="contributing">Contributing</h3>
+<p>Bug reports and pull requests are welcome on GitHub at https://github.com/influxdata/book.github.io.</p>
+
+<h3 id="submitting-code-changes">Submitting code changes:</h3>
+
+<ul>
+  <li>Open a <a href="https://github.com/influxdata/book.github.io/pulls">Pull Request</a></li>
+  <li>Await code review</li>
+</ul>
+
+<h2 id="license">License</h2>
+:ET

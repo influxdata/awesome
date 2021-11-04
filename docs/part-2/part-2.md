@@ -8,5 +8,6 @@ permalink: /docs/part-2
 
 # Part 2
 
-In this part, you'll gain an understanding for the InfluxDB data model, schema design bests practices and how to use Flux, the query and scripting language for InfluxDB. 
+Understanding InfluxDB
+
 {: .fs-6 .fw-300 }

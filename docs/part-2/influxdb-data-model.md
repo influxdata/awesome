@@ -2,7 +2,7 @@
 layout: default
 title: InfluxDB Data Model
 parent: Part 2
-nav_order: 2
+nav_order: 1
 ---
 
 # InfluxDB Data Model
@@ -114,14 +114,14 @@ Field values will be represented by actual values. Timestamps are in the followi
 * Relative Duration: -`1h`
 * Duration: `1h`
 
-Timestamps will be represented by actual values or by “`unixtime1`” or “`rfc3339time1`” . In case we want to refer to another timestamp in the same example, we will use “`unixtime2`” or “`rfc3339time2`”
+Timestamps will be represented by actual values or by `unixtime1` or `rfc3339time1` . In case we want to refer to another timestamp in the same example, we will use `unixtime2` or `rfc3339time2`.
 
-To refer to a measurement in an example, we will use: “`measurement1`”. In case we want to refer to another measurement in the same example, we will use “`measurement2`”, and so forth.
+To refer to a measurement in an example, we will use: `measurement1`. In case we want to refer to another measurement in the same example, we will use `measurement2`, and so forth.
 
 An example of line protocol (explained in depth later) then, may look like:
 
 
-```
+```js
 measurement1,tag1=tagvalule1,tag2=tagvalue2 field1=1i,field2=2 1628858104
 ```
 
@@ -129,7 +129,7 @@ measurement1,tag1=tagvalule1,tag2=tagvalue2 field1=1i,field2=2 1628858104
 From time to time an example may be focused on understanding a type. In such cases, we will use the form “atype” where “type” is the data type under focus. For example, if we are discussing that field names are always strings. we may say:
 
 
-```
+```js
 r._field == "astring"
 ```
 
@@ -137,7 +137,7 @@ r._field == "astring"
 Or if we are discussing type conflicts, we may say:
 
 
-```
+```js
 aint == afloat
 ```
 
@@ -145,5 +145,8 @@ aint == afloat
 Instead of an example with specific values such as:
 
 
-```
+```js
 1i == 1.0
+```
+
+[Next Section]({{site.baseurl}}/docs/part-2/input-format-vs-output-format){: .btn .btn-purple}

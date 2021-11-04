@@ -44,9 +44,6 @@ from(bucket: "Air sensor sample dataset")
   |> range(start: rfc33391, stop: rfc33392)
   |> filter(fn: (r) => r._measurement == "airSensors")
   |> filter(fn: (r) => r.sensor_id == "TM0100")
-
-
-
 ```
 
 
@@ -74,3 +71,5 @@ Remember you’ll want to replace `<yourInflxDBURL>` with either:
     * <code>https://us-west-2-1.aws.cloud2.influxdata.com/</code> for example
 
 Please review Part 1, to learn about how to gather your <code><yourBucketID></code> and <code><yourOrgID></code>. 
+
+[Next Section]({{site.baseurl}}/docs/part-2/optimizing-flux-performance){: .btn .btn-purple}

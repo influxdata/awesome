@@ -95,3 +95,5 @@ Applying an existing Community Template is as easy as copy and pasting a URL for
 
 
 A [Stack](https://docs.influxdata.com/influxdb/cloud/influxdb-templates/stacks/) is a stateful InfluxDB template that lets you add, update, and remove template resources. 
+
+[Next Section]({{site.baseurl}}/docs/part-1/setting-up-influxdb){: .btn .btn-purple}

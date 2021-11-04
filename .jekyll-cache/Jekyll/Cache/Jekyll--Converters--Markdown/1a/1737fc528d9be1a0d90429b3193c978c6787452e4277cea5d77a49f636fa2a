@@ -1,0 +1,62 @@
+I"<h1 class="no_toc" id="deletes">Deletes</h1>
+
+<h2 class="no_toc text-delta" id="table-of-contents">Table of contents</h2>
+
+<ol id="markdown-toc">
+  <li><a href="#deletes-1" id="markdown-toc-deletes-1">Deletes</a></li>
+</ol>
+
+<hr />
+<h2 id="deletes-1">Deletes</h2>
+
+<p>You can delete time series data with either:</p>
+
+<ol>
+  <li>The InfluxDB CLI command <a href="https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/">influx delete</a>.</li>
+  <li>The InfluxDB v2 API <a href="https://docs.influxdata.com/influxdb/cloud/api/#operation/PostDelete">delete endpoint</a>.</li>
+</ol>
+
+<p>Use the InfluxDB CLI to delete data from a bucket within a specific time range, measurement, and tags. For example, if we wanted to delete some sensor data from the Air  Sensor sample dataset we could use the following command:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>influx delete --bucket 'Air sensor sample dataset' \
+  --start 'rfc3339time1' \
+  --stop 'rfc3339time2' \
+  --predicate '_measurement="airSensors" AND sensor_id="TM0100"'
+</code></pre></div></div>
+
+<p>Remember the <code class="language-plaintext highlighter-rouge">rfc3339time</code> timestamps are in  the form of<code class="language-plaintext highlighter-rouge"> %Y-%m-%dT%H:%M:%SZ,</code> with an example being: <code class="language-plaintext highlighter-rouge">2020-03-01T00:00:00Z</code>. After making the delete, the following query returns no results: \</p>
+
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span><span class="p">(</span><span class="nx">bucket</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Air sensor sample dataset</span><span class="dl">"</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nx">range</span><span class="p">(</span><span class="nx">start</span><span class="p">:</span> <span class="nx">rfc33391</span><span class="p">,</span> <span class="nx">stop</span><span class="p">:</span> <span class="nx">rfc33392</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="p">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">_measurement</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">airSensors</span><span class="dl">"</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nx">filter</span><span class="p">(</span><span class="nx">fn</span><span class="p">:</span> <span class="p">(</span><span class="nx">r</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">sensor_id</span> <span class="o">==</span> <span class="dl">"</span><span class="s2">TM0100</span><span class="dl">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Similarly, you can use the InfluxDB v2 API to delete the same data with:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl -i -XPOST '&lt;yourInflxDBURL&gt;api/v2/delete?orgID=&lt;yourOrgID&gt;bucket=&lt;yourBucketID&gt;\
+  --header 'Authorization: Token &lt;yourToken&gt;' \
+  --data-raw  '{
+"start": "rfc3339time1",
+"stop": "rfc3339time2",
+"predicate": '_measurement=\"airSensors\" and sensor_id=\"TM0100\"'
+}'
+</code></pre></div></div>
+
+<p>Remember you’ll want to replace <code class="language-plaintext highlighter-rouge">&lt;yourInflxDBURL&gt;</code> with either:</p>
+
+<ul>
+  <li>The <a href="https://docs.influxdata.com/influxdb/v2.0/reference/urls/">InfluxDB OSS UR</a>
+    <ul>
+      <li><code>[http://localhost:8086/](http://localhost:8086/)</code>  by default</li>
+    </ul>
+  </li>
+  <li>The <a href="https://docs.influxdata.com/influxdb/cloud/reference/regions/">InfluxDB Cloud URL</a> from your correct region and provider
+    <ul>
+      <li><code>https://us-west-2-1.aws.cloud2.influxdata.com/</code> for example</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Please review Part 1, to learn about how to gather your <code><yourBucketID>&lt;/code&gt; and <code><yourOrgID>&lt;/code&gt;.</yourOrgID></code></yourBucketID></code></p>
+:ET

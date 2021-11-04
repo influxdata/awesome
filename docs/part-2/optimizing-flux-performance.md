@@ -64,10 +64,7 @@ The [annotated CSV](https://docs.influxdata.com/influxdb/cloud/reference/syntax/
 
 
 
-<p id="gdcalert12" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image5.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert13">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image5.png "image_tooltip")
+![ui]({{site.baseurl}}/assets/images/image-30.png)
 
 
 **Don’t** use drop() unnecessarily after a join():
@@ -92,11 +89,8 @@ join(tables: {bucket1: bucket1, bucket2: bucket2}, on: ["_start","_stop""_time",
 To yield the same result:
 
 
+![ui]({{site.baseurl}}/assets/images/image-31.png)
 
-<p id="gdcalert13" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image6.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert14">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image6.png "image_tooltip")
 
 
 
@@ -178,7 +172,7 @@ from(bucket: "noaa")
 Yields the following tables from the Profiler:
 
 
-![]({{site.baseurl}}/assets/images/image-27.png)
+![]({{site.baseurl}}/assets/images/image-32.png)
 
 
 The Flux Profiler outputs performance information about your query in nanoseconds.
@@ -219,11 +213,8 @@ Also notice that I switch the order of the functions and apply [drop()](https://
 If you haven’t given it a try already, I encourage you to install the [Flux extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux) for [Visual Studio Code](https://www.google.com/search?q=visual+studio+code&oq=visual+stu&aqs=chrome.1.0i433l2j69i57j0i433j0j0i433j69i60j69i61.2304j1j7&sourceid=chrome&ie=UTF-8). To query your InfluxDB Cloud account with the Flux extension, you must first configure it and [connect to your cloud account](https://docs.influxdata.com/influxdb/v2.0/tools/flux-vscode/#connect-to-influxdb). I enjoy using the Flux extension and VS Code when trying to debug complicated Flux scripts or trying to optimize the performance of my Flux scripts because I can save my Flux scripts and compare outputs from the Profiler simultaneously.
 
 
+![]({{site.baseurl}}/assets/images/image-33.png)
 
-<p id="gdcalert15" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image8.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert16">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image8.png "image_tooltip")
 The original “bad_join” query (red) is commented out because I ran it first. Its TotalDuration time was 17608617 ns. Joining on multiple like-columns and removing the drop() improves the performance to 14160858 ns.
 
 I decided to test the queries described in the “Using schema mutations properly” section above. The Profiler confirms my hypothesis: joining on multiple like-columns is more efficient than dropping redundant ones retroactively. While you can also perform this work in the InfluxDB UI, I find the side-by-side comparison of Profiler outputs helpful for this type of experimentation.
@@ -262,3 +253,4 @@ When asking for help with optimizing the performance of your Flux script, whethe
 Including as much of this information in a post will help us assist you better and more quickly. The above points also apply to issues with hitting memory limits.
 
 
+[Part 3]({{site.baseurl}}/docs/part-2/part-3){: .btn .btn-purple}

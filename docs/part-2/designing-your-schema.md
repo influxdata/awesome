@@ -62,7 +62,7 @@ A dependent tag is scoped by another tag. Dependent tags don’t influence the s
  
 
 
-```
+```js
 measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" unixtime1
 measurement1,tag1="tagvalue2",tag2="tagvalue4"  field1=2i,field2=2,field3="b" unixtime2
 measurement1,tag1="tagvalue1",tag2="tagvalue2" field1=1i,field2=1,field3="a" unixtime3
@@ -133,7 +133,7 @@ Understanding how to properly use tags can not only help prevent runaway series 
 
 
 ![ui]({{site.baseurl}}/assets/images/image-24.png)
-*Visualizing co, humidity, and temperature for th TLM0100 sensor from the Air sensor sample dataset after writing it to InfluxDB with the to() function as described in [Write and Query Sample Data](add link).*
+*Visualizing co, humidity, and temperature for th TLM0100 sensor from the Air sensor sample dataset after writing it to InfluxDB with the to() function as described in [Write and Query Sample Data]({{site.baseurl}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data).*
 
 
 ### Just Enough Flux
@@ -146,7 +146,7 @@ So far we have only discussed querying InfluxDB in an abstract manner.  In order
 The following Flux query queries for the co, humidity, and temperature fields from the TLM0100 sensor from the Air sensor sample dataset bucket. 
 
 
-```
+```js
 from(bucket: "Air sensor sample dataset")
 |> range(start: -1h, stop: now())
 |> filter(fn: (r) => r["_measurement"] == "airSensors")
@@ -420,14 +420,10 @@ The single bucket design has the following advantages:
 
 The single bucket design has the following disadvantages:
 
-
-
 * Each bucket is assigned one retention policy. With this design you can’t expire data subsets at different retention intervals. 
 * If you need to query for a invicidual user’s data within a single bucket for your application, you should generate new read tokens for each individual customer. However, this design is less secure against malicious attacks than isolating different users’ data in separate buckets. 
 
 The single bucket approach is good for use cases where:
-
-
 
 * You’re developing a simple IoT application, like the Air sensor sample dataset. 
 * You intend on treating all of your user’s data in the same way. Your data is being collected at similar intervals and a single retention policy is an effective solution for proper time series database management. 
@@ -438,22 +434,16 @@ The single bucket approach is good for use cases where:
 
 The bucket per user design has the following advantages:
 
-
-
 * Your customer’s data is isolated and secure. 
 * You can assign different retention policies to your different buckets depending on your customer’s needs. 
-* You ca
 
 The bucket per user design has the following disadvantages:
 
-
-
+* You can't visualize multiple users' data without joining the data across the buckets first. 
 * Performing math across your users’ data is hard. For example if you want to know which user is reporting a max value for their field, you must first join all of your data together across the different user buckets first. 
 * You’ll likely need to write multiple downsampling tasks to downsample all of your user's data. You can automate some of this downsampling task creation with the use of parameterized queries, but it’ll require a little more work. 
 
 The bucket per user design is good for use cases where: 
-
-
 
 * You’re developing a more sophisticated IoT application and the data is sensitive, like a human health application. 
 * You’re writing sensitive data to InfluxDB and isolating your users’ data is a priority. 
@@ -464,20 +454,14 @@ The bucket per user design is good for use cases where:
 
 The org per customer design has the following advantages:
 
-
-
 * You can meet the data requirements of users with advanced high throughput and cardinality use cases. 
 * Your users’ data is isolated and secure. 
 
-The org per customer design has the following disadvantages:
-
-
+The org per customer design has the following disadvantage:
 
 * You can’t easily query for data across multiple organizations. 
 
 The org per customer design is good for use cases where: 
-
-
 
 * You’re developing an industrial IoT solution that can be used for multiple companies. 
 
@@ -529,3 +513,4 @@ influx bucket-schema create \
 
 Specify the bucket that you want to create the schema for, the measurement to which your schema columns file should be applied to, and the path to your schema columns file. 
 
+[Next Section]({{site.baseurl}}/docs/part-2/introduction-to-flux){: .btn .btn-purple}

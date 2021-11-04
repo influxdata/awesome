@@ -63,9 +63,12 @@ Because Flux is a functional language, functions are first class objects. So the
 afilter_function = (r) => r._measurement == "measurement1"
 ```
 
+ A function body can be multiline, which is handled syntactically as such:
 
-
-## A function body can be multiline, which is handled syntactically as such:
+```js
+afilter_function = (r) => r._measurement == "measurement1"
+and r._field == "field1"
+```
 
 
 ## Declarative
@@ -111,7 +114,7 @@ With the exception of tables passed through the pipe forward operator, all Flux 
 
 ## Flux Parameter Types Can Be Overloaded
 
-In many cases, a single parameter can accept arguments of multiple types. This is covered in detail in the case of the `range()` function below.
+In many cases, a single parameter can accept arguments of multiple types. This is covered in detail in the case of the [range() section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#range) in the next section.
 
 
 ## Pipe Forwarding
@@ -182,7 +185,7 @@ You cannot ask Flux to operate on one table, but not others. Nor can you ask Flu
 
 ## Flux Supports Only Very Limited Looping
 
-Flux more or less does not allow looping. The closest thing to a loop capability is the [map()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/map/)` `function which applies a function to each record. In Flux, many of the things that you expect to accomplish in a loop, you accomplish rather by using successive functions that apply the transformations to the data. 
+Flux more or less does not allow looping. The closest thing to a loop capability is the [map()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/map/) function which applies a function to each record. In Flux, many of the things that you expect to accomplish in a loop, you accomplish rather by using successive functions that apply the transformations to the data. 
 
 
 ## Dot vs. Bracket Notation
@@ -255,3 +258,5 @@ csvData = "value,key\n1,a"
 csv.from(csv: csvData, mode: "raw")
 |> yield()
 ```
+
+[Next Section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations){: .btn .btn-purple}

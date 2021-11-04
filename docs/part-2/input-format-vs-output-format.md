@@ -24,7 +24,7 @@ The InfluxDB input format is line protocol. The InfluxDB output format is Annota
 The smallest allowed  line of [line protocol](https://docs.influxdata.com/influxdb/cloud/reference/syntax/line-protocol/) includes a measurement, a single field, and a value for that field. A measurement is the highest grouping of data inside a bucket. A field is  a part of that measurement and  defines a single point. Fields are separated by measurements by a space. So, the smallest readable line looks like:
 
 
-```
+```js
 measurement1 field1=1i
 ```
 
@@ -35,7 +35,7 @@ measurement1 field1=1i
 You need to supply at least one field, but you can supply as many as you need in a single line, separated by a comma:
 
 
-```
+```js
 measurement1 field1=1i,field2=1,field3="a"
 ```
 
@@ -53,13 +53,15 @@ The types of a field value can be an integer, a float, or a string. By default a
 Once you have created a series, you cannot change the type field type of the series. InfluxDB will reject the the following write:
 
 
-```
+```js
 measurement1 field1=1,field2="1",field3="a"
 ```
 
 
-After having written this line: \
-`measurement1 field1=1i,field2=1,field3="a"`
+After having written this line: 
+```js
+measurement1 field1=1i,field2=1,field3="a"
+```
 
 Notice how the field2 field value has been changed from a string to a float. 
 
@@ -71,7 +73,7 @@ Tags are another kind of data that you can add to a line in line protocol. Tags 
 Remember, a series is defined by a measurement(s), tag sets(s), and field key(s). Tags are defined after the measurement name, and separated from it by a comma. I can add a tag to the previous line protocol as such:
 
 
-```
+```js
 measurement1,tag1=tagvalue1 field1=1i,field2=1,field3="a" 1626118680000000000
 measurement1,tag1=tagvalue2 field1=2i,field2=2,field3="b" 1626118740000000000
 ```
@@ -89,9 +91,9 @@ Letting InfluxDB automatically supply a timestamp is very convenient, but is lik
 The timestamp comes at the end of a line of line protocol and is separated from the last field value by a space. Supplying a timestamp to the above line protocol would look like this:
 
 
-```
-my_measurement my_field=1i,my_other_field=1,yet_another_field="a" 1626118680000000000
-my_measurement my_field=2i,my_other_field=2,yet_another_field="b" 1626118740000000000
+```js
+measurement1 field1=1i,field2=1,field3="a" 1626118680000000000
+measurement1 field1=2i,field2=2,field3="b" 1626118740000000000
 ```
 
 
@@ -116,16 +118,16 @@ Note that InfluxDB tools do allow you to define the precision of your timestamps
 You can overwrite points in InfluxDB when you write data with the same series and same timestamp. For example, if you wrote this line of line protocol to InfluxDB: 
 
 
-```
-my_measurement my_field=2i,my_other_field=2,yet_another_field="b" 1626118740000000000
+```js
+measurement1 field1=2i,field2=2,field3="b" 1626118740000000000
 ```
 
 
 You would then overwrite the 3 points by writing this line next. 
 
 
-```
-my_measurement my_field=10i,my_other_field=10,yet_another_field="overwritten" 1626118740000000000
+```js
+measurement1 field1=10i,field2=10,field3="overwritten" 1626118740000000000
 <more examples that include partial overwrites, subsets of tags>
 ```
 
@@ -136,8 +138,8 @@ my_measurement my_field=10i,my_other_field=10,yet_another_field="overwritten" 16
 [Annotated CSV](https://docs.influxdata.com/influxdb/cloud/reference/syntax/annotated-csv/) is the output format for InfluxDB. The annotated CSV output matches the InfluxDB persistence format **with simple queries or when you don’t apply additional transformations to your data**. Annotated CSV result is a stream of tables returned by Flux where each table represents a series **for simple queries only**. For example if you wrote this line protocol line to InfluxDB:
 
 
-```
-Measurement1,tag1=tagvalue1 field1=1i
+```js
+measurement1,tag1=tagvalue1 field1=1i
 ```
 
 
@@ -214,7 +216,7 @@ The 3 annotations are:
 
 1. ​​#group: A boolean that indicates the column is part of the [group key](https://v2.docs.influxdata.com/v2.0/query-data/flux/group-data/#group-keys). A group key is a list of columns for which every row in the table has the same value.  A column is part of the group key if its ​​#group annotation is set to ​​true. 
 
-    **Important Note:** **The exception is for the table column. The group key for the table is set to false because users can’t directly change the table number. The table record will always be the same across rows even though the group key is set to false.** 
+    **Important Note:** The exception is for the table column. The group key for the table is set to false because users can’t directly change the table number. The table record will always be the same across rows even though the group key is set to false. 
 
 2. #datatype: Describes the type of data or which line protocol element the column represents. 
 3. #default: The value to use for rows with an empty value. 
@@ -238,7 +240,7 @@ In this section we’ll learn about how line protocol produces series which get 
 In this section we’ll break down how the line protocol is converted to series and written as tables in InfluxDB. Let’s review the line protocol examples above: 
 
 
-```
+```js
 measurement1 field1=1i,field2=1,field3="a"
 measurement1 field1=1i,field2=2,field3="b"
 ```
@@ -399,7 +401,7 @@ Notice how the resulting annotated CSV contains 3 tables in the output. This is 
 Let’s review the line protocol example above with an added tag:
 
 
-```
+```js
 measurement1,tag1="tagvalue1" field1=1i,field2=1,field3="a" 1626118680000000000
 measurement1,tag1="tagvalue2" field1=2i,field2=2,field3="b" 1626118740000000000
 ```
@@ -627,12 +629,12 @@ When simply querying for this data, without adding any additional Flux transform
 
 Notice how the resulting annotated CSV contains 6 tables in the output. This is evident by the row separation and also by the value of the `table` column in the last stream of the table which is equal to 5 (remember annotated CSV counts the table results from 0). Group keys have been added to the data to produce these tables so that each table represents a series by default. Remember a column is part of a group key if all of the values in that column are identical within a single table. For example, the `time `column is assigned a `#group `annotation of ​​`false.` Setting the `#group `annotation to ​​`false` allows the different timestamps of points across a single series to be included in the same table. Conversely, the `_measurement `column is assigned a `#group `annotation of ​​`true.` The `_measurement` column is assigned a `#group `annotation of ​​`true`. Setting the `#group `annotation to ​​`true` enforces that all of the records in that table have the same measurement value. Remember, a series is identified by a unique combination of measurements, tag sets, and fields. If a table is to represent a single series, the table must contain records with the same measurement, tag sets, and fields across all of the rows. 
 
-**Important note: You can use Flux to manipulate the group keys and the resulting number of tables in the the output Annotated CSV table stream. We’ll learn about how to do this in later chapters. **
+**Important note:** You can use Flux to manipulate the group keys and the resulting number of tables in the the output Annotated CSV table stream. We’ll learn about how to do this in later chapters. 
 
 For now, let's focus on understanding how line protocol results in different series. We can extend the example by adding an additional tag, but in this case, note that there is only a single tag value for `tag2`:
 
 
-```
+```js
 measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" 1626118680000000000
 measurement1,tag1="tagvalue2",tag2="tagvalue3"  field1=2i,field2=2,field3="b" 1626118740000000000
 ```
@@ -841,7 +843,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
 To demonstrate the impact of combinations of tag values on the creation of time series, here are three lines of line protocol, but with only one field:
 
 
-```
+```js
 measurement1,tag1="tagvalue1",tag2="tagvalue4" field1=1i 1626118620000000000
 measurement1,tag1="tagvalue2",tag2="tagvalue5" field1=2i 1626118680000000000
 measurement1,tag1="tagvalue3",tag2="tagvalue6" field1=3i 1626118740000000000
@@ -952,7 +954,7 @@ In those 3 lines there are 3 unique combinations of tag values and the single fi
 In this example, there are only 2 unique combinations of tag values:
 
 
-```
+```js
 measurement1,tag1="tagvalue1",tag2="tagvalue4" field1=1i 1626118620000000000
 measurement1,tag1="tagvalue1",tag2="tagvalue4" field1=2i 1626118680000000000
 measurement1,tag1="tagvalue2",tag2="tagvalue4" field1=3i 1626118740000000000
@@ -1060,11 +1062,11 @@ There is an excellent [repository of semi-live line protocol data](https://githu
 3. [NOAA National Buoy Center Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data): This dataset  provides the latest observations from the NOAA NDBC network of buoys. It contains a large number of tags and fields.
 4. [USGS Earthquake Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#usgs-earthquake-data). The United States Geological Survey (USGS) earthquake dataset contains seismic activity data. This is a very large dataset, and contains even more tags and fields.
 
-While you can simply copy the Flux from any of the real world sample datasets into the **Script Editor **in the **Data Explorer** and visualize the data. I recommend creating a bucket and using the to() function to write the data to that bucket, as described in [Write and Query Sample Data](add link) in Part 1. Writing the data to a bucket in InfluxDB allows you to use Flux to explore the schema of your dataset. 
+While you can simply copy the Flux from any of the real world sample datasets into the **Script Editor** in the **Data Explorer** and visualize the data. I recommend creating a bucket and using the to() function to write the data to that bucket, as described in [Write and Query Sample Data]({{site.baseurl}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data) in Part 1. Writing the data to a bucket in InfluxDB allows you to use Flux to explore the schema of your dataset. 
 
-**Important Note: **You might hit your series cardinality limit for Free Tier accounts if you write the larger datasets to InfluxDB. I recommend just writing the  [Air Sensor Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#air-sensor-sample-data) if you’re using the Free Tier account. 
+**Important Note:** You might hit your series cardinality limit for Free Tier accounts if you write the larger datasets to InfluxDB. I recommend just writing the  [Air Sensor Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#air-sensor-sample-data) if you’re using the Free Tier account. 
 
-**Important Note: **This section recommends that you use the InfluxDB UI to write data to InfluxDB only because writing data with other tools hasn’t been covered yet. We recommend writing data with the CLI or VS Code. If you prefer developing in with those tools look at the 
+**Important Note:** This section recommends that you use the InfluxDB UI to write data to InfluxDB only because writing data with other tools hasn’t been covered yet. We recommend writing data with the CLI or VS Code. If you prefer developing in with those tools look at the 
 
 
 ### Exploring the Real Word Data Schema with Flux 
@@ -1090,7 +1092,7 @@ As you can see, the fields are the actual data, in this case all of type float, 
 To get the number of fields in the airSensors measurement from the Air sensor sample dataset, run the following Flux query in your preferred tool (CLI, VS Code, InfluxDB UI):
 
 
-```
+```js
 import "influxdata/influxdb/schema"
 
 schema.measurementFieldKeys(
@@ -1106,7 +1108,7 @@ schema.measurementFieldKeys(
 To get the number of tag keys in the airSensors measurement from the Air sensor sample dataset, run the following Flux query in your preferred tool (CLI, VS Code, InfluxDB UI):
 
 
-```
+```js
 import "influxdata/influxdb/schema"
 
 schema.measurementTagKeys(
@@ -1120,7 +1122,7 @@ schema.measurementTagKeys(
 To get the number of tag values for the sensor_id tag key in the airSensors measurement from the Air sensor sample dataset, use the following Flux query (CLI, VS Code, InfluxDB UI):
 
 
-```
+```js
 import "influxdata/influxdb/schema"
 
 schema.measurementTagValues(
@@ -1189,7 +1191,7 @@ Answer 2: (1 station_id tag x 113 unique tag values) x (1 station_name tag x 828
 Question 3: How would the following line protocol form the Air sensor sample dataset be organized into tables on disk? And how many points are in each series?  
 
 
-```
+```js
 airSensors,sensor_id=TLM0100 temperature=71.17615703642676,humidity=35.12940716174776,co=0.5024058630839136 1626537623000000000
 airSensors,sensor_id=TLM0101 temperature=71.80350992863588,humidity=34.864121891949736,co=0.4925449578765155 1626537623000000000
 airSensors,sensor_id=TLM0102 temperature=72.02673296407973,humidity=34.91147650009415,co=0.4941631223400505 1626537623000000000
@@ -2208,3 +2210,5 @@ The line protocol would result in the following series and tables on disk. Each 
    </td>
   </tr>
 </table>
+
+[Next Section]({{site.baseurl}}/docs/part-2/designing-your-schema){: .btn .btn-purple}

@@ -363,7 +363,7 @@ Finally, there are two additional context specific members added. These members 
 
 - `r._stop()` is the stop time of the range() in the query. 
 
-For example, if you query with a range of 5  minutes in the past (`range(start: -5m`)), you will get a _start and _stop 5 minutes apart:
+For example, if you query with a range of 5  minutes in the past (`range(start: -5m)`), you will get a `_start` and `_stop` 5 minutes apart:
 
 
 <table>
@@ -405,11 +405,8 @@ For example, if you query with a range of 5  minutes in the past (`range(start: 
 When you are filtering, you therefore have all of these columns to work from.
 
 
+![drawing]({{site.baseurl}}/assets/images/image-27.png)
 
-<p id="gdcalert5" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline drawings not supported directly from Docs. You may want to copy the inline drawing to a standalone drawing and export by reference. See <a href="https://github.com/evbacher/gd2md-html/wiki/Google-Drawings-by-reference">Google Drawings by reference</a> for details. The img URL below is a placeholder. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert6">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![drawing](https://docs.google.com/drawings/d/12345/export/png)
 
 
 ### Filtering Measurements
@@ -4730,7 +4727,7 @@ Note that `drop()` and `keep()` are both susceptible to the same type conflicts 
 
 ### rename()
 
-Rename does not change the group key, but simply changes the names of the columns. It works by providing the function with a mapping of old column names to new column names.
+The [rename()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/rename/) function does not change the group key, but simply changes the names of the columns. It works by providing the function with a mapping of old column names to new column names.
 
 Given the following very simple table:
 
@@ -6274,7 +6271,7 @@ For example, to take a closer look at wind speeds, the following query will simp
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r["_field"] == "wind_speed_mps")
 ```
@@ -6770,7 +6767,7 @@ The group() function can be to redefine the group keys, which will then result i
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r["_field"] == "wind_speed_mps")
   |> group(columns: ["station_type"])
@@ -7645,7 +7642,7 @@ You can further group by including multiple columns. For example, one can add st
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r["_field"] == "wind_speed_mps")
   |> group(columns: ["station_type", "station_pgm"])
@@ -8087,13 +8084,13 @@ The following are equivalent:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
   |> drop(columns: ["_measurement","_start","_stop","station_name","station_owner"])
 
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8109,7 +8106,7 @@ If we also drop the station_id, this drops the tag with the most unique values:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8128,7 +8125,7 @@ So, if we rerun one the queries above without filtering the field using the foll
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -24h)
   |> group(columns: ["station_type", "station_pgm"])
 ```
@@ -8148,7 +8145,7 @@ One way to solve this is to keep the _field column in the group key:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -24h)
   |> group(columns: ["station_type", "station_pgm", "_field"])
 ```
@@ -8163,7 +8160,7 @@ Finally, it is possible to put all of the data into a single table assuming that
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8190,7 +8187,7 @@ The Flux looks like this:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8268,11 +8265,11 @@ This function is typically used as demonstrated above:
 ```
 
 
-When called without arguments, `mean() `will use the _value column. However, it is possible that pivoted data will have more than one column that could be aggregated, and, additionally, it is possible to have renamed _value. In such cases, as demonstrated here, the 
+When called without arguments, `mean()` function will use the _value column. However, it is possible that pivoted data will have more than one column that could be aggregated, and, additionally, it is possible to have renamed _value. In such cases, as demonstrated here: 
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8284,11 +8281,11 @@ runtime error @7:6-7:12: mean: column "_value" does not exist
 ```
 
 
-This can be fixed easily by specifying the column:
+This can be fixed easily by specifying the column in the `mean()` function:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8352,16 +8349,16 @@ from(bucket: "rick+book's Bucket")
 </table>
 
 
-Note that because `mean()` aggregates data from all rows in a table, most columns get dropped. Only the columns in the group key and the column that was subject to the `mean() `function is preserved.
+Note that because `mean()` aggregates data from all rows in a table, most columns get dropped. Only the columns in the group key and the column that was subject to the `mean() ` function is preserved.
 
 
 ### min() and max()
 
-These functions do not take any arguments. They will always return exactly one row, with the lowest or highest value in the _value column for each table. 
+ These will always return exactly one row, with the lowest or highest value in the _value column for each table. Like with the `mean()` funciton, you can specify the column you want to use, but the _value column is used by default. 
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8494,13 +8491,13 @@ from(bucket: "rick+book's Bucket")
 </table>
 
 
-In this case, all of the columns are retained. This is because `min()` and `max()` return a row per table. Effectively picking a row and filtering out the rest. These functions do not, therefore, need to combine values from different rows, so all of the columns are retained. Note that this can cause `group()`to fail if there are type conflicts in columns, as covered later in the section on type conflicts.
+In this case, all of the columns are retained. This is because `min()` and `max()` return a row per table. Effectively picking a row and filtering out the rest. These functions do not, therefore, need to combine values from different rows, so all of the columns are retained. Note that this can cause `group()` to fail if there are type conflicts in columns, as covered later in the section on type conflicts.
 
 Of course, the data can be cleaned up by dropping unwanted columns:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8561,7 +8558,7 @@ The [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/) func
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8624,13 +8621,13 @@ from(bucket: "rick+book's Bucket")
 </table>
 
 
-As in the case of mean(), because count() combines values from different columns, only columns in the group key and the _value column are retained.
+As in the case of `mean()`, because `count()` combines values from different columns, only columns in the group key and the _value column are retained.
 
 As expected, for cases where the _value column does not exist in the tables to be counted, you can specify a different column to count:
 
 
 ```js
-from(bucket: "rick+book's Bucket")
+from(bucket: "noaa")
   |> range(start: -12h)
   |> filter(fn: (r) => r._measurement == "ndbc")
   |> filter(fn: (r) => r._field == "wind_speed_mps")
@@ -8640,9 +8637,23 @@ from(bucket: "rick+book's Bucket")
   |> group()
 ```
 
-### sum()
+### Aggregates and Selectors
+While all transformations that summarize your data typically refered to as "aggregations" in Flux vernacular there are actually two types of aggregates:
+1. [Aggregates](https://docs.influxdata.com/flux/v0.x/function-types/#aggregates): These functions return a single row output for every input table. The output also has the same group key as the input table(s)–the `_time` column is usually dropped. Aggregates include but are not limited to the following functions:
+    - [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/)
+    - [mean()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/mean/)
+    - [mode()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/mode/)
+    - [median()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/median/) 
+    - [and more...](https://docs.influxdata.com/flux/v0.x/function-types/#aggregates)
 
-### unique()
+2. [Selectors](https://docs.influxdata.com/flux/v0.x/function-types/#selectors): These functions return a one ore more rows for every input table. The output is an unmodified record–the `_time` column is typically included. Aggregates include but are not limited to the following functions:
+    - [min()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/min/)
+    - [max()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/max/)
+    - [distinct()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/distinct/) 
+    - [first()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/first/)
+    - [and more...](https://docs.influxdata.com/flux/v0.x/function-types/#selectors)
+
+
 
 ## Yielding
 
@@ -8786,7 +8797,7 @@ Imagine that you want to return the min(), max(), and mean() values of a single 
 
  
 
-We’ll use this  meta syntactic example a lot. If you want to try following the solutions out for yourself, include the following Flux at the top of your script to produce the table above: \
+We’ll use this  meta syntactic example a lot. If you want to try following the solutions out for yourself, include the following Flux at the top of your script to produce the table above: 
 `import "array"`
 
 
@@ -8919,7 +8930,7 @@ Result: mean
 </table>
 
 
-**An Aside: **Remember that the mean() function doesn’t return a timestamp column because it’s an aggregator. There isn’t a timestamp associated with the mean value. 
+**An Aside:** Remember that the mean() function doesn’t return a timestamp column because it’s an aggregator. There isn’t a timestamp associated with the mean value. 
 
 
 ### Using variables to perform multiple aggregations
@@ -8946,7 +8957,7 @@ data_mean = data
 ```
 
 
-**Important Note: **Make sure not to name your variables the same as function names to avoid naming conflicts**. **
+**Important Note:** Make sure not to name your variables the same as function names to avoid naming conflicts.
 
 
 ## Pivoting
@@ -9667,8 +9678,10 @@ Where the second yield() returns the “after pivot before pivot on two fields a
 
 ### The fieldsAsCol() function 
 
-Pivoting fields on the timestamp column, as described in the first pivoting example, is the most common type of pivoting. Users frequently expect that their data be presented in that way, where the column name contains the field key and the field values are in that column. This application of the pivot() function is so commonly used that the [schema.fieldsAsCols()](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/) function was created. This function works identically to: ` \
-|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")`
+Pivoting fields on the timestamp column, as described in the first pivoting example, is the most common type of pivoting. Users frequently expect that their data be presented in that way, where the column name contains the field key and the field values are in that column. This application of the pivot() function is so commonly used that the [schema.fieldsAsCols()](https://docs.influxdata.com/flux/v0.x/stdlib/influxdata/influxdb/schema/fieldsascols/) function was created. This function works identically to: 
+```js
+|> pivot(rowKey:["_time"], columnKey: ["_field"], valueColumn: "_value")
+```
 
 
 ## Mapping
@@ -9764,16 +9777,15 @@ The map() function requires a single input parameter:
 
 * `fn`: The function to apply to each record in the table stream. 
 
-To perform an in-column transformation make sure to reuse a column name in the function. For example, imagine that our TM0100 sensor is faulty and consistently off by 0.02 ppm. We can add 0.02 to every record in the _value column in our data with the map function: \
-`data`
-
+To perform an in-column transformation make sure to reuse a column name in the function. For example, imagine that our TM0100 sensor is faulty and consistently off by 0.02 ppm. We can add 0.02 to every record in the _value column in our data with the map function: 
 
 ```js
+data
 |> map(fn: (r) => ({ r with r._value: r._value + 0.02}))
 ```
 
 
-Which yields the following result: \
+Which yields the following result: 
 
 
 
@@ -10134,11 +10146,10 @@ data
 
 ### The rows.map() function
 
-The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like beofre:  \
-`data`
-
+The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like beofre: 
 
 ```js
+data
 |> rows.map( fn: (r) => ({r with _measurement: "in group key so it's ignored"}))
 |> rows.map(fn: (r) => ({ r with r._value: r._value + 0.02}))
 ```
@@ -10243,8 +10254,7 @@ data |> map(fn: (r) => ({ value_mult_by_mean: r._value * meanRecord._value }))
 ```
 
 
-Given that the first yield() function returns “data”: ` 
-`
+Given that the first yield() function returns “data”: 
 
 
 <table>
@@ -10618,18 +10628,14 @@ data
 
 ### Returning columns
 
-You can also return entire arrays that contain the values from a single column with Flux with the [findColumn()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/) function. The findColumn() function is similar to the findRecord() function column and requires the following two input parameters:
+You can also return entire arrays that contain the values from a single column with Flux with the [findColumn()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/) function. The findColumn() function is similar to the findRecord() function and requires the following two input parameters:
 
 
 
 * `fn`: The predicate function for returning the table with matching keys, provided by the user. 
 * `column`: The column of the records you want to extract in an array. 
 
-Let’s replace the findRecord() function from the last example in the previous section, 
-
-<p id="gdcalert6" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Returning records"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert7">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Returning records](#heading=h.uj4owoj1y7dy), with findColumn(). 
+Let’s replace the findRecord() function from the last example in the previous section, [Returning records]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#returning-records), with findColumn(). 
 
 
 ```js
@@ -10659,7 +10665,7 @@ The [reduce()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/
 1. `fn`: the reducer function, where you define the function that you want to apply to each record in the table with the identity. 
 2. `identity`: where you define the initial values when creating a reducer function. 
 
-For this section we’ll use the following data: \
+For this section we’ll use the following data: 
 
 
 
@@ -10857,11 +10863,7 @@ data
 </table>
 
 
-Generally, the reduce() function isn’t more performant than built-in aggregators and selectors. Therefore, you shouldn’t use the query above to calculate the min, max, and mean. Instead, store your data in a variable and apply the min(), max(), and mean() functions separately with corresponding yield() functions to simultaneously deliver the results, as described previously in the 
-
-<p id="gdcalert7" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Yielding section"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert8">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Yielding section](#heading=h.in00dz94ctnb). 
+Generally, the reduce() function isn’t more performant than built-in aggregators and selectors. Therefore, you shouldn’t use the query above to calculate the min, max, and mean. Instead, store your data in a variable and apply the min(), max(), and mean() functions separately with corresponding yield() functions to simultaneously deliver the results, as described previously in the [Yielding section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#yielding). 
 
 The reducer() function is intended to be used to apply custom aggregations. For example, the following example uses the reducer() function to find the necessary variables used to calculate the slope and y-intercept for linear regression:
 
@@ -11182,7 +11184,7 @@ Given the following input data:
 </table>
 
 
-Use the [truncateTimeColumn()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/) function to to convert an irregular time series into a regular one: \
+Use the [truncateTimeColumn()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/truncatetimecolumn/) function to to convert an irregular time series into a regular one: 
 
 
 
@@ -11257,11 +11259,7 @@ data
 
  
 
-Truncating timestamps is similar to the section on 
-
-<p id="gdcalert8" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "Windowing"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert9">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[Windowing](#heading=h.ro1q6m6reiml). The window() function groups data by start and stop times. This allows you to perform aggregations across different fields or tags that have different timestamps. Similarly you can aggregate across fields by truncating timestamps to align series with different intervals. Given the following data: 
+Truncating timestamps is similar to the section on [Windowing]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#windowing). The window() function groups data by start and stop times. This allows you to perform aggregations across different fields or tags that have different timestamps. Similarly you can aggregate across fields by truncating timestamps to align series with different intervals. Given the following data: 
 
 
 
@@ -11732,11 +11730,7 @@ The [Flux string package](https://docs.influxdata.com/influxdb/cloud/reference/f
 * Replace, split, or join strings
 * And much more
 
-For example we could replace the query in 
-
-<p id="gdcalert9" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: undefined internal link (link text: "The Regexp Package"). Did you generate a TOC? </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert10">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-[The Regexp Package](#heading=h.vcg0ziczwdot) section with:  \
+For example we could replace the query in [The Regexp Package]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#the-regexp-package) section with: 
 
 
 
@@ -11845,21 +11839,13 @@ The most common reason for joining data is to perform math across measurements. 
 You are an operator at a chemical plant, and you need to monitor the temperatures of a counter-current heat exchanger. You collect temperatures of the cold (TC) and hot (TH) streams from four different temperature sensors. There are two inlet (Tc2, Th1) sensors and two outlet (Tc1, Th2) sensors at positions x1 and x2 respectively.
 
 
-
-<p id="gdcalert10" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image3.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert11">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image3.png "image_tooltip")
+![heat exchanger]({{site.baseurl}}/assets/images/image-28.png)
 
 
 After making some assumptions, you can calculate the efficiency of heat transfer with this formula:
 
 
-
-<p id="gdcalert11" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to images/image4.png). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert12">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
-
-
-![alt_text](images/image4.png "image_tooltip")
+![formula]({{site.baseurl}}/assets/images/image-29.png)
 
 
 Where…
@@ -12335,7 +12321,7 @@ The [union()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/union/) func
 * Merge transformed data with the original data.
 * Merge data with different time ranges to make data continuous. 
 
-For example imagine we had the following data: \
+For example imagine we had the following data: 
 
 
 
@@ -12715,7 +12701,7 @@ You can use the [Flux SQL package](https://docs.influxdata.com/flux/v0.x/stdlib/
 * Microsoft SQL Server
 * SQLite
 
-Use the [sql.from()](https://docs.influxdata.com/flux/v0.x/stdlib/sql/from/) function to query a SQL source. For example, to query a local Postgres instance use the following Flux query: \
+Use the [sql.from()](https://docs.influxdata.com/flux/v0.x/stdlib/sql/from/) function to query a SQL source. For example, to query a local Postgres instance use the following Flux query: 
 `import "sql"`
 
 
@@ -12728,11 +12714,11 @@ sql.from(
 ```
 
 
-Use the [sql.to()](https://docs.influxdata.com/flux/v0.x/stdlib/sql/to/) function to write data to SQL database. For, example to write data to a local MySQL instance use the following Flux query: \
-`import "sql"`
+Use the [sql.to()](https://docs.influxdata.com/flux/v0.x/stdlib/sql/to/) function to write data to SQL database. For, example to write data to a local MySQL instance use the following Flux query: 
 
 
 ```js
+import "sql"
 data
 |> sql.to(
   driverName: "mysql",
@@ -12778,7 +12764,7 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 
 #### csv.from() 
 
-Use the [csv.from()](https://docs.influxdata.com/flux/v0.x/stdlib/csv/from/#csv) function from stdlib to retrieve a Raw CSV from a URL. For example you can use the csv.from() function to parse CSV data from API and write it to InfluxDB in a task. A great example of this can be found in the Earthquake Feed Ingestion task from the [Earthquake Command Center Community](https://github.com/influxdata/community-templates/tree/master/earthquake_usgs) Template.  Here is the relevant Flux from that task: \
+Use the [csv.from()](https://docs.influxdata.com/flux/v0.x/stdlib/csv/from/#csv) function from stdlib to retrieve a Raw CSV from a URL. For example you can use the csv.from() function to parse CSV data from API and write it to InfluxDB in a task. A great example of this can be found in the Earthquake Feed Ingestion task from the [Earthquake Command Center Community](https://github.com/influxdata/community-templates/tree/master/earthquake_usgs) Template.  Here is the relevant Flux from that task: 
 `onedayago = strings.trimSuffix(v: string(v: date.truncate(t: experimental.subDuration(d: 1d, from: now()), unit: 1m)), suffix: ".000000000Z")`
 
 
@@ -12843,7 +12829,7 @@ Which produces the following table:
 </table>
 
 
-Where the [OpenWeatherMap current weather data API](https://openweathermap.org/current) yields the following HTTP GET JSON response: \
+Where the [OpenWeatherMap current weather data API](https://openweathermap.org/current) yields the following HTTP GET JSON response: 
 
 
 
@@ -12877,3 +12863,4 @@ To downsample the data temperature from the Air Sensor sample dataset, you might
 Use the to() function to write the data to a destination bucket. Destination buckets usually have a longer retention policy than the source bucket to conserve on disk space. Running this query will write the materialized view to the "airSensors_materializedView" bucket once. However, users typically perform downsampling on a schedule, or a task. Using tasks to create materialized views will be covered in detail in Part 3. 
 
 
+[Next Section]({{site.baseurl}}/docs/part-2/deletes){: .btn .btn-purple}
