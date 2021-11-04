@@ -20,9 +20,9 @@ This book a is a work in progress.
 
 ## Table of Contents
 [Part 1]({{site.baseurl}}/docs/part-1){: .btn .btn-purple} 
-- [Introduction to InfluxDB]({{site.baseurl}}/docs/part-2/introduction-to-influxdb)
-- [Introduction to InfluxDB Tools]({{site.baseurl}}/docs/part-2/introduction-to-influxdb-tools)
-- [Setting Up InfluxDB]({{site.baseurl}}/docs/part-2/setting-up-influxdb)
+- [Introduction to InfluxDB]({{site.baseurl}}/docs/part-1/introduction-to-influxdb)
+- [Introduction to InfluxDB Tools]({{site.baseurl}}/docs/part-1/introduction-to-influxdb-tools)
+- [Setting Up InfluxDB]({{site.baseurl}}/docs/part-1/setting-up-influxdb)
 
 [Part 2]({{site.baseurl}}/docs/part-2){: .btn .btn-purple}
 - [InfluxDB Data Model]({{site.baseurl}}/docs/part-2/influxdb-data-model)
