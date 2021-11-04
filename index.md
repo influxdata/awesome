@@ -12,6 +12,8 @@ permalink: /
 A book on InfluxDB
 {: .fs-6 .fw-300 }
 ---
+A book on InfluxDB. Helping IoT Application Developers build on top of InfluxDB and experience time to awesome.
+
 ## Status
 
 This book a is a work in progress. 
