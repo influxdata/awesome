@@ -14,9 +14,9 @@ A book on InfluxDB
 ---
 A book on InfluxDB. Helping IoT Application Developers build on top of InfluxDB and experience time to awesome.
 
-## Status
+## Status and considerations
 
-This book a is a work in progress. 
+This book a is a work in progress. Please note that updates in [Clockface](https://github.com/influxdata/clockface), the Open Source UI kit for the InfluxDB UI, account for slight changes in the screenshots. 
 
 ## Table of Contents
 [Part 1]({{site.baseurl}}/docs/part-1){: .btn .btn-purple} 
@@ -34,11 +34,12 @@ This book a is a work in progress.
 - [Optimizing Flux performance]({{site.baseurl}}/docs/part-2/optimizing-flux-performace)
 
 [Part 3]({{site.baseurl}}/docs/part-3){: .btn .btn-purple}
-- Writing Data
-- Tasks
-- Checks and Notifications
-- VS Code Integration
-- Telegraf 
-- Monitoring and Managing InfluxDB
-- Reference
+- [Writing and Querying Data]({{site.baseurl}}/docs/part-3/writing-and-querying-data)
+- [Telegraf]({{site.baseurl}}/docs/part-2/telegraf)
+- [Tasks]({{site.baseurl}}/docs/part-3/tasks)
+- [Checks and Notifications]({{site.baseurl}}/docs/part-3/checks-and-notification)
+- [VS Code Integration]({{site.baseurl}}/docs/part-2/vs-code-integration)
+- [Monitoring and Managing InfluxDB]({{site.baseurl}}/docs/part-2/monitoring-and-managing-influxdb)
+- [Reference]({{site.baseurl}}/docs/part-2/reference)
+- [Additional Reading]({{site.baseurl}}/docs/part-2/additional-reading)
 
