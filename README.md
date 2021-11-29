@@ -13,7 +13,7 @@ Follow the [Jekyll instillation guide](https://jekyllrb.com/docs/installation/) 
 
 ## Usage
 
-Clone this repository and run `bundle exec jekyll serve` to build the site and make it available on http://localhost:4000/time-to-awesome.  
+Clone this repository and run `bundle exec jekyll serve` to build the site and make it available on http://localhost:4000/book.github.io/.  
 
 
 ## Contributing

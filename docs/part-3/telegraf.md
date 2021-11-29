@@ -90,7 +90,7 @@ Select **Continue Configuring** to proceed to the next step where you can add a 
 ![alt_text]({{site.baseurl}}/assets/images/telegraf/save-and-test-cpu.png)
 
 
-Finally, click **Save and Test **to bring you to the setup instructions page. Follow those instructions to:
+Finally, click **Save and Test** to bring you to the setup instructions page. Follow those instructions to:
 
 
 
