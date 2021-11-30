@@ -17,11 +17,9 @@ nav_order: 1
 ---
 
 
-# Writing and Querying Data 
+# Writing Data from an Application
 
-InfluxDB provides users with several tools and methods for writing data to InfluxDB including: 
-
-
+However your overall application is architected, InfluxDB likely provides tooling that supports getting data into InfluxDB,including: 
 
 * InfluxDB UI: the InfluxDB UI allows you to write both line protocol and Annotated CSV to InfluxDB. The InfluxDB UI also provides Telegraf configuration management and getting started guides for using the Client. You can also use the InfluxDB UI to query data as described in part 1. 
 * Flux: You can use the csv.from() function or the array.from() function to generate Annotated CSV and write it to InfluxDB with the to() function. 
@@ -30,7 +28,7 @@ InfluxDB provides users with several tools and methods for writing data to Influ
 * Client Libraries: A big part of prioritizing developer happiness is making sure that InfluxDB is easy to work with regardless of a developer’s language preference. That’s why InfluxDB has 13 client libraries to choose from. 
 * Telegraf: Telegraf is perfect for anyone with stringent write requirements who doesn’t want to write a collection server with batching and retry features for over 200 input data sources. 
 
-In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is a really cool tool and deserves it’s own chapter. 
+In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is an agent that can be installed directly on systems, and will be covered in a seperate chapter. 
 
 
 ## Writing Line Protocol Data
@@ -49,6 +47,8 @@ This section assumes that you’ve already created a destination bucket that you
 
 
 ### Writing Line Protocol Data with the InfluxDB UI 
+
+The InfluxDB UI allows writing data directly to the database without writing any code or using any tooling. This is very useful for prototyping and testing purposes.
 
 To write line protocol data with the InfluxDB UI, we’ll first copy 20 lines from the [air-sensor-data.lp](https://github.com/influxdata/influxdb2-sample-data/blob/master/air-sensor-data/air-sensor-data.lp) line protocol file to write the line protocol manually. Then we’ll download the entire file and write it to InfluxDB. 
 
@@ -145,7 +145,7 @@ Zooming in again to produce a better visualization of our data.
 
 ### Writing Line Protocol Data with the CLI  
 
-The next easy way to upload data is using the CLI. Assuming you have already configured the CLI, the only extra information that you need is a bucket ID, which you can find with the [bucket list](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/bucket/list/) command:
+If you are building or have already built a CLI-based data pipeline, for example in bash, the InfluxDB CLI facilitates easy integrationg into that pipeline. Assuming you have already configured the CLI, the only extra information that you need is a bucket ID, which you can find with the [bucket list](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/bucket/list/) command:
 
 
 ```
@@ -177,7 +177,7 @@ So the bucket ID is “497b48e409406cc7”. Now if you have a line of line proto
 ```
 
 
- You can also use the bucket name instead of the bucket ID to write data to InfluxDB by replacing the `--bucket-id `flag with the `--bucket` flag (or `--b `flag for short). Use the  helper flag to get a complete list of all of the write options for the InfluxDB CLI [influx write](https://docs.influxdata.com/influxdb/cloud/reference/cli/influx/write/) command. 
+You can also use the bucket name instead of the bucket ID to write data to InfluxDB by replacing the `--bucket-id `flag with the `--bucket` flag (or `--b `flag for short). Use the  helper flag to get a complete list of all of the write options for the InfluxDB CLI [influx write](https://docs.influxdata.com/influxdb/cloud/reference/cli/influx/write/) command. 
 
 
 ```
@@ -446,15 +446,11 @@ curl -X POST \
   |> limit(n:1)
 ```
 
-
-
 ## Writing and Querying with Client Libraries
 
-InfluxDB offers a variety of Client Libraries built upon the foundation of the REST APIs. These client libraries are designed to make reading from and writing to InfluxDB straightforward.
+If your applicaiton includes your own server code, then integration with InfluxDB is greatly eased using the InfluxDB client libraries. InfluxDB offers a variety of Client Libraries built upon the foundation of the REST APIs. These client libraries are designed to make reading from and writing to InfluxDB straightforward.
 
 InfluxDB has a large set of officially supported client libraries, including libraries for:
-
-
 
 * [Python](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/python/)
 * [Javascript/node](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/browserjs/)
