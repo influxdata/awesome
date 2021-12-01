@@ -10224,7 +10224,7 @@ Which yields the following result:
 
 ## Returning values and arrays 
 
-Sometimes users need to be able to query their data, obtain a value or array of values, and then incorporate those values in subsequent transformation work. The [fromRecord()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) and [fromColumns()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/) functions allow you to return individual records and columns, respectively. 
+Sometimes users need to be able to query their data, obtain a value or array of values, and then incorporate those values in subsequent transformation work. The [findRecord()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findrecord/) and [findColumns()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/built-in/transformations/stream-table/findcolumn/) functions allow you to return individual records and columns, respectively. 
 
 
 ### Returning records 
