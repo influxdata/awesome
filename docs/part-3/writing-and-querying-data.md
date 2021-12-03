@@ -17,11 +17,9 @@ nav_order: 1
 ---
 
 
-# Writing and Querying Data 
+# Writing Data from an Application
 
-InfluxDB provides users with several tools and methods for writing data to InfluxDB including: 
-
-
+However your overall application is architected, InfluxDB likely provides tooling that supports getting data into InfluxDB,including: 
 
 * InfluxDB UI: the InfluxDB UI allows you to write both line protocol and Annotated CSV to InfluxDB. The InfluxDB UI also provides Telegraf configuration management and getting started guides for using the Client. You can also use the InfluxDB UI to query data as described in part 1. 
 * Flux: You can use the csv.from() function or the array.from() function to generate Annotated CSV and write it to InfluxDB with the to() function. 
@@ -30,7 +28,7 @@ InfluxDB provides users with several tools and methods for writing data to Influ
 * Client Libraries: A big part of prioritizing developer happiness is making sure that InfluxDB is easy to work with regardless of a developer’s language preference. That’s why InfluxDB has 13 client libraries to choose from. 
 * Telegraf: Telegraf is perfect for anyone with stringent write requirements who doesn’t want to write a collection server with batching and retry features for over 200 input data sources. 
 
-In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is a really cool tool and deserves it’s own chapter. 
+In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is an agent that can be installed directly on systems, and will be covered in a seperate chapter. 
 
 
 ## Writing Line Protocol Data
@@ -50,6 +48,8 @@ This section assumes that you’ve already created a destination bucket that you
 
 ### Writing Line Protocol Data with the InfluxDB UI 
 
+The InfluxDB UI allows writing data directly to the database without writing any code or using any tooling. This is very useful for prototyping and testing purposes.
+
 To write line protocol data with the InfluxDB UI, we’ll first copy 20 lines from the [air-sensor-data.lp](https://github.com/influxdata/influxdb2-sample-data/blob/master/air-sensor-data/air-sensor-data.lp) line protocol file to write the line protocol manually. Then we’ll download the entire file and write it to InfluxDB. 
 
 
@@ -58,29 +58,29 @@ To write line protocol data with the InfluxDB UI, we’ll first copy 20 lines fr
 To write line protocol manually, first copy and paste some lines from the [air-sensor-data.lp](https://github.com/influxdata/influxdb2-sample-data/blob/master/air-sensor-data/air-sensor-data.lp) line protocol file. Then go to the **Data** tab in the left hand navigation bar of the InfluxDB UI.
 
 
-![UI]({{site.baseurl}}/assets/images/image-34.png)
+![load data]({{site.url}}/assets/images/part-3/writing-and-querying-data/1-load-data.png)
 Then click on the **Line Protocol** box under **Sources**. Specify the bucket that you want to write data to. Either use an existing bucket or click **+ Create Bucket** to create a new bucket. 
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-35.png)
+![select bucket]({{site.url}}/assets/images/part-3/writing-and-querying-data/2-select-bucket.png)
 
 
 Switch to **Enter Manually**.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-36.png)
+![enter manually]({{site.url}}/assets/images/part-3/writing-and-querying-data/3-enter-manually.png)
 
 
 Paste in some of the line protocol.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-37.png)
+![paste line protocol]({{site.url}}/assets/images/part-3/writing-and-querying-data/4-paste-line-protocol.png)
 
 
 Click **Write Data**, and your data is written!
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-38.png)
+![write line protocol]({{site.url}}/assets/images/part-3/writing-and-querying-data/5-write-line-protocol.png)
 
 
 
@@ -91,19 +91,19 @@ An alternative method that is easier with larger data sets is to upload a file. 
 Go back to the write data section, but this time stick with Upload File.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-39.png)
+![select bucket]({{site.url}}/assets/images/part-3/writing-and-querying-data/6-select-bucket.png)
 
 
 Then upload the file by dragging and dropping your file.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-40.png)
+![upload file]({{site.url}}/assets/images/part-3/writing-and-querying-data/7-upload-file.png.png)
 
 
 Now when you go back and query, you can see that there is a lot more data.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-41.png)
+![view data]({{site.url}}/assets/images/part-3/writing-and-querying-data/8-view-data.png)
 
 
 If you are wondering if you wrote some data twice, don’t worry. Remember, InfluxDB will automatically replace duplicate or updated points.
@@ -114,38 +114,38 @@ If you are wondering if you wrote some data twice, don’t worry. Remember, Infl
 To verify that we successfully wrote data, we’ll query it with the **Query Builder**. I suggest repeating this step for any tool or method you choose to write data to InfluxDB. First, click on the **Explorer** tab in the left navigation bar.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-42.png)
+![1h]({{site.url}}/assets/images/part-3/writing-and-querying-data/9-1h.png)
 
 
 Then set the time drop down to a point in time that is far enough in the past to include the timestamps of the data you just wrote. For the Air sensor sampleset dataset, we’ll change the drop down to 3h. 
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-43.png)
+![3h]({{site.url}}/assets/images/part-3/writing-and-querying-data/10-3h.png
 
 
 Choose your measurement (only airSensors is available), and click **Submit**. You can see that your data is there, but over the 3 hour window, there isn’t much data.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-44.png)
+![zoomed out]({{site.url}}/assets/images/part-3/writing-and-querying-data/11-zoomed-out.png)
 
 
 No problem, you can use your mouse in the **Graph** to zoom in on the data you do have by clicking and dragging over the area that you want to zoom into.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-45.png)
+![zoomed in]({{site.url}}/assets/images/part-3/writing-and-querying-data/12-zoomed-in.png)
 
 
 Zooming in again to produce a better visualization of our data.
 
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-46.png)
+![zoomed in again]({{site.url}}/assets/images/part-3/writing-and-querying-data/13-zoom-in-again.png)
 
 
 
 ### Writing Line Protocol Data with the CLI  
 
-The next easy way to upload data is using the CLI. Assuming you have already configured the CLI, the only extra information that you need is a bucket ID, which you can find with the [bucket list](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/bucket/list/) command:
+If you are building or have already built a CLI-based data pipeline, for example in bash, the InfluxDB CLI facilitates easy integrationg into that pipeline. Assuming you have already configured the CLI, the only extra information that you need is a bucket ID, which you can find with the [bucket list](https://docs.influxdata.com/influxdb/v2.0/reference/cli/influx/bucket/list/) command:
 
 
 ```
@@ -177,7 +177,7 @@ So the bucket ID is “497b48e409406cc7”. Now if you have a line of line proto
 ```
 
 
- You can also use the bucket name instead of the bucket ID to write data to InfluxDB by replacing the `--bucket-id `flag with the `--bucket` flag (or `--b `flag for short). Use the  helper flag to get a complete list of all of the write options for the InfluxDB CLI [influx write](https://docs.influxdata.com/influxdb/cloud/reference/cli/influx/write/) command. 
+You can also use the bucket name instead of the bucket ID to write data to InfluxDB by replacing the `--bucket-id `flag with the `--bucket` flag (or `--b `flag for short). Use the  helper flag to get a complete list of all of the write options for the InfluxDB CLI [influx write](https://docs.influxdata.com/influxdb/cloud/reference/cli/influx/write/) command. 
 
 
 ```
@@ -223,7 +223,7 @@ You might want to change the timestamp to today’s date so you don’t have to 
 For example, the UI allows you to easily upload annotated CSV to a bucket.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-47.png)
+![annotated csv]({{site.url}}/assets/images/part-3/writing-and-querying-data/14-annotated-csv.png)
 
 
 This is very useful for transferring small amounts of data between instances of InfluxDB. For example, you can export the CSV from an OSS instance, and load it into your cloud instances this way. 
@@ -425,7 +425,7 @@ In order to actually write to the database, I need to supply a bucket or bucket-
 After this, I can see and visualize the data.
 
 
-![alt_text]({{site.baseurl}}/assets/images/image-48.png)
+![verify cli write]({{site.url}}/assets/images/part-3/writing-and-querying-data/15-verify-cli-write.png)
 
 
 
@@ -446,15 +446,11 @@ curl -X POST \
   |> limit(n:1)
 ```
 
-
-
 ## Writing and Querying with Client Libraries
 
-InfluxDB offers a variety of Client Libraries built upon the foundation of the REST APIs. These client libraries are designed to make reading from and writing to InfluxDB straightforward.
+If your applicaiton includes your own server code, then integration with InfluxDB is greatly eased using the InfluxDB client libraries. InfluxDB offers a variety of Client Libraries built upon the foundation of the REST APIs. These client libraries are designed to make reading from and writing to InfluxDB straightforward.
 
 InfluxDB has a large set of officially supported client libraries, including libraries for:
-
-
 
 * [Python](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/python/)
 * [Javascript/node](https://docs.influxdata.com/influxdb/cloud/api-guide/client-libraries/browserjs/)

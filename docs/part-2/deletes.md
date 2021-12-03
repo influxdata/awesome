@@ -72,4 +72,13 @@ Remember you’ll want to replace `<yourInflxDBURL>` with either:
 
 Please review Part 1, to learn about how to gather your <code><yourBucketID></code> and <code><yourOrgID></code>. 
 
+### Deleting Buckets
+As mentioned above, the most common way to delete data is to simply allow the data to age out due to retention policites. However, their may be times when you wish to delete a large amount of data. This can be achieved by deleting a whole bucket. If you need to retain some of the data in the bucket, you can use the following procedure:
+  1. Create a new bucket, with an arbitrary name.
+  2. Create a query to retrieve the data that you would like to keep, and copy that into the new bucket.
+  3. Delete the original bucket.
+  4. Rename the new bucket to the original bucket name, so that existing queries continue working (assuming that the queries use the bucket name and no the bucket id).
+  
+  
 [Next Section]({{site.baseurl}}/docs/part-2/optimizing-flux-performance){: .btn .btn-purple}
+  

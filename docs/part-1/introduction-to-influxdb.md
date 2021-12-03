@@ -20,7 +20,8 @@ nav_order: 1
 
 [InfluxData](https://www.influxdata.com/) is the company behind [InfluxDB](https://www.influxdata.com/products/influxdb-cloud/) and [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/). 
 
-![architecture drawing]({{site.baseurl}}/assets/images/architecture.png)
+
+![architecture drawing]({{site.url}}/assets/images/part-1/introduction-to-influxdb/1-architecture.png)
 
 InfluxDB, released in 2013, is the best time series database available for storing metrics and sensing data. It has since evolved into a full blown time series application development platform used by thousands of developers to create customer facing IoT, server monitoring, financial applications, bespoke monitoring applications for thousands of servers and devices, and many many other applications. Take a look at various [case studies](https://www.influxdata.com/_resources/case-studies/) and [customer testimonials](https://www.influxdata.com/customers/) from IBM, Adobe, Hulu, Cisco and more. InfluxDB is more than the leading time series database. InfluxDB also includes the InfluxDB User Interface (InfluxDB UI) and Flux. The InfluxDB UI is a time series management, visualization, and dashboarding tool. It also offers a script editor for Flux. Flux is a functional scripting and query language that enables data processing tasks like sophisticated data transformation and alerting. 
 
@@ -50,7 +51,7 @@ The fastest way to write data into InfluxDB is to write some [sample data](https
 After setting up InfluxDB, navigate the **Explorer** page and click the **+ Create Bucket** button. Name your bucket “noaa”. A bucket is a named location where you store your data in InfluxDB. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-1.png)
+![create bucket]({{site.url}}/assets/images/part-1/introduction-to-influxdb/2-create-bucket.png)
 
 
 Now navigate to the **Script Editor** and copy and paste the following Flux code from the documentation. You don’t have to understand this code right now, the only part to pay attention to is the to() function in the last line. 
@@ -82,12 +83,12 @@ Make sure to change the following parameters in the [to()](https://docs.influxda
 Finally, hit** Submit**. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-2.png)
+![write with the ui]({{site.url}}/assets/images/part-1/introduction-to-influxdb/3-write-with-ui.png)
 
 
 Easily query your data through the UI by using the **Query Builder**. Simply select for the data you want to visualize and hit **Submit**.
 
 
-![ui]({{site.baseurl}}/assets/images/image-3.png)
+![ui]({{site.url}}/assets/images/part-1/introduction-to-influxdb/4-verify-ui-write.png)
 
-[Next Section]({{site.baseurl}}/docs/part-1/introduction-to-influxdb-tools){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-1/introduction-to-influxdb-tools){: .btn .btn-purple}
