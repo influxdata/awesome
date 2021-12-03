@@ -64,12 +64,12 @@ The InfluxDB UI also shines when it comes to onboarding new users, whether they�
 To create a Telegraf configuration in the InfluxDB UI, navigate to the **Data** tab and select the plugin you want to add under the list of Telegraf Plugins . Alternatively, you can also search for the plugin you want to use at the top of the **Data** tab. Let’s use the [CPU Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/cpu/README.md), to gather CPU metrics from your machine. 
 
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/search-for-cpu.png)
+![search for cpu](/assets/images/part-3/telegraf/search-for-cpu.png)
 
 
 Next, select **Create a configuration** from the dropdown.
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/create-new-config.png)
+![create new config](/assets/images/part-3/telegraf/create-new-config.png)
 
 
 Now you can name your Telegraf config and either:
@@ -81,13 +81,13 @@ Now you can name your Telegraf config and either:
 
 In the screenshot below, name your configuration, “system_stats”, and select your as output bucket, the “system”. 
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/name-config.png)
+![name config](/assets/images/part-3/telegraf/name-config.png)
 
 
 
 Select **Continue Configuring** to proceed to the next step where you can add a Telegraf configuration description (optional) and edit any portion of your configuration. To learn more about how to configure individual plugins, [find your plugin](https://docs.influxdata.com/telegraf/v1.20/plugins/) and visit GitHub for documentation on your selected plugin.
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/save-and-test-cpu.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/save-and-test-cpu.png)
 
 
 Finally, click **Save and Test** to bring you to the setup instructions page. Follow those instructions to:
@@ -98,13 +98,13 @@ Finally, click **Save and Test** to bring you to the setup instructions page. Fo
 * Configure an API token
 * Start Telegraf
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/listen.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/listen.png)
 
 
 Click the **Listen for Data** button to verify that you’re successfully collecting and writing data with Telegraf. 
 
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/connection-found.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/connection-found.png)
 
 
 Hit **Finish** when you’re done to return to the Telegraf page where you can view a list of all of your Telegraf configurations and follow the setup instructions from there as well.
@@ -112,17 +112,17 @@ Hit **Finish** when you’re done to return to the Telegraf page where you can v
 To add another plugin to an existing Telegraf configuration file, navigate to the **Data** tab and select the additional plugin you want to add under the list of Telegraf Plugins. In the screenshot below, we're adding an additional [Disk Input Plugin](https://github.com/influxdata/telegraf/blob/master/plugins/inputs/disk/README.md) to their existing “system_stats” configuration which already contains one CPU Input Plugin. Next, select the dropdown to **Add to an existing configuration**.
 
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/disk-add.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/disk-add.png)
 
 
 Finally, select the existing Telegraf configuration that you want to add an additional plugin to and click **Add to Existing Config**. We’re adding a second Aerospike Input Plugin to an existing Telegraf config named “system_stats”.
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/disk-config-options.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/disk-config-options.png)
 
 
 That’s all there is to it! Now you can verify that your Telegraf config contains the plugins you want and make any necessary edits to the configuration, name, and description before hitting **Save and Test**.
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/save-and-test-disk.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/save-and-test-disk.png)
 
 
 #### Through the command line
@@ -303,7 +303,7 @@ In this section we’ll highlight a trivial example of how to use the execd proc
 
 
 
-![alt_text]({{site.baseurl}}/assets/images/telegraf/execd-diagram.png)
+![alt_text]({{site.baseurl}}/assets/images/part-3/telegraf/execd-diagram.png)
 
 
 The following script is a simple example of using the Execd processor plugin to read STDIN and print the metrics to STDOUT with Python, trivial_example.py.
