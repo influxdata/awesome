@@ -17,9 +17,9 @@ nav_order: 6
 ---
 ## Deletes
 
+As a Time Series database, InfluxDB is not optimized for interactive deletes. Typically, data is deleted by aging out due to a bucket's retention policy. As such, delete operations in InfluxDB are computationally expensive and slow compared to writes and queries. It is possible to delete data that has not aged out due to retention policies, but one must be aware of the performance implications.
+
 You can delete time series data with either:
-
-
 
 1.  The InfluxDB CLI command [influx delete](https://docs.influxdata.com/influxdb/cloud/write-data/delete-data/).
 2.  The InfluxDB v2 API [delete endpoint](https://docs.influxdata.com/influxdb/cloud/api/#operation/PostDelete). 
@@ -82,4 +82,3 @@ As mentioned above, the most common way to delete data is to simply allow the da
   
 [Next Section]({{site.baseurl}}/docs/part-2/optimizing-flux-performance){: .btn .btn-purple}
   
-   
