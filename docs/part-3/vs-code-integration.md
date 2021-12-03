@@ -128,3 +128,38 @@ Now you can inject the parameters when you invoke the script via the API, like i
 -d '{
   "params": {"mybucket":"airsensor"}
 }'
+```
+
+### Creating Invokable Scripts 
+
+You can also use the [Flux extension for VS Code](https://docs.influxdata.com/influxdb/cloud/tools/flux-vscode/) to easily create and execute an invokable script with parameterized queries. Once you’ve installed the [Flux extension for VS code](https://marketplace.visualstudio.com/items?itemName=influxdata.flux) and configured it, you can create a new invokable script and run it. For example, I can run the following invokable script with parameters:
+
+
+``js
+params = { "mybucket": "airsensor" }
+from(bucket:params.mybucket) 
+|> range(start: -1y) 
+|> limit(n:2)
+```
+
+
+First create a new script by right-clicking on the menu on the left. Name your invokable script and add a description.
+
+
+![alt_text](images/image1.png "image_tooltip")
+
+
+Next, write your invokable script. Right-click on your script to run the query. The output of the script will pop up in a new tab to the right by default.
+
+![alt_text](images/image2.png "image_tooltip")
+Using the Flux extension for VS code to create an invokable script with parameters and run the script. The output is provided in a separate tab to the right.
+
+Now you can run the invokable script remotely and integrate the script into an application built on top of InfluxDB, for example. However, once you’ve verified that your script gives you the expected output, you’ll want to remove the following line: `params = { "mybucket": "airsensor" }.`
+
+Now you can inject the parameters when you invoke the script via the API, like in the example above but with the correct parameter in the body of the request:
+
+
+```
+-d '{
+  "params": {"mybucket":"airsensor"}
+}'

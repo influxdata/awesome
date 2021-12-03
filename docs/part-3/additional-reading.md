@@ -1,3 +1,4 @@
+---
 layout: default
 title: Additional Reading
 parent: Part 3

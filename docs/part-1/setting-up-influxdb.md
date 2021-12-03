@@ -20,7 +20,8 @@ In general, I will assume that you are using the SaaS version of InfluxDB, [Infl
 
 Start by visiting the [InfluxDB Cloud sign up page](https://cloud2.influxdata.com/signup) and fill in the sign up form:
 
-![ui]({{site.baseurl}}/assets/images/image-6.png)
+
+![ui]({{site.url}}/assets/images/part-1/setting-up-influxdb/1-sign-up.png)
 
 
 The InfluxDB Cloud sign up page.
@@ -29,11 +30,11 @@ Image 6
 
 After acknowledging the email verification, choose a Cloud Provider and a region. This is extremely useful if you are already running cloud-based services. InfluxDB Cloud account because InfluxDB Cloud runs in multiple regions across Google, Azure, and AWS clouds. If you don’t have a preference, just look for a region close to your locality. It’s possible to migrate data and the rest of the account later, but the process is not particularly streamlined, so if you do have a preference, keep that in mind. Note that you don’t need your own account with any of these providers to create an InfluxDB Cloud account. 
 
-![ui]({{site.baseurl}}/assets/images/image-7.png)
+![ui]({{site.url}}/assets/images/part-1/setting-up-influxdb/2-sign-up-2.png)
 
 Next, choose a plan. A free tier plan is perfect for light workloads and getting started with your application. Converting a free tier plan to a paid plan is easy if you need more resources or if you are going into production later. A free tier plan does not require a credit card–just create  a free InfluxDB Cloud account and get started.
 
-![ui]({{site.baseurl}}/assets/images/image-8.png)
+![ui]({{site.url}}/assets/images/part-1/setting-up-influxdb/3-welcome.png)
 
 
 Now your account is ready to use. You’ll explore some options for uploading sample data or your real data in the next section.
@@ -63,7 +64,7 @@ $ influxd
 And then access it at [http://localhost:8086](http://localhost:8086). You’ll be prompted to create an initial account to get started, and then the set up experience is pretty much identical to InfluxDB Cloud.
 
 
-![ui]({{site.baseurl}}/assets/images/image-9.png)
+![ui]({{site.url}}/assets/images/part-1/setting-up-influxdb/4-getting-started.png)
 
 
 The **Getting Started **page in the InfluxDB UI
@@ -74,7 +75,7 @@ The **Getting Started **page in the InfluxDB UI
 Now that you’ve set up your InfluxDB account, take a moment to familiarize yourself with the InfluxDB UI. When you first log into your InfluxDB Account you should see the **Getting Started** home page. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-10.png)
+![ui]({{site.url}}/assets/images/part-1/setting-up-influxdb/5-getting-started-highlighted.png)
 
 
 Navigate the **User and Account Information** icon and the **Explorer** page from the navigation bar to the right. 
@@ -102,7 +103,7 @@ We’ll dive into the other areas later on.
 The **User and Account Information** icon redirects you to corresponding **Usage**, **Billing**, and **Organization** (from the **Users** and **Accounts** options) pages:
 
 
-![ui]({{site.baseurl}}/assets/images/image-11.png)
+![user and account]({{site.url}}/assets/images/part-1/setting-up-influxdb/6-user-and-account.png)
 
 
 #### About
@@ -110,7 +111,7 @@ The **User and Account Information** icon redirects you to corresponding **Usage
 The About tab in the **Organization** page provides Common ID’s that you’ll need for Authentication and Authorization within InfluxDB. These ID’s include your User ID and  Organization ID (org ID). You’ll need these ID’s to configure the CLI, use a Client, and more. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-12.png)
+![organization]]({{site.url}}/assets/images/part-1/setting-up-influxdb/7-organization.png)
 
 
 ### Data
@@ -125,7 +126,7 @@ The **Data** page provides you with multiple solutions for loading your data int
 * Create and manage your Authentication tokens. Authentication tokens are required for a variety of InfluxDB tools. You’ll need an Authentication token to configure the CLI, use a Client, and more. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-13.png)
+![load data]({{site.url}}/assets/images/part-1/setting-up-influxdb/8-load-data.png)
 
 
 
@@ -134,7 +135,7 @@ The **Data** page provides you with multiple solutions for loading your data int
 The **Buckets** tab allows you to create and delete buckets. [Buckets](https://docs.influxdata.com/influxdb/cloud/organizations/buckets/) are a named location to store data within InfluxDB. InfluxDB Data Model will cover buckets in detail. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-14.png)
+![buckets]({{site.url}}/assets/images/part-1/setting-up-influxdb/9-buckets.png)
 
 
 
@@ -151,25 +152,25 @@ To create an All-Access token click the **+ Generate Token** dropdown button and
 
 
 
-![ui]({{site.baseurl}}/assets/images/image-15.png)
+![tokens]({{site.url}}/assets/images/part-1/setting-up-influxdb/10-tokens.png)
 
 
 Name the token something meaningful and click **Save**.
 
 
-![ui]({{site.baseurl}}/assets/images/image-16.png)
+![all access token]({{site.url}}/assets/images/part-1/setting-up-influxdb/11-all-access-token.png)
 
 
 
 Click on the token name in the list to view and copy the token string out of the InfluxDB UI. It’s a good practice to save the token string somewhere safe outside of InfluxDB, like a password manager. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-17.png)
+![cli token]({{site.url}}/assets/images/part-1/setting-up-influxdb/12-cli-token.png)
 
 Select **Copy to Clipboard **to copy your token.  
 
 
-![ui]({{site.baseurl}}/assets/images/image-18.png)
+![view token]({{site.url}}/assets/images/part-1/setting-up-influxdb/13-view-token.png)
 
 
 
@@ -183,7 +184,7 @@ The [Data Explorer](https://docs.influxdata.com/influxdb/cloud/query-data/execut
 Build a Flux query with the **Query Builder** by clicking on the data you want to visualize, selecting a time range, and applying an aggregation to your data. Hit **Submit** to run the query. 
 
 
-![ui]({{site.baseurl}}/assets/images/image-19.png)
+![query builder]({{site.url}}/assets/images/part-1/setting-up-influxdb/14-query-builder.png)
 
 
 
@@ -192,7 +193,7 @@ Build a Flux query with the **Query Builder** by clicking on the data you want t
 Click the **Script Editor** button to see the corresponding Flux that you generated with the **Query Builder**.
 
 
-![ui]({{site.baseurl}}/assets/images/image-20.png)
+![script editor]({{site.url}}/assets/images/part-1/setting-up-influxdb/15-script-editor.png)
 
 
 
@@ -326,17 +327,17 @@ The Visual Studio Code Flux Plugin is designed to allow you to integrate InfluxD
 After installing the extension, you can see an InfluxDB window added to the bottom left.
 
 
-![ui]({{site.baseurl}}/assets/images/image-21.png)
+![setting up vs code]({{site.url}}/assets/images/part-1/setting-up-influxdb/16-setting-up-vs-code.png)
 
 
 Begin setting up a connection with my Cloud account by giving focus to the InfluxDB window and clicking the **+** button, and complete the form.
 
-![ui]({{site.baseurl}}/assets/images/image-22.png)
+![configurint vs code]({{site.url}}/assets/images/part-1/setting-up-influxdb/17-vs-code-config.png)
 
 
 After saving, the InfluxDB window should be populated.
 
 
-![ui]({{site.baseurl}}/assets/images/image-23.png)
+![vs code populated]({{site.url}}/assets/images/part-1/setting-up-influxdb/18-influxdb-vs-code.png)
 
-[Part 2]({{site.baseurl}}/docs/part-2){: .btn .btn-purple}
+[Part 2]({{site.url}}/docs/part-2){: .btn .btn-purple}

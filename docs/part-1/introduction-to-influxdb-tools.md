@@ -72,7 +72,7 @@ You aren’t limited to making REST calls on your own. If you prefer, InfluxDB h
 
 If you are a Visual Studio (VS) Code user, then it’s easy to add InfluxDB to your workflow using [Flux VS Code Extension](https://docs.influxdata.com/influxdb/cloud/tools/flux-vscode/).
 
-![]({{site.baseurl}}/assets/images/image-4.png)
+![vs code extention]({{site.url}}/assets/images/part-1/introduction-to-influxdb-tools/1-vs-code.png)
 
 Using the Flux VS Code Extension to write Flux and run the query. 
 
@@ -91,7 +91,7 @@ A Template is a prepackaged InfluxDB configuration that contains multiple Influx
 
 Applying an existing Community Template is as easy as copy and pasting a URL for the Template yaml in the UI: 
 
-![]({{site.baseurl}}/assets/images/image-5.png)
+![applying community template]({{site.url}}/assets/images/part-1/introduction-to-influxdb-tools/2-community-template.png)
 
 
 A [Stack](https://docs.influxdata.com/influxdb/cloud/influxdb-templates/stacks/) is a stateful InfluxDB template that lets you add, update, and remove template resources. 
