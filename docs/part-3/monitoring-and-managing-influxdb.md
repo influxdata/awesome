@@ -22,8 +22,8 @@ So you’re using InfluxDB Cloud, and you’re writing millions of metrics to yo
 
 In case you’re new to InfluxData, [InfluxDB Templates](https://docs.influxdata.com/influxdb/v2.0/influxdb-templates/) are a preconfigured and shareable collection of dashboards, tasks, alerts, Telegraf configurations, and more. You apply them by copying the URL of a template of interest from the [community templates](https://github.com/influxdata/community-templates) and pasting it into the UI. Today, we’ll apply the Operational Monitoring Template to our InfluxDB Cloud account to monitor our cardinality and task execution.
 
+![install operational monitoring template]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/1-install-operational-monitoring-template.jpg "image_tooltip")
 
-![alt_text](images/image1.jpg "image_tooltip")
 An example of how to apply a template through the UI. Navigate to the Templates tab on the Settings page and paste the link to the YAML or JSON of the template you want to apply.
 
 The Operational Monitoring Template consists of the following resources:
@@ -44,18 +44,18 @@ The Operational Monitoring Template consists of the following resources:
 Both the Task Summary dashboard and the Cardinality Explorer dashboard can be used to monitor your specific task execution status and series growth. The Task Summary dashboard looks like this:
 
 
-![alt_text](images/image2.jpg "image_tooltip")
+![task summary dashboard]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/2-task-summary-dashboard-1.jpg "image_tooltip")
 An example of the Task Summary Dashboard. It provides information about the success of task runs for the past hour controlled by the time range dropdown configuration (pink square).
 
 The first three cells of this dashboard allow you to easily evaluate the success of all of your tasks for the specified time range. From this screenshot we see that we have 80 failed task runs. The cell in the second row, allows us to easily sort by the most successful and failed runs per task within the time range. It provides us with the error rate and task ID.
 
 
-![alt_text](images/image3.jpg "image_tooltip")
+![task summary dashboard]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/3-task-summary-dashboard-2.jpg "image_tooltip")
 More of the Task Summary Dashboard. It provides information about the success of task runs for the past hour.
 
 The dashboard also includes an Error List cell. This cell contains information about all of the failed runs, complete with the individual errorMessages for each runID. You can use this cell to determine why a task is failing. Below the Error Rates Over Time allows you to easily determine whether you have an increasing number of failed tasks. A linear line indicates that the same set of tasks are failing whereas an exponential line would suggest that an increasing number of tasks are failing.
 
-![alt_text](images/image4.jpg "image_tooltip")
+![task summary dashboard]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/4-task-summary-dashboard-3.jpg "image_tooltip")
 More of the Task Summary Dashboard. It provides information about the success of task runs for the past hour.
 
 The last cell of the Task Summary Dashboard, Last Successful Run Per Task helps you identify when a task failed so you can more easily debug your task. Now that we’ve reviewed the features of the Task Summary Dashboard, let’s examine the Cardinality Explorer dashboard.
@@ -77,7 +77,7 @@ from(bucket: "_tasks")
 Click the **Save As** button, to convert this to an [Alert](https://docs.influxdata.com/influxdb/v2.0/monitor-alert/). Then create a threshold alert and alert if the value of status_bool is below 1.
 
 
-![alt_text](images/image5.jpg "image_tooltip")
+![task alert]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/5-task-alert.jpg "image_tooltip")
 
 
 
@@ -86,7 +86,7 @@ Click the **Save As** button, to convert this to an [Alert](https://docs.influxd
 The Cardinality Explorer Dashboard provides the cardinality per bucket in your InfluxDB instance.
 
 
-![alt_text](images/image6.jpg "image_tooltip")
+![cardinality explorer dashboard]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/6-cardinality-explorer-dashboard-1.jpg "image_tooltip")
 An example of the Cardinality Explorer Dashboard. It provides information about the cardinality of your InfluxDB instance. Labels allow you to visualize metrics with a dropdown configuration (orange).
 
 The variables at the top of the dashboard allow you to easily switch between buckets and measurements.
@@ -96,7 +96,7 @@ The variables at the top of the dashboard allow you to easily switch between buc
 * The graph in the first cell, Cardinality by Bucket, allows you to monitor the cardinality of all of your buckets at a glance. We can see that our cardinality is remaining within the same range. The fact that the cardinality across all buckets has a small standard deviation is a good sign. It allows us to verify that we don’t have a series cardinality problem. It might be advantageous to create [additional alerts](https://docs.influxdata.com/influxdb/v2.0/monitor-alert/) on top of this bucket to notify you when your cardinality exceeds an expected standard deviation. Dips in the cardinality are likely evidence of successful data expiration or perhaps a [data deletion](https://docs.influxdata.com/influxdb/v2.0/write-data/delete-data/). Spikes in the cardinality could be due to momentary overlap between new data ingested and old data about to be evicted. It’s also likely that the spikes are due to an important event.
 
 
-![alt_text](images/image7.jpg "image_tooltip")
+![cardinality explorer dashboard]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/7-cardinality-explorer-dashboard-2.jpg "image_tooltip")
 
 
 
@@ -140,13 +140,13 @@ The [Flux influxdata/influxdb](https://docs.influxdata.com/influxdb/v2.0/referen
 To gain the full benefits from this template, I recommend setting up a cardinality threshold alert based off of the cardinality bucket. The fastest way to create an alert is through the UI. Navigate to the **Alerts** tab in the UI. First query for your cardinality. Although it’s hard to visualize our cardinality data in the graph visualization, the default visualization type for the **Alerts** UI, I can hover over the points or view the data in the **Raw Data View** to understand my data better.
 
 
-![alt_text](images/image8.jpg "image_tooltip")
+![cardinality alert]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/8-cardinality-alert-define-query.jpg "image_tooltip")
 
 
 I notice that my cardinality data can be split into roughly three ranges. Next, I will configure alerts around those ranges. If the cardinality in my buckets crosses one of those three thresholds, I will receive an Alert.
 
 
-![alt_text](images/image9.jpg "image_tooltip")
+![cardinality alert]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/9-cardinality-alert-thresholds.jpg "image_tooltip")
 
 
 This type of Alert can help you guard against reaching a cardinality limit in InfluxDB Cloud. Specifically, free tier and Usage-Based Plan users want to be alerted when they approach 80% their cardinality limit of 10,000 and initial cardinality limit of 1M, respectively. You might also consider creating a task that sums the cardinality across all buckets and alerting on the total cardinality as well.

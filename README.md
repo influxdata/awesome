@@ -23,6 +23,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/influx
 ### Submitting code changes:
 
 - Open a [Pull Request](https://github.com/influxdata/book.github.io/pulls)
+- Review the [style-guide.md](https://github.com/influxdata/book.github.io/style-guide.md)
 - Await code review
 
 ## License

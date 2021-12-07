@@ -88,7 +88,7 @@ Click **Write Data**, and your data is written!
 
 An alternative method that is easier with larger data sets is to upload a file. Start out by downloading the sample data as a file, for example, from [the raw view](https://raw.githubusercontent.com/influxdata/influxdb2-sample-data/master/air-sensor-data/air-sensor-data.lp).
 
-Go back to the write data section, but this time stick with Upload File.
+Go back to the write data section, but this time stick with **Upload File**.
 
 
 ![select bucket]({{site.url}}/assets/images/part-3/writing-and-querying-data/6-select-bucket.png)
@@ -97,7 +97,7 @@ Go back to the write data section, but this time stick with Upload File.
 Then upload the file by dragging and dropping your file.
 
 
-![upload file]({{site.url}}/assets/images/part-3/writing-and-querying-data/7-upload-file.png.png)
+![upload file successfully]({{site.url}}/assets/images/part-3/writing-and-querying-data/7-upload-file.png)
 
 
 Now when you go back and query, you can see that there is a lot more data.
@@ -119,8 +119,7 @@ To verify that we successfully wrote data, we’ll query it with the **Query Bui
 
 Then set the time drop down to a point in time that is far enough in the past to include the timestamps of the data you just wrote. For the Air sensor sampleset dataset, we’ll change the drop down to 3h. 
 
-
-![3h]({{site.url}}/assets/images/part-3/writing-and-querying-data/10-3h.png
+![3h]({{site.url}}/assets/images/part-3/writing-and-querying-data/10-3h.png)
 
 
 Choose your measurement (only airSensors is available), and click **Submit**. You can see that your data is there, but over the 3 hour window, there isn’t much data.
@@ -149,7 +148,7 @@ If you are building or have already built a CLI-based data pipeline, for example
 
 
 ```
-% ./influx bucket list
+./influx bucket list
 ID			Name			Retention	Shard group duration	Organization ID
 964221964e8fa8ab	_monitoring		168h0m0s	  n/a			0261487478164c85
 31ad8b129cd7db7a	_tasks			72h0m0s	  n/a		0261487478164c85
@@ -165,7 +164,7 @@ So the bucket ID is “497b48e409406cc7”. Now if you have a line of line proto
 
 
 ```
-% ./influx write --bucket-id 497b48e409406cc7 "airSensors,sensor_id=TLM0101 temperature=71.83125302870145,humidity=34.87843425604827,co=0.5177653332811699 1626383123000000000"
+./influx write --bucket-id 497b48e409406cc7 "airSensors,sensor_id=TLM0101 temperature=71.83125302870145,humidity=34.87843425604827,co=0.5177653332811699 1626383123000000000"
 ```
 
 
@@ -259,7 +258,7 @@ The Influx CLI understands Annotated CSV natively, so writing it is as simple as
 
 
 ```
-% ./influx write --bucket-id 497b48e409406cc7 --file annotated_buoy_data.csv
+./influx write --bucket-id 497b48e409406cc7 --file annotated_buoy_data.csv
 ```
 
 
@@ -324,7 +323,7 @@ For our simple example, we have:
 * field1: a field as type `double.`
 * measurement1: a `measurement.`
 
-We use the following command to write the data to InfluxDB: \
+We use the following command to write the data to InfluxDB: 
 `influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skip-header`
 
 
@@ -418,7 +417,7 @@ In order to actually write to the database, I need to supply a bucket or bucket-
 
 
 ```
- % influx write --bucket-id 497b48e409406cc7 --file latest-observations.csv --header "#constant measurement,noaa-buoy" --header "#datatype long,double,double,double,double,double,double,double,double,double,double,double,double,double,tag,double,double,double,tag,tag,tag,tag,boolean:y:n,boolean:y:n,boolean:y:n,boolean:y:n,dateTime:number"
+influx write --bucket-id 497b48e409406cc7 --file latest-observations.csv --header "#constant measurement,noaa-buoy" --header "#datatype long,double,double,double,double,double,double,double,double,double,double,double,double,double,tag,double,double,double,tag,tag,tag,tag,boolean:y:n,boolean:y:n,boolean:y:n,boolean:y:n,dateTime:number"
 ```
 
 
