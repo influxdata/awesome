@@ -483,7 +483,7 @@ List all tasks with:
 
 ```h
 curl --location --request GET 'http://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks?org =anais@influxdata.com' \
---header 'Authorization: Token OeRbDd568_AUAjqMJ6akRvhVz4LpZay8uK0N4ON6ZKoxCclPNnQyiuRaSk33heFdqE6scvQVDwLWmicWbOh8Bg=='
+--header 'Authorization: Token XXX=='
 ```
 
 
@@ -519,7 +519,7 @@ You can retrieve a specific task as well by supplying the task ID in the URL wit
 
 ```
 curl --location --request GET 'http://us-west-2-1.aws.cloud2.influxdata.com/api/v2/tasks/0891b50164bf6000' \
---header 'Authorization: Token OeRbDd568_AUAjqMJ6akRvhVz4LpZay8uK0N4ON6ZKoxCclPNnQyiuRaSk33heFdqE6scvQVDwLWmicWbOh8Bg=='
+--header 'Authorization: Token XXX=='
 ```
 In this instance the request will return the same response as the previous request to list all tasks because we only have one task. 
 
