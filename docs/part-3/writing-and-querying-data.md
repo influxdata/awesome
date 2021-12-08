@@ -646,7 +646,7 @@ Therefore, it is important to check the return value of any call to the write en
 * Other errors in the 400 range, indicating other problems with your code.
 * Errors in the 500 range, indicating that the server is experiencing an error.
 
-In the case of a 429 error, the response object will contain a header ("Retry-After") that will tell you how many seconds to wait until your rate limit has passed. In the case of another 4xx error, it is unlikely that your code will begin succeeding, so it is best to alert and exit rather than continue to retry and potentially uncover that your code is failing. 
+In the case of a 429 error, the response object will contain a header ("Retry-After") that will tell you how many seconds to wait until your rate limit has passed. In the case of another 4xx error, it is unlikely that your code will begin succeeding, so it is best to alert and exit rather than continue to retry and potentially cover up that your code is failing. 
 
 In the case of an error 500 or higher, it means that InfluxDB is having a problem. In this case, your code can wait and then try again. However, it is best to wait a little bit longer between successive failed writes of this type to avoid overwhelming the platform, or just letting your code produce a lot of noisy errors.
 
