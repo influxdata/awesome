@@ -5,7 +5,7 @@ parent: Part 3
 nav_order: 6
 ---
 
-# Deletes
+# VS Code Integration
 {: .no_toc }
 
 ## Table of contents
@@ -116,12 +116,12 @@ from(bucket:params.mybucket)
 First create a new script by right-clicking on the menu on the left. Name your invokable script and add a description.
 
 
-![alt_text]({{site.url}}/assets/images/part-3/vs-code-integration/image1.png "image_tooltip")
+![flux api invokable scripts name script]({{site.url}}/assets/images/part-3/vs-code-integration/9-flux-api-invokable-scripts-name-script.png "image_tooltip")
 
 
 Next, write your invokable script. Right-click on your script to run the query. The output of the script will pop up in a new tab to the right by default.
 
-![alt_text]({{site.url}}/assets/images/part-3/vs-code-integration/image2.png "image_tooltip")
+![write script]({{site.url}}/assets/images/part-3/vs-code-integration/10-flux-api-invokable-scripts-write-script.png "image_tooltip")
 Using the Flux extension for VS code to create an invokable script with parameters and run the script. The output is provided in a separate tab to the right.
 
 Now you can run the invokable script remotely and integrate the script into an application built on top of InfluxDB, for example. However, once you’ve verified that your script gives you the expected output, you’ll want to remove the following line: `params = { "mybucket": "airsensor" }.`

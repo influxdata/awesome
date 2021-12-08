@@ -5,7 +5,7 @@ parent: Part 3
 nav_order: 3
 ---
 
-# Deletes
+# Tasks
 {: .no_toc }
 
 ## Table of contents
@@ -596,3 +596,5 @@ influx task update --id 0891b50164bf6000 --file /path/to/example-task.flux
 ```
 influx task update --id 0891b50164bf6000 --status inactive
 ```
+
+[Next Section]({{site.url}}/docs/part-3/checks-and-notifications){: .btn .btn-purple}

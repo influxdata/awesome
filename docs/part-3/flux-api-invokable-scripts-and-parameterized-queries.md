@@ -5,7 +5,7 @@ parent: Part 3
 nav_order: 5
 ---
 
-# Deletes
+# Flux API Invokable Scripts and Parameterized Queries
 {: .no_toc }
 
 ## Table of contents
@@ -105,3 +105,6 @@ curl -X 'POST' \
   -d '{
   "params": {"mybucket":"telegraf"}
 }'
+```
+
+[Next Section]({{site.url}}/docs/part-3/monitoring-and-managing-influxdb){: .btn .btn-purple}

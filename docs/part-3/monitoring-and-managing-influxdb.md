@@ -5,7 +5,7 @@ parent: Part 3
 nav_order: 6
 ---
 
-# Deletes
+# Monitoring and Managing InfluxDB
 {: .no_toc }
 
 ## Table of contents
@@ -181,3 +181,5 @@ buckets()
 		}
 	})
 ```
+
+[Next Section]({{site.url}}/docs/part-3/vs-code-integration){: .btn .btn-purple}

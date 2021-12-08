@@ -20,7 +20,7 @@ url: "https://awesome.influxdata.com" # the base hostname & protocol for your si
 remote_theme: just-the-docs
 permalink: pretty
 exclude: ["node_modules/", "*.gemspec", "*.gem", "Gemfile", "Gemfile.lock", "package.json", "package-lock.json",  "script/", "LICENSE.txt", "lib/", "bin/", "README.md", "Rakefile"
-, "docs/tests/"
+, "docs/tests/", style-guide.md
 ]
 
 # favicon: "/assets/images/favicon.ico"

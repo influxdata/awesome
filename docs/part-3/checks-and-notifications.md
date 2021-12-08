@@ -1,11 +1,11 @@
 ---
 layout: default
-title: Checks and Notification
+title: Checks and Notifications
 parent: Part 3
 nav_order: 4
 ---
 
-# Deletes
+# Checks and Notifications
 {: .no_toc }
 
 ## Table of contents
@@ -583,3 +583,5 @@ A notification is the time series data that is the output of a notification rule
     *  `${your source field}`: the source field value that is being checked. 
 * custom tags added to the query output during notification configuration.
 * any additional columns included in the query, resulting from the `v1.fieldsAsCols` function from the corresponding check. 
+
+[Next Section]({{site.url}}/docs/part-3/flux-api-invokable-scripts-and-parameterized-queries){: .btn .btn-purple}
