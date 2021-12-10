@@ -5,7 +5,7 @@ parent: Part 3
 nav_order: 1
 ---
 
-# Writing and Querying Data
+# Writing and Querying
 {: .no_toc }
 
 ## Table of contents
@@ -326,7 +326,7 @@ For our simple example, we have:
 We use the following command to write the data to InfluxDB: 
 `influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skip-header`
 
-Finally, it's worth being aware of the `--rate-limit` flag. This flag allows you to throttole your write rate to avoid exceeding write rate limits. We append the previous command to include the `--rate-limit` flag, for demonstration purposes. This example CSV doen't require the use of the `--rate-limit` flag, but to write any signifcant CSV to InfluxDB the use of that flag is recommended. 
+Finally, it's worth being aware of the `--rate-limit` flag. This flag allows you to throttle your write rate to avoid exceeding write rate limits. We append the previous command to include the `--rate-limit` flag, for demonstration purposes. This example CSV doen't require the use of the `--rate-limit` flag, but to write any signifcant CSV to InfluxDB the use of that flag is recommended. 
 `influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skip-header --rate-limit "1MB/s"`
 
 
@@ -398,7 +398,7 @@ Finally, it needs to be polished up by defining the timestamp. There are four [s
 
 In order to check one’s work, there is the very useful [dryrun](https://docs.influxdata.com/influxdb/cloud/reference/cli/influx/write/dryrun/) command that will parse the data, but rather than write the data to the database, will report any errors. Additionally, pass in the “skipHeader” option so that the CLI does not try to parse the first row as data. 
 
-Finally, it is useful to include the --skipRowOnError option in order to see all errors instead of stopping at the first error. The whole command looks like this:
+It is useful to include the --skipRowOnError option in order to see all errors instead of stopping at the first error. The whole command looks like this:
 
 
 ```
