@@ -15,7 +15,7 @@ nav_order: 2
 {:toc}
 
 ---
-To honor our commitment to developer happiness, InfluxData offers a wide range of tools working with time series data easily for all types of developers. 
+To honor our commitment to developer happiness, InfluxData offers a wide range of tools to make working with time series data easy for all types of developers. 
 
 
 ## Flux and the Task Engine 
@@ -25,7 +25,7 @@ To honor our commitment to developer happiness, InfluxData offers a wide range o
 * Transform and analyze data. 
 * Write Tasks
 
-Flux has a Javascript inspired syntax that makes it easily composable and readable. [Pipe-forward operators](https://docs.influxdata.com/flux/v0.x/get-started/syntax-basics/) separate out functions and make data transformations flow smoothly. Flux is also testable, shareable, and contributable. 
+Flux has a Javascript inspired syntax that makes it easily composable and readable. [Pipe-forward operators](https://docs.influxdata.com/flux/v0.x/get-started/syntax-basics/) separate function calls and make data transformations flow smoothly. Flux is Open Source, testable, shareable, and contributable. 
 
 The [Task](https://docs.influxdata.com/influxdb/cloud/process-data/manage-tasks/) Engine executes Flux scripts on a schedule. It allows you to: 
 
@@ -33,12 +33,12 @@ The [Task](https://docs.influxdata.com/influxdb/cloud/process-data/manage-tasks/
 * Get alerted if your data stops writing or breaches certain thresholds
 * Periodically call an external service with data from InfluxDB
 
-The Task engine can tackle all the points above with no additional code or operations on your part.
+The Task engine can tackle all the above points with no additional code or operations on your part.
 
 
 ## InfluxDB User Interface
 
-The InfluxDB UI provides a complete user interface for working with time series data and InfluxDB. The InfluxDB UI enables you to:
+The InfluxDB UI provides a complete interface for working with time series data and InfluxDB. The InfluxDB UI enables you to:
 
 * Build queries to visualize your time series data. You can select from a wide variety of [visualization types](https://docs.influxdata.com/influxdb/cloud/visualize-data/visualization-types/). The InfluxDB UI also supports geotemporal map visualizations. 
 * Edit Flux code in the Flux Script Editor.
@@ -50,7 +50,9 @@ The InfluxDB UI provides a complete user interface for working with time series 
 
 ## Telegraf 
 
-Have more stringent requirements for your writes? Need batching, retries, and other features? Don’t write this code yourself, just use [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/). Telegraf is InfluxData’s plugin driven collection agent for metric and events.  With over [200 input plugins](https://github.com/influxdata/telegraf/tree/master/plugins/inputs), Telegraf  probably has an input plugin that fits your needs. But even if there isn’t a plugin for your exact use case, you can use telegraf to easily reformat any data type into your preferred output format, be it line protocol, json, csv, etc…. Telegraf isn’t just a tool for writing data to a destination data store. Telegraf processor plugins and aggregator plugins enable you to do so much more with your data than sophisticated collection and writes. For example, you can easily add data transformations with Starlark, and you can even use the execd processor plugin which makes Telegraf extensible in any language. It’s no wonder that Telegraf has close to 11,000 stars on github.  
+Have more stringent requirements for your writes? Need batching, retries, and other features? Don’t write this code yourself, just use [Telegraf](https://www.influxdata.com/time-series-platform/telegraf/). Telegraf is InfluxData’s plugin driven collection agent for metric and events.  With over [200 input plugins](https://github.com/influxdata/telegraf/tree/master/plugins/inputs), Telegraf  probably has an input plugin that fits your needs. But even if there isn’t a plugin for your exact use case, you can use telegraf to easily reformat any data type into your preferred output format, be it line protocol, json, csv, etc…. 
+
+Telegraf isn’t just a tool for writing data to a destination data store. The Telegraf processor plugins and aggregator plugins enable you to do so much more with your data than sophisticated collection and writes. For example, you can easily add data transformations with Starlark. You can even use the execd processor plugin which makes Telegraf extensible in any language. It’s no wonder that Telegraf has close to 11,000 stars on github.  
 
 
 ## Awesome CLI
@@ -79,21 +81,21 @@ Using the Flux VS Code Extension to write Flux and run the query.
 
 ## Stacks and Templates
 
-Want to back up or move your whole InfluxDB configuration? Add it to github so you can restore from a backup? Even use a gitops workflow to integrate with your existing CD (continuous deployment) process? InfluxDB supports all of this with our Stacks and Templates features. 
+Want to back up or move your whole InfluxDB configuration? Add it to github so you can restore from a backup? Even use a gitops workflow to integrate with your existing CD (continuous deployment) process? InfluxDB supports all of this with Stacks and Templates. 
 
 A Template is a prepackaged InfluxDB configuration that contains multiple InfluxDB resources. Templates include everything from Telegraf configuration, to Dashboards, to Alerts, and more. Use Templates to:
 
 
 
-* get up and running with InfluxDB for a variety of common use cases with a [Community Template](https://github.com/influxdata/community-templates),a community-contributed Templates. 
-* quickly get setup with a new InfluxDB instance
-* backup your Dashboard, Alert, and Task configurations. 
+* Get up and running with InfluxDB for a variety of common use cases with a [Community Template](https://github.com/influxdata/community-templates),a community-contributed Templates. 
+* Quickly get setup with a new InfluxDB instance
+* Backup your Dashboard, Alert, and Task configurations. 
 
-Applying an existing Community Template is as easy as copy and pasting a URL for the Template yaml in the UI: 
+Applying an existing Community Template is as easy as copy and pasting a URL for the Template yaml file into the UI: 
 
 ![applying community template]({{site.url}}/assets/images/part-1/introduction-to-influxdb-tools/2-community-template.png)
 
 
-A [Stack](https://docs.influxdata.com/influxdb/cloud/influxdb-templates/stacks/) is a stateful InfluxDB template that lets you add, update, and remove template resources. 
+A [Stack](https://docs.influxdata.com/influxdb/cloud/influxdb-templates/stacks/) is a stateful InfluxDB template that lets you add, update, and remove template resources on your InfluxDB instance. 
 
 [Next Section]({{site.baseurl}}/docs/part-1/setting-up-influxdb){: .btn .btn-purple}
