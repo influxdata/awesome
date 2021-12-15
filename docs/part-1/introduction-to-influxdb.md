@@ -23,7 +23,7 @@ nav_order: 1
 
 ![architecture drawing]({{site.url}}/assets/images/part-1/introduction-to-influxdb/1-architecture.png)
 
-InfluxDB, released in 2013, is the best time series database available for storing metrics and sensing data. It has since evolved into a full blown time series application development platform used by thousands of developers to create customer facing IoT, server monitoring, financial applications, bespoke monitoring applications for thousands of servers and devices, and many many other applications. Take a look at various [case studies](https://www.influxdata.com/_resources/case-studies/) and [customer testimonials](https://www.influxdata.com/customers/) from IBM, Adobe, Hulu, Cisco and more. InfluxDB is more than the leading time series database. InfluxDB also includes the InfluxDB User Interface (InfluxDB UI) and Flux. The InfluxDB UI is a time series management, visualization, and dashboarding tool. It also offers a script editor for Flux. Flux is a functional scripting and query language that enables data processing tasks like sophisticated data transformation and alerting. 
+InfluxDB, released in 2013, is the best time series database available for storing metrics and sensing data. It has since evolved into a full blown time series application development platform used by thousands of developers to create; customer facing IoT, server monitoring, financial applications, bespoke monitoring applications for thousands of servers and devices, and many many other applications. Take a look at various [case studies](https://www.influxdata.com/_resources/case-studies/) and [customer testimonials](https://www.influxdata.com/customers/) from IBM, Adobe, Hulu, Cisco and more. InfluxDB is more than the leading time series database. InfluxDB also includes the InfluxDB User Interface (InfluxDB UI) and Flux. The InfluxDB UI is a time series management, visualization, and dashboarding tool. It also offers a script editor for Flux. Flux is a functional scripting and query language that enables data processing tasks like sophisticated data transformation and alerting. 
 
 Telegraf is the open source server agent for collecting metrics and events. Telegraf is plugin driven and compiles into a single binary. There is a huge collection of input, output, aggregator, and parser plugins that enable developers to collect data, apply transformations to it, and write it to the destination datastore of their choice. 
 
@@ -48,7 +48,7 @@ Finally,  when it comes to choosing between the OSS version of InfluxDB cloud, e
 
 The fastest way to write data into InfluxDB is to write some [sample data](https://docs.influxdata.com/influxdb/cloud/reference/sample-data/) with the script editor in the InfluxDB UI. Writing a sample dataset is a great way to get some meaningful data into the platform to get a feel for InfluxDB.  You can pick whichever sample dataset you want to use, but we’ll use the [NOAA ​​water sample data](https://docs.influxdata.com/influxdb/cloud/reference/sample-data/#noaa-water-sample-data) in this section. 
 
-After setting up InfluxDB, navigate the **Explorer** page and click the **+ Create Bucket** button. Name your bucket “noaa”. A bucket is a named location where you store your data in InfluxDB. 
+After setting up InfluxDB, navigate to the **Explorer** page and click the **+ Create Bucket** button. Name your bucket “noaa”. A bucket is a named location where you store your data in InfluxDB. 
 
 
 ![create bucket]({{site.url}}/assets/images/part-1/introduction-to-influxdb/2-create-bucket.png)
@@ -80,13 +80,13 @@ Make sure to change the following parameters in the [to()](https://docs.influxda
 1. The bucket you want to write the NOAA sample dataset to (if you created a “noaa” bucket already, then ignore this step). 
 2. The org to the email you used to register for a Cloud account or set up your OSS instance. 
 
-Finally, hit** Submit**. 
+Finally, hit **Submit**. 
 
 
 ![write with the ui]({{site.url}}/assets/images/part-1/introduction-to-influxdb/3-write-with-ui.png)
 
 
-Easily query your data through the UI by using the **Query Builder**. Simply select for the data you want to visualize and hit **Submit**.
+Easily query your data through the UI by using the **Query Builder**. Simply select the data you want to visualize and hit **Submit**.
 
 
 ![ui]({{site.url}}/assets/images/part-1/introduction-to-influxdb/4-verify-ui-write.png)
