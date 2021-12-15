@@ -149,4 +149,4 @@ Instead of an example with specific values such as:
 1i == 1.0
 ```
 
-[Next Section]({{site.baseurl}}/docs/part-2/input-format-vs-output-format){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/input-format-vs-output-format){: .btn .btn-purple}

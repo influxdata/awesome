@@ -132,8 +132,8 @@ Understanding how to properly use tags can not only help prevent runaway series 
 * **8 tag values**: TLM0100, TLM0101, TLM0102, TLM0103, TLM0200, TLM0101, TLM0202, TLM0203
 
 
-![ui]({{site.baseurl}}/assets/images/image-24.png)
-*Visualizing co, humidity, and temperature for th TLM0100 sensor from the Air sensor sample dataset after writing it to InfluxDB with the to() function as described in [Write and Query Sample Data]({{site.baseurl}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data).*
+![ui]({{site.url}}/assets/images/image-24.png)
+*Visualizing co, humidity, and temperature for th TLM0100 sensor from the Air sensor sample dataset after writing it to InfluxDB with the to() function as described in [Write and Query Sample Data]({{site.url}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data).*
 
 
 ### Just Enough Flux
@@ -173,7 +173,7 @@ As covered in the previous section, tag keys are grouped by the storage engine b
 
 To illustrate how indexing improves query performance, let’s consider the Air sensor sample dataset. Remember, the specific sensors that gather air quality data are tagged with a “sensor_id”. Now imagine that you want to query the dataset for all of the data from a specific sensor with a unique “sensor_id” value. When you apply a filter to query for a single tag value, the storage engine can use the indexed tag to quickly find the relevant table in the storage engine and return all the data associated with that tag value quickly. 
 
-![architecture drawing]({{site.baseurl}}/assets/images/image-25.png)
+![architecture drawing]({{site.url}}/assets/images/image-25.png)
 *Filtering for a TLM0100 tag value from the “sensor_id” tag.*
 
 
@@ -513,4 +513,4 @@ influx bucket-schema create \
 
 Specify the bucket that you want to create the schema for, the measurement to which your schema columns file should be applied to, and the path to your schema columns file. 
 
-[Next Section]({{site.baseurl}}/docs/part-2/introduction-to-flux){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/introduction-to-flux){: .btn .btn-purple}

@@ -80,5 +80,5 @@ As mentioned above, the most common way to delete data is to simply allow the da
   4. Rename the new bucket to the original bucket name, so that existing queries continue working (assuming that the queries use the bucket name and no the bucket id).
   
   
-[Next Section]({{site.baseurl}}/docs/part-2/optimizing-flux-performance){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/optimizing-flux-performance){: .btn .btn-purple}
   

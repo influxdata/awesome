@@ -15,10 +15,13 @@ nav_order: 6
 {:toc}
 
 ---
+
+# The Operational Monitoring Template 
+
 So you’re using InfluxDB Cloud, and you’re writing millions of metrics to your account. You’re also running a variety of downsampling and data transformation tasks. Whether you’re building an [IoT application on top of InfluxDB](https://github.com/bonitoo-io/influxdata-iot-petstore) or monitoring your production environment with InfluxDB, your time series operations are finally running smoothly. You want to keep it that way. You might be a [Free Plan Cloud user](https://www.influxdata.com/influxdb-cloud-pricing/) or a [Usage-Based Plan user](https://www.influxdata.com/blog/influxdb-cloud-pricing-control-transparency/), but either way, you need visibility into your instance size to manage resources and costs. Use the [InfluxDB Operational Monitoring Template](https://github.com/influxdata/community-templates/tree/master/influxdb2_operational_monitoring) to protect against runaway series cardinality and ensure that your tasks are successful.
 
 
-### Install and Use the Operational Monitoring Template
+## Install and Use the Operational Monitoring Template
 
 In case you’re new to InfluxData, [InfluxDB Templates](https://docs.influxdata.com/influxdb/v2.0/influxdb-templates/) are a preconfigured and shareable collection of dashboards, tasks, alerts, Telegraf configurations, and more. You apply them by copying the URL of a template of interest from the [community templates](https://github.com/influxdata/community-templates) and pasting it into the UI. Today, we’ll apply the Operational Monitoring Template to our InfluxDB Cloud account to monitor our cardinality and task execution.
 
@@ -181,5 +184,182 @@ buckets()
 		}
 	})
 ```
+
+# The InfluxDB Cloud Usage Template
+
+Use the [InfluxDB Cloud Usage Template](https://www.influxdata.com/influxdb-templates/influxdb-cloud-usage-dashboard/) to gain visibility into your usage and take proactive action before you hit your limits. In this section, we’ll apply the InfluxDB Cloud Usage Template to our InfluxDB Cloud account to monitor our usage and rate-limiting events. Rate-limiting events occur when a user exceeds the usage limits of their Cloud account. Use the following command to apply the InfluxDB Cloud Usage Template through the CLI:
+
+
+```
+influx apply --file https://raw.githubusercontent.com/influxdata/community-templates/master/usage_dashboard/usage_dashboard.yml
+```
+
+
+Alternatively, you can use the UI to apply a template. Navigate to the **Templates** tab on the Settings page and paste the link to the YAML or JSON of the template you want to apply.
+
+
+![alt_text]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/10-usage-dashboard.png "image_tooltip")
+
+
+The InfluxDB Cloud Usage Template consists of the following resources:
+
+
+
+* 1 [Dashboard](https://docs.influxdata.com/influxdb/v2.0/visualize-data/dashboards/): Usage Dashboard. This dashboard enables you to track your InfluxDB Cloud data usage and limit events.
+* 1 [Task](https://docs.influxdata.com/influxdb/v2.0/process-data/): Cardinality Limit Alert (usage dashboard) that runs every hour. This task is responsible for determining whether or not your cardinality has exceeded the cardinality limit associated with your Cloud account.
+* 1 [Label](https://docs.influxdata.com/influxdb/v2.0/visualize-data/labels/): usage_dashboard. This label helps you find the resources that are part of this template more easily within the UI and through the API.
+
+
+## The Usage Dashboard explained
+
+The InfluxDB Cloud Usage Template contains the Usage Dashboard which gives you visibility into your Data In, Query Count, Storage, Data Out, and Rate-Limiting Events.
+
+
+![alt_text]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/11-usage-dashboard.png "image_tooltip")
+
+
+The cells in the dashboard display the following information:
+
+
+
+* The Data In (Graph) visualizes the total bytes written to your InfluxDB Org through the [/write endpoint](https://docs.influxdata.com/influxdb/v2.0/api/#operation/PostWrite).
+* The Query Count (Graph) visualizes the number of queries executed.
+* The Storage (By Bucket) visualizes the number of total bytes in each bucket and all buckets overall.
+* The Data Out (Graph) visualizes the total bytes queried from your InfluxDB organization through the [/query endpoint](https://docs.influxdata.com/influxdb/v2.0/api/#operation/PostQuery).
+* The Rate Limit Events visualizes the number of times limits has been reached
+* The Rate Limit Events are split into event types in the bottom right cells to display the number of write limit, query limit, and cardinality limit events as well as the total cardinality limit for your organization.
+
+All of these visualizations automatically aggregate the data to 1hr resolution. Essentially, this dashboard supplements the data that exists in the Usage page in the InfluxDB UI to give you even more insights into your usage.
+
+
+![alt_text]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/12-usage-page.png "image_tooltip")
+_The Usage page in the InfluxDB UI contains general information about your usage._
+
+
+## Understanding the Flux behind the Usage Dashboard
+
+In order to fully understand the InfluxDB Cloud Usage Template, you must understand the Flux behind the Usage Dashboard. Let’s take a look at the query that produces the Data In (Graph) visualization in the first cell.
+
+
+```
+import "math"
+import "experimental/usage"
+
+
+usage.from(
+start: v.timeRangeStart,
+stop: v.timeRangeStop,
+)
+|> filter(fn: (r) =>
+r._measurement == "http_request"
+and (r.endpoint == "/api/v2/write" or r.endpoint == "/write")
+and r._field == "req_bytes"
+)
+|> group()
+|> keep(columns: ["_value", "_field", "_time"])
+|> fill(column: "_value", value: 0)
+|> map(fn: (r) =>
+({r with
+write_mb: math.round(x: float(v: r._value) / 10000.0) / 100.0
+}))
+```
+
+
+First we import all the relative packages to execute the Flux query that generates the visualization we desire. The Flux math package provides basic mathematical functions and constants. The Flux experimental/usage package provides functions for collecting usage and usage limit data related to your InfluxDB Cloud account. All of the cells, dashboards, and tasks in the InfluxDB Cloud Usage Template use the Flux experimental/usage package. The [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) function returns usage data. We filter the usage data for the “req_bytes” field from any writes. Then we group write data, fill any empty rows with 0, and calculate the number of megabytes and store the value in a new column, “write_mb”.
+
+
+## Exploring the experimental/usage Flux Package
+
+The experimental/usage package contains two functions: [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) and [usage.limits()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/).
+
+The [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) function maps to the [org/{orgID}/usage endpoint](https://docs.influxdata.com/influxdb/v2.0/api/#operation/GetOrgsID) in the InfluxDB v2 API. The [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) function returns usage data for your InfluxDB Organization. The [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) function requires that you specify the `start` and `stop` parameters. By default, the function returns aggregated usage data as an hourly sum. This default downsampling enables you to query usage data over long periods of time efficiently. If you want to view raw high-resolution data, query your data over a short time range (a few hours) and set `raw:true`. By default the  [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) returns usage data from the InfluxDB Org you’re currently using. To query an outside InfluxDB Cloud Org, supply the `host`, `orgID`, and `token` parameters. The [usage.from()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/from/) returns usage data with the following schema:
+
+
+
+* _time: the time of the usage event  (`raw:true`) or downsampled usage data (`raw:false`).
+* _bucket_id: the bucket id for each bucket specific usage, like the storage_usage_bucket_bytes measurement — tag.
+* _org_id: the org id for which usage data is being queried from — tag.
+* _endpoint: the InfluxDB v2 API endpoint from where usage data is being collected— tag
+* _status: the HTTP status codes — a tag.
+* _measurement: the measurements.
+    * http_request
+    * storage_usage_buckets_bytes
+    * query _count
+    * events
+* _field: the field keys
+    * resp_bytes: the number of bytes in one response or `raw:true`. In the downsampled data, `raw:false` is summed over an hour for each endpoint.
+    * gauge: the number of bytes in the bucket indicated by the bucket_id tag at the moment of time indicated by _time. If your bucket has an infinite retention policy, then the sum of your req_bytes from when you started writing data to the bucket would equal your gauge value.
+    * req_bytes: the number of bytes in one request for `raw:true`. In the downsampled data, `raw:false` is summed over an hour for each endpoint.
+    * event_type_limited_cardinality: the number of cardinality limit events.
+    * event_type_limited_query: the number of query limit events.
+    * event_type_limited_write: the number of write limit events.
+
+The [usage.limits()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/) function maps to the [org/{orgID}/limits endpoint](https://docs.influxdata.com/influxdb/v2.0/api/#operation/GetOrgsID) in the InfluxDB v2 API. The [usage.limits()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/) returns a record, specifically a json object, of the usage limits associated with your InfluxDB Cloud Org. To return the record in either VS Code or the InfluxDB UI, I suggest using the [array.from](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/array/from/) function like so:
+
+
+```
+import "experimental/usage"
+import "array"
+limits = usage.limits()
+array.from(rows: [{
+    orgID: limits.orgID,
+    wrte_rate: limits.rate.writeKBs,
+    query_rate: limits.rate.readKBs,
+    bucket: limits.bucket.maxBuckets,
+    task: limits.maxTasks,
+    dashboard: limits.dashboard.maxDashboards,
+    check: limits.check.maxChecks,
+    notificationRule: limits.notificationRule.maxNotifications,
+}])
+```
+
+
+The Flux above is essentially converting the json output to Annotated CSV with the use of the [array.from](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/array/from/) function. Here is an example of the json object that [usage.limits()](https://docs.influxdata.com/influxdb/cloud/reference/flux/stdlib/experimental/usage/limits/) returns to help you understand where the nested json keys are coming from.
+
+
+```
+{
+  orgID: "123",
+  rate: {
+    readKBs: 1000,
+    concurrentReadRequests: 0,
+    writeKBs: 17,
+    concurrentWriteRequests: 0,
+    cardinality: 10000
+  },
+  bucket: {
+    maxBuckets: 2,
+    maxRetentionDuration: 2592000000000000
+  },
+  task: {
+    maxTasks: 5
+  },
+  dashboard: {
+    maxDashboards: 5
+  },
+  check: {
+    maxChecks: 2
+  },
+  notificationRule: {
+    maxNotifications: 2,
+    blockedNotificationRules: "comma, delimited, list"
+  },
+  notificationEndpoint: {
+    blockedNotificationEndpoints: "comma, delimited, list"
+  }
+}
+```
+
+
+
+## Using the Cardinality Limit Alert Task
+
+The Cardinality Limit Alert Task is responsible for determining when you have reached or exceeded your cardinality limits and sending an alert to a Slack endpoint. In order to make this task functional and send alerts to your Slack, you must edit the task and supply the webhook. You can either edit the task directly through the UI, or you can use the CLI and the Flux extension for Visual Studio code. For this one-line edit, I recommend using the UI.
+
+
+![alt_text]({{site.url}}/assets/images/part-3/monitoring-and-managing-influxdb/13-cardinality-alert.png  "image_tooltip")
+_Navigate to the Tasks page, click on the Cardinality Limit Alert task to edit, edit line 7 and provide your Slack webhook, then hit save to make the Cardinality Limit Alert task functional._
+
+​​ 
 
 [Next Section]({{site.url}}/docs/part-3/vs-code-integration){: .btn .btn-purple}

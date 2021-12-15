@@ -405,7 +405,7 @@ For example, if you query with a range of 5  minutes in the past (`range(start: 
 When you are filtering, you therefore have all of these columns to work from.
 
 
-![drawing]({{site.baseurl}}/assets/images/image-27.png)
+![drawing]({{site.url}}/assets/images/image-27.png)
 
 
 
@@ -10635,7 +10635,7 @@ You can also return entire arrays that contain the values from a single column w
 * `fn`: The predicate function for returning the table with matching keys, provided by the user. 
 * `column`: The column of the records you want to extract in an array. 
 
-Let’s replace the findRecord() function from the last example in the previous section, [Returning records]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#returning-records), with findColumn(). 
+Let’s replace the findRecord() function from the last example in the previous section, [Returning records]({{site.url}}/docs/part-2/querying-and-data-transformations/#returning-records), with findColumn(). 
 
 
 ```js
@@ -10863,7 +10863,7 @@ data
 </table>
 
 
-Generally, the reduce() function isn’t more performant than built-in aggregators and selectors. Therefore, you shouldn’t use the query above to calculate the min, max, and mean. Instead, store your data in a variable and apply the min(), max(), and mean() functions separately with corresponding yield() functions to simultaneously deliver the results, as described previously in the [Yielding section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#yielding). 
+Generally, the reduce() function isn’t more performant than built-in aggregators and selectors. Therefore, you shouldn’t use the query above to calculate the min, max, and mean. Instead, store your data in a variable and apply the min(), max(), and mean() functions separately with corresponding yield() functions to simultaneously deliver the results, as described previously in the [Yielding section]({{site.url}}/docs/part-2/querying-and-data-transformations/#yielding). 
 
 The reducer() function is intended to be used to apply custom aggregations. For example, the following example uses the reducer() function to find the necessary variables used to calculate the slope and y-intercept for linear regression:
 
@@ -11259,7 +11259,7 @@ data
 
  
 
-Truncating timestamps is similar to the section on [Windowing]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#windowing). The window() function groups data by start and stop times. This allows you to perform aggregations across different fields or tags that have different timestamps. Similarly you can aggregate across fields by truncating timestamps to align series with different intervals. Given the following data: 
+Truncating timestamps is similar to the section on [Windowing]({{site.url}}/docs/part-2/querying-and-data-transformations/#windowing). The window() function groups data by start and stop times. This allows you to perform aggregations across different fields or tags that have different timestamps. Similarly you can aggregate across fields by truncating timestamps to align series with different intervals. Given the following data: 
 
 
 
@@ -11730,7 +11730,7 @@ The [Flux string package](https://docs.influxdata.com/influxdb/cloud/reference/f
 * Replace, split, or join strings
 * And much more
 
-For example we could replace the query in [The Regexp Package]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#the-regexp-package) section with: 
+For example we could replace the query in [The Regexp Package]({{site.url}}/docs/part-2/querying-and-data-transformations/#the-regexp-package) section with: 
 
 
 
@@ -11839,13 +11839,13 @@ The most common reason for joining data is to perform math across measurements. 
 You are an operator at a chemical plant, and you need to monitor the temperatures of a counter-current heat exchanger. You collect temperatures of the cold (TC) and hot (TH) streams from four different temperature sensors. There are two inlet (Tc2, Th1) sensors and two outlet (Tc1, Th2) sensors at positions x1 and x2 respectively.
 
 
-![heat exchanger]({{site.baseurl}}/assets/images/image-28.png)
+![heat exchanger]({{site.url}}/assets/images/image-28.png)
 
 
 After making some assumptions, you can calculate the efficiency of heat transfer with this formula:
 
 
-![formula]({{site.baseurl}}/assets/images/image-29.png)
+![formula]({{site.url}}/assets/images/image-29.png)
 
 
 Where…
@@ -12863,4 +12863,4 @@ To downsample the data temperature from the Air Sensor sample dataset, you might
 Use the to() function to write the data to a destination bucket. Destination buckets usually have a longer retention policy than the source bucket to conserve on disk space. Running this query will write the materialized view to the "airSensors_materializedView" bucket once. However, users typically perform downsampling on a schedule, or a task. Using tasks to create materialized views will be covered in detail in Part 3. 
 
 
-[Next Section]({{site.baseurl}}/docs/part-2/deletes){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/deletes){: .btn .btn-purple}

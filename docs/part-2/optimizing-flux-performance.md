@@ -64,7 +64,7 @@ The [annotated CSV](https://docs.influxdata.com/influxdb/cloud/reference/syntax/
 
 
 
-![ui]({{site.baseurl}}/assets/images/image-30.png)
+![ui]({{site.url}}/assets/images/image-30.png)
 
 
 **Don’t** use drop() unnecessarily after a join():
@@ -89,7 +89,7 @@ join(tables: {bucket1: bucket1, bucket2: bucket2}, on: ["_start","_stop""_time",
 To yield the same result:
 
 
-![ui]({{site.baseurl}}/assets/images/image-31.png)
+![ui]({{site.url}}/assets/images/image-31.png)
 
 
 
@@ -172,7 +172,7 @@ from(bucket: "noaa")
 Yields the following tables from the Profiler:
 
 
-![]({{site.baseurl}}/assets/images/image-32.png)
+![]({{site.url}}/assets/images/image-32.png)
 
 
 The Flux Profiler outputs performance information about your query in nanoseconds.
@@ -213,7 +213,7 @@ Also notice that I switch the order of the functions and apply [drop()](https://
 If you haven’t given it a try already, I encourage you to install the [Flux extension](https://marketplace.visualstudio.com/items?itemName=influxdata.flux) for [Visual Studio Code](https://www.google.com/search?q=visual+studio+code&oq=visual+stu&aqs=chrome.1.0i433l2j69i57j0i433j0j0i433j69i60j69i61.2304j1j7&sourceid=chrome&ie=UTF-8). To query your InfluxDB Cloud account with the Flux extension, you must first configure it and [connect to your cloud account](https://docs.influxdata.com/influxdb/v2.0/tools/flux-vscode/#connect-to-influxdb). I enjoy using the Flux extension and VS Code when trying to debug complicated Flux scripts or trying to optimize the performance of my Flux scripts because I can save my Flux scripts and compare outputs from the Profiler simultaneously.
 
 
-![]({{site.baseurl}}/assets/images/image-33.png)
+![]({{site.url}}/assets/images/image-33.png)
 
 The original “bad_join” query (red) is commented out because I ran it first. Its TotalDuration time was 17608617 ns. Joining on multiple like-columns and removing the drop() improves the performance to 14160858 ns.
 
@@ -253,4 +253,4 @@ When asking for help with optimizing the performance of your Flux script, whethe
 Including as much of this information in a post will help us assist you better and more quickly. The above points also apply to issues with hitting memory limits.
 
 
-[Part 3]({{site.baseurl}}/docs/part-2/part-3){: .btn .btn-purple}
+[Part 3]({{site.url}}/docs/part-2/part-3){: .btn .btn-purple}

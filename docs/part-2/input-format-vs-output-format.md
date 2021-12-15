@@ -1062,7 +1062,7 @@ There is an excellent [repository of semi-live line protocol data](https://githu
 3. [NOAA National Buoy Center Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#noaa-ndbc-data): This dataset  provides the latest observations from the NOAA NDBC network of buoys. It contains a large number of tags and fields.
 4. [USGS Earthquake Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#usgs-earthquake-data). The United States Geological Survey (USGS) earthquake dataset contains seismic activity data. This is a very large dataset, and contains even more tags and fields.
 
-While you can simply copy the Flux from any of the real world sample datasets into the **Script Editor** in the **Data Explorer** and visualize the data. I recommend creating a bucket and using the to() function to write the data to that bucket, as described in [Write and Query Sample Data]({{site.baseurl}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data) in Part 1. Writing the data to a bucket in InfluxDB allows you to use Flux to explore the schema of your dataset. 
+While you can simply copy the Flux from any of the real world sample datasets into the **Script Editor** in the **Data Explorer** and visualize the data. I recommend creating a bucket and using the to() function to write the data to that bucket, as described in [Write and Query Sample Data]({{site.url}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data) in Part 1. Writing the data to a bucket in InfluxDB allows you to use Flux to explore the schema of your dataset. 
 
 **Important Note:** You might hit your series cardinality limit for Free Tier accounts if you write the larger datasets to InfluxDB. I recommend just writing the  [Air Sensor Data](https://docs.influxdata.com/influxdb/v2.0/reference/sample-data/#air-sensor-sample-data) if you’re using the Free Tier account. 
 
@@ -2211,4 +2211,4 @@ The line protocol would result in the following series and tables on disk. Each 
   </tr>
 </table>
 
-[Next Section]({{site.baseurl}}/docs/part-2/designing-your-schema){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/designing-your-schema){: .btn .btn-purple}

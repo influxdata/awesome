@@ -114,7 +114,7 @@ With the exception of tables passed through the pipe forward operator, all Flux 
 
 ## Flux Parameter Types Can Be Overloaded
 
-In many cases, a single parameter can accept arguments of multiple types. This is covered in detail in the case of the [range() section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations/#range) in the next section.
+In many cases, a single parameter can accept arguments of multiple types. This is covered in detail in the case of the [range() section]({{site.url}}/docs/part-2/querying-and-data-transformations/#range) in the next section.
 
 
 ## Pipe Forwarding
@@ -180,7 +180,7 @@ The consequence of the pipe forward operator is that Flux functions operate on e
 
 You cannot ask Flux to operate on one table, but not others. Nor can you ask Flux to operate on one row, but not others. Every row in every table will undergo the same transformations. 
 
-![ui]({{site.baseurl}}/assets/images/image-26.png)
+![ui]({{site.url}}/assets/images/image-26.png)
 
 
 ## Flux Supports Only Very Limited Looping
@@ -259,4 +259,4 @@ csv.from(csv: csvData, mode: "raw")
 |> yield()
 ```
 
-[Next Section]({{site.baseurl}}/docs/part-2/querying-and-data-transformations){: .btn .btn-purple}
+[Next Section]({{site.url}}/docs/part-2/querying-and-data-transformations){: .btn .btn-purple}
