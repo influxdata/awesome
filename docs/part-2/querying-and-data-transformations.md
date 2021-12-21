@@ -1293,7 +1293,7 @@ from(bucket: "bucket1")
 ```
 
 
-Note that an extra row has been added to each table to denote if each column is part of the group key. The start column has been removed from the table response for simplicity. The table column has been added to help you keep track of the number of columns Remember, the group key for the table column is an exception and it’s always set to false. The group key for the table is set to false because users can’t directly change the table number. The table record will always be the same across rows even though the group key is set to false. 
+Note that an extra row has been added to each table to denote if each column is part of the group key. The start column has been removed from the table response for simplicity. The table column has been added to help you keep track of the number of columns. Remember, the group key for the table column is an exception and it’s always set to false. The group key for the table is set to false because users can’t directly change the table number. The table record will always be the same across rows even though the group key is set to false. 
 
 
 <table>
