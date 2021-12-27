@@ -70,7 +70,7 @@ now() always returns the time when a Flux script is scheduled to start execution
 
 
 
-1. If your script is not run as part of a task, now() will return the time at the very start of execution of the script. If there are any delays, for example due to queuing as a result of excessive load, etc… now() will begin 
+1. If your script is not run as part of a task, now() will return the time at the very start of execution of the script. If there are any delays, for example due to queuing as a result of excessive load, etc… now() will the time when the script was scheduled to run.
 2. If your script is running as part of a task, now() will return the time that  your script was scheduled to run.
 3. Every call to now() in the script will return the same time.
 
