@@ -636,7 +636,7 @@ For now, let's focus on understanding how line protocol results in different ser
 
 ```js
 measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" 1626118680000000000
-measurement1,tag1="tagvalue2",tag2="tagvalue3"  field1=2i,field2=2,field3="b" 1626118740000000000
+measurement1,tag1="tagvalue2",tag2="tagvalue3" field1=2i,field2=2,field3="b" 1626118740000000000
 ```
 
 
@@ -663,7 +663,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue1
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field1
    </td>
@@ -696,7 +696,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue1
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field2
    </td>
@@ -729,7 +729,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue1
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field3
    </td>
@@ -762,7 +762,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue2
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field1
    </td>
@@ -795,7 +795,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue2
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field2
    </td>
@@ -828,7 +828,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
    </td>
    <td>tagvalue2
    </td>
-   <td>tagvalue2
+   <td>tagvalue3
    </td>
    <td>field3
    </td>
@@ -984,7 +984,7 @@ As a result, the first series contains two points because those two points have 
    </td>
    <td>tagvalue1
    </td>
-   <td>tagvalue2
+   <td>tagvalue4
    </td>
    <td>field1
    </td>
@@ -998,7 +998,7 @@ As a result, the first series contains two points because those two points have 
    </td>
    <td>tagvalue1
    </td>
-   <td>tagvalue2
+   <td>tagvalue4
    </td>
    <td>field1
    </td>
