@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Introduction to Flux
+description: "Part 2: Introduction to Flux"
 parent: Part 2
 nav_order: 4
 ---

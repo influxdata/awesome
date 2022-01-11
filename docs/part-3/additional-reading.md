@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Additional Reading
+description: "Part 3: Additional Reading"
 parent: Part 3
 nav_order: 8
 ---

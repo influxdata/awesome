@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Flux API Invokable Scripts and Parameterized Queries
+description: "Part 3: Flux API Invokable Scripts and Parameterized Queries"
 parent: Part 3
 nav_order: 5
 ---

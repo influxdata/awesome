@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Introduction to InfluxDB
+description: "Part 1: Introduction to InfluxDB"
 parent: Part 1
 nav_order: 1
 ---

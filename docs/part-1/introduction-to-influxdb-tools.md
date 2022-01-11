@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Introduction to InfluxDB Tools
+description: "Part 1: Introduction to InfluxDB Tools"
 parent: Part 1
 nav_order: 2
 ---

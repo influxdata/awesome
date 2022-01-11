@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Checks and Notifications
+description: "Part 3: Checks and Notifications"
 parent: Part 3
 nav_order: 4
 ---

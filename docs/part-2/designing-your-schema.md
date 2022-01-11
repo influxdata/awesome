@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Designing Your Schema
+description: "Part 2: Designing Your Schema"
 parent: Part 2
 nav_order: 3
 ---

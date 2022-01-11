@@ -1,6 +1,7 @@
 ---
 layout: default
 title: InfluxDB Data Model
+description: "Part 2: The InfluxDB Data Model"
 parent: Part 2
 nav_order: 1
 ---
