@@ -324,7 +324,7 @@ For our simple example, we have:
 * measurement1: a `measurement.`
 
 We use the following command to write the data to InfluxDB: 
-`influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skip-header`
+`influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skipHeader`
 
 Finally, it's worth being aware of the `--rate-limit` flag. This flag allows you to throttle your write rate to avoid exceeding write rate limits. We append the previous command to include the `--rate-limit` flag, for demonstration purposes. This example CSV doen't require the use of the `--rate-limit` flag, but to write any signifcant CSV to InfluxDB the use of that flag is recommended. 
 `influx write dryrun  -b mybucket -f ~/path/to/writeCSV.csv --header "#datatype dateTime:2006-01-02T15:04:05Z07:00,tag,tag,double,measurement" --skip-header --rate-limit "1MB/s"`
