@@ -316,7 +316,7 @@ filter(fn: (r) => r._measurement != "measurement1")
 
 When read from the storage engine and passed into the filter function, by default, before being transformed by other functions, every row has the same essential object model. Flux uses a leading underscore (“`_`”) to delineate reserved member names. In Flux, each member of a row is called a “column,” or sometimes a “field” depending on the context. 
 
-Drawing from a row of the example air sensor data, we can see how this is represented as a row in Flux.
+We can see how this is generally represented as a row in Flux.
 
 
 <table>
@@ -796,7 +796,7 @@ To illustrate that point, take the following two tables. Each record has a diffe
    </td>
    <td>1i
    </td>
-   <td>rfc3339time1
+   <td>rfc3339time3
    </td>
   </tr>
   <tr>
@@ -808,7 +808,7 @@ To illustrate that point, take the following two tables. Each record has a diffe
    </td>
    <td>2i
    </td>
-   <td>rfc3339time2
+   <td>rfc3339time4
    </td>
   </tr>
 </table>
