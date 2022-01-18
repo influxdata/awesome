@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Input Format vs Output Format
+description: "Part 2: Input Format vs Output Format"
 parent: Part 2
 nav_order: 2
 ---

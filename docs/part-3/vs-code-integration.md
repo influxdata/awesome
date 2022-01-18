@@ -1,6 +1,7 @@
 ---
 layout: default
 title: VS Code Integration
+description: "Part 3: VS Code Integration"
 parent: Part 3
 nav_order: 6
 ---

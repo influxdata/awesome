@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Deletes
+description: "Part 2: Deletes"
 parent: Part 2
 nav_order: 6
 ---

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Writing and Querying Data
+description: "Part 3: Writing and Querying Data"
 parent: Part 3
 nav_order: 1
 ---

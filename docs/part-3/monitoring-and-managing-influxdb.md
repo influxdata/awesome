@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Monitoring and Managing InfluxDB
+description: "Part 3: Monitoring and Managing InfluxDB"
 parent: Part 3
 nav_order: 6
 ---

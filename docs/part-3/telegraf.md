@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Telegraf
+description: "Part 3: Telegraf"
 parent: Part 3
 nav_order: 2
 ---

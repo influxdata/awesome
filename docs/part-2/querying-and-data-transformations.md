@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Querying and Data Transformations
+description: "Part 2: Querying and Data Transformations"
 parent: Part 2
 nav_order: 5
 ---

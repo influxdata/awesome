@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Optimizing Flux Performance
+description: "Part 2: Optimizing Flux Performance"
 parent: Part 2
 nav_order: 7
 ---

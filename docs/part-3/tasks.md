@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Tasks
+description: "Part 3: Tasks"
 parent: Part 3
 nav_order: 3
 ---

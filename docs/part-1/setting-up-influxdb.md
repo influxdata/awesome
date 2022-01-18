@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Setting Up InfluxDB
+description: "Part 1: Setting up InfluxDB"
 parent: Part 1
 nav_order: 3
 ---
