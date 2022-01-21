@@ -116,7 +116,7 @@ The most common schema design mistakes that can lead to runaway cardinality are:
 
 **Solution 2: **Instead encode that information as tags like so: `cpu, host=server-5, region = us-west, usage_user=20.0`
 
-**Mistake 3**: Making ids (such as eventid, orderid, or userid) a tag. This is another example that can cause unbounded cardinality if the tag values aren’t scoped.
+**Mistake 3**: Making ids (such as eventid, orderid, etc...) a tag. This is another example that can cause unbounded cardinality if the tag values aren’t scoped.
 
 **Solution 3**: Instead, make these metrics a field.
 
