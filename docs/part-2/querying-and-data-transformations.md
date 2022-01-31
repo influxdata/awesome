@@ -5312,14 +5312,13 @@ from(bucket: "bucket1")
 
 ## Windowing 
 
-Windowing is when you group data by the start and stop times with the window() function. In previous sections the _start and _stop columns have been omitted for simplicity because they typically represent the start and stop times defined in the range function.  To illustrate let’s filter our data for the first two tables and include the _start and _stop columns:
+Windowing is when you group data by the start and stop times with the window() function. In previous sections the _start and _stop columns have been omitted for simplicity because they usually represent the start and stop times defined in the range function and their values remain unchanged. However, the [window()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/) function affects the values of the _start and _stop columns so we'll include these columns in this section. The window() function doesn't affect the _time column, so we'll exclude this column to simplify the examples in this section. To illustrate how the window() function works let’s filter our data for tagvalue1 and tagvalue4 and include the _start and _stop columns:
 
 
 ```js
 from(bucket: "bucket1")
   |> range(start: 2021-08-17T00:00:00, stop:2021-08-17T3:00:00 )
   |> filter(fn: (r) => r["tag1"] == "tagvalue1" or r["tag1"] == "tagvalue4")
-  |> filter(fn: (r) => r["tag2"] == "tagvalue2")
   |> filter(fn: (r) => r["_field"] == "field1")  
 ```
 
@@ -5501,6 +5500,7 @@ from(bucket: "bucket1")
   |> filter(fn: (r) => r["tag1"] == "tagvalue1" or r["tag1"] == "tagvalue4")
   |> filter(fn: (r) => r["tag2"] == "tagvalue2") 
   |> window(period: 90m)
+  // the following syntax is synonymous with the line above |> window(every: 90m)
 ```
 
 <table>
@@ -5761,10 +5761,10 @@ from(bucket: "bucket1")
   </tr>
 </table>
 
+The boundary for the window period, as defined by either the `period` or `every` paramenter, is not based on execution time or the timestamps of any points returned by the range function. Instead windowing occurs at the top of the second, minute, hour, month, year. Additoinally, The window boundaries or groupings won't exceed the timestamps of the data you return from the range function. For example, imagine the following scenario:
+You query for data with `|> range(start: 2022-01-20T20:18:00.000Z, stop: 2022-01-20T21:19:25.000Z)` and your last record has a timestamp in that range of `2022-01-20T20:19:20.000Z`. You're `every`/`period`duration is 30s. Then your last window group will have a _start value of `2022-01-20T20:19:00.000Z` and a _stop of value of `2022-01-20T20:19:30.000Z`. Notice how window grouping does not extend until the stop value specified by the range function. Instead, the grouping stops to include the final point. 
 
 Windowing is performed for two main reasons:
-
-
 
 1. To aggregate data across fields or tags with timestamps in the same period.
 2. To transform high precision series into a lower resolution aggregation.
@@ -5776,7 +5776,6 @@ To aggregate data across fields or tags with similar timestamps, you can first a
 from(bucket: "bucket1")
   |> range(start: 2021-08-17T00:00:00, stop:2021-08-17T3:00:00 )
   |> filter(fn: (r) => r["tag1"] == "tagvalue1" or r["tag1"] == "tagvalue4")
-  |> filter(fn: (r) => r["tag2"] == "tagvalue2") 
   |> window(period: 90m)
   |> group(columns: ["_start"], mode:"by")
   |> yield(name:"after group")
@@ -6079,10 +6078,53 @@ The result after the first yield, “after sum” looks like:
 
 The sum() function is an aggregator so the _time column is removed because there isn’t a timestamp associated with the sum of two values. Keep in mind that in this example the timestamps in the _time column in the “after group” output happen to be the same, but this aggregation across fields within time windows would work even if the timestamps were different. The _time column isn’t a part of the group key. 
 
+### Windowing back in time
+When you apply the window() function, you group data on forward in time or create window bounds that align with the start of your data. You can't windown back it time, but you can produce the same effect by using the [offset parameter](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/#offset). This parameter specifies the duration to shift the window boundaries by. You can use the offset parameter to make the windows always align with the current time which effectively groups the data backwards in time. 
+```js
+option offset = duration(v: int(v: now()))
+
+data = from(bucket: "bucket1")
+  |> range(start: -1m)
+  |> filter(fn: (r) => r["_measurement"] == "measurement1")
+  |> yield(name: "data")
+
+data 
+  |> aggregateWindow(every: 30s, fn: mean, createEmpty: false, offset: offset)
+  |> yield(name: "offset effectively windowning backward in time")
+```
+
+Alternatively, you could calculate the duration difference between your actual start time and the required start time so that your windows align with stop time instead. Then you could add that duration to the start with the offset parameter. The previous approach is the recommended approach, but examining multiple approaches lends us an appreciation for the power and flexibility that Flux provides. 
+```js
+data = from(bucket: "bucket1")
+  |> range(start: 2021-08-19T19:23:37.000Z, stop: 2021-08-19T19:24:18.000Z )
+  |> filter(fn: (r) => r["_measurement"] == "measurement1")
+
+lastpoint = data |> last() |> findRecord(fn: (key) => true , idx:0 )
+// the first point is 2021-08-19T19:24:15.000Z
+firstpoint = data |> first() |> findRecord(fn: (key) => true , idx:0 )
+// the first point is 2021-08-19T19:23:40.000Z
+
+time1 = uint(v: firstpoint._time)
+// 1629401020000000000
+time2 = uint(v: lastpoint._time)
+// 1629401055000000000
+
+mywindow = uint(v: 15s) 
+
+remainder = math.remainder(x: float(v:time2) - float(v:time1), y: float(v:mywindow))
+// remainder of (1629401055000000000 - 1629401055000000000)/15000000000 = 5000000000
+
+myduration = duration(v: uint(v: remainder)) 
+//5s
+
+data
+  |> aggregateWindow(every: 15s, fn: mean, offset: myduration) 
+  ```
+
 
 ## Windowing and aggregateWindow()
 
-The most common reason for using the window() function is to transform high precision data into lower resolution aggregations. Simply applying a sum() after a window would calculate the sum of the data for each series within the window period. To better illustrate window() function let’s look at the following simplified input data: 
+The most common reason for using the [window() function](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/) is to transform high precision data into lower resolution aggregations. Simply applying a sum() after a window would calculate the sum of the data for each series within the window period. To better illustrate window() function let’s look at the following simplified input data: 
 
 
 <table>
@@ -6185,7 +6227,7 @@ The most common reason for using the window() function is to transform high prec
 </table>
 
 
-The following query would return two tables with the sum for all the points in the series within a 90 min window: 
+The _time column has been removed because the window() function doesn't affect the values of the _time column. It only affects the values of the _start and _stop columns. The window() function calculates windows of time based of the duration specified with the `period` or `every` parameter and groups the records based on the bounds of that window period.  The following query would return one table with the sum for all the points in the series within a 90 min window: 
 
 
 ```js
@@ -6241,7 +6283,6 @@ from(bucket: "bucket1")
    </td>
   </tr>
 </table>
-
 
 By using the window() function following an aggregation function, we’ve  reduced the number of points in our series by half. We’ve transformed a higher resolution data set into a lower resolution sum over 90 min windows.  This combination of functions introduces another similar function, the aggregateWindow() function. 
 
