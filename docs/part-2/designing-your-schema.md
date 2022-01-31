@@ -77,7 +77,7 @@ In this instance the “tag2” tag key is a dependent tag because its tag value
 
 Again, each series is identified by their unique tag keys, tag values, and field key combinations.  Because a series is defined in part by a unique set of tag _values_, in this case, the introduction of tag2 does not change the table or series count in the underlying data model. Therefore to correctly calculate the series cardinality, **remove **the dependent tag, “tag2” from the equation:
 
-**1** measurement x **2** tag values for “tag1” x** 3** fields = **6 **actual** **series cardinality  
+**1** measurement x **2** tag values for “tag1” x** 3** fields = **6** actual series cardinality  
 
 
 ## Runaway Cardinality 
@@ -114,7 +114,7 @@ The most common schema design mistakes that can lead to runaway cardinality are:
 
 **Mistake 2**: Too many measurements.  This typically happens when people are moving from —or think of InfluxDB as— a key-value store. So for example, if you’re writing system stats to an InfluxDB instance you might be inclined to write data like so: `Cpu.server-5.us-west.usage_user value=20.0`
 
-**Solution 2: **Instead encode that information as tags like so: `cpu, host=server-5, region = us-west, usage_user=20.0`
+**Solution 2**: Instead encode that information as tags like so: `cpu, host=server-5, region = us-west, usage_user=20.0`
 
 **Mistake 3**: Making ids (such as eventid, orderid, etc...) a tag. This is another example that can cause unbounded cardinality if the tag values aren’t scoped.
 
@@ -133,7 +133,7 @@ Understanding how to properly use tags can not only help prevent runaway series 
 * **8 tag values**: TLM0100, TLM0101, TLM0102, TLM0103, TLM0200, TLM0101, TLM0202, TLM0203
 
 
-![ui]({{site.url}}/assets/images/image-24.png)
+![ui]({{site.url}}/assets/images/part-2/designing-your-schema/1-using-tags-airsensor.png)
 *Visualizing co, humidity, and temperature for th TLM0100 sensor from the Air sensor sample dataset after writing it to InfluxDB with the to() function as described in [Write and Query Sample Data]({{site.url}}/docs/part-1/introduction-to-influxdb/#write-and-query-sample-data).*
 
 
@@ -174,7 +174,7 @@ As covered in the previous section, tag keys are grouped by the storage engine b
 
 To illustrate how indexing improves query performance, let’s consider the Air sensor sample dataset. Remember, the specific sensors that gather air quality data are tagged with a “sensor_id”. Now imagine that you want to query the dataset for all of the data from a specific sensor with a unique “sensor_id” value. When you apply a filter to query for a single tag value, the storage engine can use the indexed tag to quickly find the relevant table in the storage engine and return all the data associated with that tag value quickly. 
 
-![architecture drawing]({{site.url}}/assets/images/image-25.png)
+![architecture drawing]({{site.url}}/assets/images/part-2/designing-your-schema/2-filtering-for-tag.png)
 *Filtering for a TLM0100 tag value from the “sensor_id” tag.*
 
 
