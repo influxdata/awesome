@@ -406,7 +406,8 @@ For example, if you query with a range of 5  minutes in the past (`range(start: 
 When you are filtering, you therefore have all of these columns to work from.
 
 
-![drawing]({{site.url}}/assets/images/image-27.png)
+
+![drawing]({{site.url}}/assets/images/part-2/querying-and-data-transfomrations/image-27.png)
 
 
 
@@ -11881,13 +11882,13 @@ The most common reason for joining data is to perform math across measurements. 
 You are an operator at a chemical plant, and you need to monitor the temperatures of a counter-current heat exchanger. You collect temperatures of the cold (TC) and hot (TH) streams from four different temperature sensors. There are two inlet (Tc2, Th1) sensors and two outlet (Tc1, Th2) sensors at positions x1 and x2 respectively.
 
 
-![heat exchanger]({{site.url}}/assets/images/image-28.png)
+![heat exchanger]({{site.url}}/assets/images/part-2/querying-and-data-transfomrations/image-28.png)
 
 
 After making some assumptions, you can calculate the efficiency of heat transfer with this formula:
 
 
-![formula]({{site.url}}/assets/images/image-29.png)
+![formula]({{site.url}}/assets/images/part-2/querying-and-data-transfomrations/image-29.png)
 
 
 Where…

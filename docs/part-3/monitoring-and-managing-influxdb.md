@@ -364,3 +364,7 @@ _Navigate to the Tasks page, click on the Cardinality Limit Alert task to edit, 
 ​​ 
 
 [Next Section]({{site.url}}/docs/part-3/vs-code-integration){: .btn .btn-purple}
+
+#### Further Reading
+1. [TL;DR InfluxDB Tech Tips – Using and Understanding the InfluxDB Cloud Usage Template](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-using-and-understanding-the-influxdb-cloud-usage-template/)
+2. [Using the New Flux Usage API to Calculate Pricing for InfluxDB Cloud](https://www.influxdata.com/blog/using-the-new-flux-usage-api-to-calculate-pricing-for-influxdb-cloud/)

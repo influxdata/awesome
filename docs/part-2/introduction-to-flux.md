@@ -181,7 +181,7 @@ The consequence of the pipe forward operator is that Flux functions operate on e
 
 You cannot ask Flux to operate on one table, but not others. Nor can you ask Flux to operate on one row, but not others. Every row in every table will undergo the same transformations. 
 
-![ui]({{site.url}}/assets/images/image-26.png)
+![ui]({{site.url}}/assets/images/part-2/introduction-to-flux/image-26.png)
 
 
 ## Flux Supports Only Very Limited Looping
@@ -261,3 +261,8 @@ csv.from(csv: csvData, mode: "raw")
 ```
 
 [Next Section]({{site.url}}/docs/part-2/querying-and-data-transformations){: .btn .btn-purple}
+
+#### Further Reading
+1. [Flux Specification](https://github.com/influxdata/flux/blob/master/docs/SPEC.md)
+2. [Get started with Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
+3. [Flux Documentation](https://docs.influxdata.com/flux/v0.x/)

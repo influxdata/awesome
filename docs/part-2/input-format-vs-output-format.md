@@ -2213,3 +2213,7 @@ The line protocol would result in the following series and tables on disk. Each 
 </table>
 
 [Next Section]({{site.url}}/docs/part-2/designing-your-schema){: .btn .btn-purple}
+
+## Further Reading
+1.  [TL;DR InfluxDB Tech Tips – How to Interpret an Annotated CSV](https://www.influxdata.com/blog/tldr-tech-tips-how-to-interpret-an-annotated-csv/)
+2.  [Line Protocol](https://docs.influxdata.com/influxdb/v2.1/reference/syntax/line-protocol/)

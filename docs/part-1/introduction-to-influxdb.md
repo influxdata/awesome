@@ -93,3 +93,11 @@ Easily query your data through the UI by using the **Query Builder**. Simply sel
 ![ui]({{site.url}}/assets/images/part-1/introduction-to-influxdb/4-verify-ui-write.png)
 
 [Next Section]({{site.url}}/docs/part-1/introduction-to-influxdb-tools){: .btn .btn-purple}
+
+## Further Reading
+1.  [Getting Started with InfluxDB Cloud](https://docs.influxdata.com/influxdb/cloud/get-started/)
+2.  [Sample Datasets](https://docs.influxdata.com/influxdb/cloud/reference/sample-data/#sample-datasets)
+3.  [Query Data in InfluxDB](https://docs.influxdata.com/influxdb/cloud/query-data/)
+4.  [Write Data to Sources](https://docs.influxdata.com/flux/v0.x/write-data)
+5.  [TL;DR InfluxDB Tech Tips — the Easiest Way to Use and Create InfluxDB Templates](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-easiest-way-to-use-and-create-influxdb-templates/)
+6.  [InfluxDB Community Templates](https://github.com/influxdata/community-templates)

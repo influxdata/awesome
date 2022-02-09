@@ -91,8 +91,6 @@ The **Getting Started** home page highlights some of the key functionality of In
 
 These panels will redirect you to corresponding pages available through the navigation bar to the right. In this section we’ll focus on the most critical areas of the InfluxDB UI for getting started with InfluxDB:
 
-
-
 * User and Account Information icon
 * Explorer 
 
@@ -101,18 +99,18 @@ We’ll dive into the other areas later on.
 
 ### User and Account Information
 
-The **User and Account Information** icon redirects you to corresponding **Usage**, **Billing**, and **Organization** (from the **Users** and **Accounts** options) pages:
+The **User and Account Information** icon redirects you to corresponding **Account** and **Organization** pages:
 
 
-![user and account]({{site.url}}/assets/images/part-1/setting-up-influxdb/6-user-and-account.png)
+![user and account]({{site.url}}/assets/images/part-1/setting-up-influxdb/6-settings.png)
 
 
-#### About
+#### Settings
 
-The About tab in the **Organization** page provides Common ID’s that you’ll need for Authentication and Authorization within InfluxDB. These ID’s include your User ID and  Organization ID (org ID). You’ll need these ID’s to configure the CLI, use a Client, and more. 
+The Settings tab in the **Organization** page provides Common ID’s that you’ll need for Authentication and Authorization within InfluxDB. These ID’s include your User ID and  Organization ID (org ID). You’ll need these ID’s to configure the CLI, use a Client, and more. 
 
 
-![organization]]({{site.url}}/assets/images/part-1/setting-up-influxdb/7-organization.png)
+![settings tap]({{site.url}}/assets/images/part-1/setting-up-influxdb/7-settings.png)
 
 
 ### Data
@@ -342,3 +340,8 @@ After saving, the InfluxDB window should be populated.
 ![vs code populated]({{site.url}}/assets/images/part-1/setting-up-influxdb/18-influxdb-vs-code.png)
 
 [Part 2]({{site.url}}/docs/part-2){: .btn .btn-purple}
+
+## Further Reading
+1.  [Using the Flux VS Code Extension for IoT Application Development](https://www.influxdata.com/blog/using-flux-vs-code-extension-iot-application-development/)
+2. [TL;DR InfluxDB Tech Tips – How to Use the CLI Locally to Access the Flux REPL and Write a Regular CSV to InfluxDB Cloud](https://www.influxdata.com/blog/tldr-tech-tips-how-to-use-cli-locally-to-access-flux-repl-write-regular-csv-to-influxdb-cloud/)
+3. [TL;DR InfluxDB Tech Tips — the Easiest Way to Use and Create InfluxDB Templates](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-easiest-way-to-use-and-create-influxdb-templates/)

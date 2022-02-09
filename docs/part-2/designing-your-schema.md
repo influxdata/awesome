@@ -515,3 +515,10 @@ influx bucket-schema create \
 Specify the bucket that you want to create the schema for, the measurement to which your schema columns file should be applied to, and the path to your schema columns file. 
 
 [Next Section]({{site.url}}/docs/part-2/introduction-to-flux){: .btn .btn-purple}
+
+#### Further Reading
+1. [Data Layout and Schema Design Best Practices for InfluxDB](https://www.influxdata.com/blog/data-layout-and-schema-design-best-practices-for-influxdb/)
+2. [InfluxDB schema design and data layout](https://docs.influxdata.com/influxdb/v1.8/concepts/schema_and_data_layout/)
+3. [Solving Runaway Series Cardinality When Using InfluxDB](https://www.influxdata.com/blog/solving-runaway-series-cardinality-when-using-influxdb/)
+4. [Resolve high series cardinality](https://docs.influxdata.com/influxdb/cloud/write-data/best-practices/resolve-high-cardinality/)
+5.
