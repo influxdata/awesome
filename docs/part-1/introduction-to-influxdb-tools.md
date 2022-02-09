@@ -100,3 +100,12 @@ Applying an existing Community Template is as easy as copy and pasting a URL for
 A [Stack](https://docs.influxdata.com/influxdb/cloud/influxdb-templates/stacks/) is a stateful InfluxDB template that lets you add, update, and remove template resources on your InfluxDB instance. 
 
 [Next Section]({{site.baseurl}}/docs/part-1/setting-up-influxdb){: .btn .btn-purple}
+
+## Further Reading
+1. [Flux Specification](https://github.com/influxdata/flux/blob/master/docs/SPEC.md)
+2. [Get started with Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
+3. [Flux Documentation](https://docs.influxdata.com/flux/v0.x/)
+4. [Use Telegraf to write data](https://docs.influxdata.com/influxdb/v2.1/write-data/no-code/use-telegraf/)
+5. [TL;DR InfluxDB Tech Tips; Creating Tokens with the InfluxDB API](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-creating-tokens-influxdb-api/)
+6. [TL;DR InfluxDB Tech Tips; Creating Buckets with the InfluxDB API](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-creating-buckets-influxdb-api/)
+

@@ -712,3 +712,8 @@ while lp != "":
 Note that in this case, the client code always waits before resuming from where it left off. It does not try to catch up by batching up all of the failed writes and trying them all at once. **It is very important that your code does not batch failed writes and then try to write them all at once**. If your code tries to write with successively bigger and bigger payloads of line protocol, you will quickly hit a point where your batch size itself is rate limited, or that you get back a 503 error because the batch size is too big, and your code will never recover.
 
 [Next Section]({{site.url}}/docs/part-3/telegraf){: .btn .btn-purple}
+
+#### Further Reading
+1. [Getting Started with the InfluxDB API and Postman](https://www.influxdata.com/blog/getting-started-influxdb-2-0-api-postman/)
+2. [https://www.influxdata.com/blog/visualizing-time-series-data-with-highcharts-library-influxdb/](https://www.influxdata.com/blog/visualizing-time-series-data-with-highcharts-library-influxdb/)
+3. 

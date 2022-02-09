@@ -586,3 +586,4 @@ A notification is the time series data that is the output of a notification rule
 * any additional columns included in the query, resulting from the `v1.fieldsAsCols` function from the corresponding check. 
 
 [Next Section]({{site.url}}/docs/part-3/flux-api-invokable-scripts-and-parameterized-queries){: .btn .btn-purple}
+

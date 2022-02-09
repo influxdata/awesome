@@ -12907,3 +12907,15 @@ Use the to() function to write the data to a destination bucket. Destination buc
 
 
 [Next Section]({{site.url}}/docs/part-2/deletes){: .btn .btn-purple}
+
+#### Further Reading
+1. [TL;DR InfluxDB Tech Tips: Multiple Aggregations with yield() in Flux](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-multiple-aggregations-yield-flux/)
+2. [TL;DR InfluxDB Tech Tips – Aggregating across Tags or Fields and Ungrouping](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-aggregating-across-tags-or-fields-and-ungrouping/)
+3. [TL;DR InfluxDB Tech Tips: Parameterized Flux Queries with InfluxDB](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-parameterized-flux-queries-with-influxdb/)
+4. [https://www.influxdata.com/blog/top-5-hurdles-for-intermediate-flux-users-and-resources-for-optimizing-flux/](https://www.influxdata.com/blog/top-5-hurdles-for-intermediate-flux-users-and-resources-for-optimizing-flux/)
+5. [Top 5 Hurdles for Flux Beginners and Resources for Learning to Use Flux](https://www.influxdata.com/blog/top-5-hurdles-for-flux-beginners-and-resources-for-learning-to-use-flux/)
+6. [TL;DR InfluxDB Tech Tips – From Subqueries to Flux!](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-from-subqueries-to-flux/)
+7. [TL;DR InfluxDB Tech Tips – How to Extract Values, Visualize Scalars, and Perform Custom Aggregations with Flux and InfluxDB](https://www.influxdata.com/blog/tldr-tech-tips-how-to-extract-values-visualize-scalars-and-perform-custom-aggregations-with-flux-and-influxdb/)
+8. [TL;DR Tech Tips – How to Construct a Table with Flux](https://www.influxdata.com/blog/tldr-tech-tips-how-to-construct-a-table-with-flux/)
+9. [Anomaly Detection with Median Absolute Deviation](https://www.influxdata.com/blog/anomaly-detection-with-median-absolute-deviation/)
+10. 

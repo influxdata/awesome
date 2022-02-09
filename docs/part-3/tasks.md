@@ -599,3 +599,11 @@ influx task update --id 0891b50164bf6000 --status inactive
 ```
 
 [Next Section]({{site.url}}/docs/part-3/checks-and-notifications){: .btn .btn-purple}
+
+#### Further Reading
+1. [TL;DR InfluxDB Tech Tips: Debugging and Monitoring Tasks with InfluxDB](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-debugging-and-monitoring-tasks-with-influxdb/)
+2. [TL;DR InfluxDB Tech Tips: IoT Data from the Edge to Cloud with Flux](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-iot-data-edge-cloud-flux/)
+3. [TL;DR InfluxDB Tech Tips – Monitoring Tasks and Finding the Source of Runaway Cardinality](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-monitoring-tasks-and-finding-the-source-of-runaway-cardinality/)
+4. [Downsampling with InfluxDB v2.0](https://www.influxdata.com/blog/downsampling-influxdb-v2-0/)
+5. [TL;DR InfluxDB Tech Tips – How to Monitor States with InfluxDB](https://www.influxdata.com/blog/tldr-tech-tips-how-to-monitor-states-with-influxdb/)
+6. [TL;DR InfluxDB Tech Tips – Using Tasks and Checks for Monitoring with InfluxDB](https://www.influxdata.com/blog/tldr-tech-tips-using-tasks-and-checks-for-monitoring-with-influxdb/)

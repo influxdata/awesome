@@ -101,3 +101,4 @@ Easily query your data through the UI by using the **Query Builder**. Simply sel
 4.  [Write Data to Sources](https://docs.influxdata.com/flux/v0.x/write-data)
 5.  [TL;DR InfluxDB Tech Tips — the Easiest Way to Use and Create InfluxDB Templates](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-easiest-way-to-use-and-create-influxdb-templates/)
 6.  [InfluxDB Community Templates](https://github.com/influxdata/community-templates)
+7. [https://www.influxdata.com/blog/running-influxdb-2-0-and-telegraf-using-docker/](https://www.influxdata.com/blog/running-influxdb-2-0-and-telegraf-using-docker/)
