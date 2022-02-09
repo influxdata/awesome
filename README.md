@@ -13,17 +13,17 @@ Follow the [Jekyll instillation guide](https://jekyllrb.com/docs/installation/) 
 
 ## Usage
 
-Clone this repository and run `bundle exec jekyll serve` to build the site and make it available on http://localhost:4000/book.github.io/.  
+Clone this repository and run `bundle exec jekyll serve` to build the site and make it available on [http://localhost:4000/](http://localhost:4000).  
 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/influxdata/book.github.io. 
+Bug reports and pull requests are welcome on GitHub at https://github.com/influxdata/awesome. 
 
 ### Submitting code changes:
 
-- Open a [Pull Request](https://github.com/influxdata/book.github.io/pulls)
-- Review the [style-guide.md](https://github.com/influxdata/book.github.io/style-guide.md)
+- Open a [Pull Request](https://github.com/influxdata/awesome/pulls)
+- Review the [style-guide.md](https://github.com/influxdata/awesome/style-guide.md)
 - Await code review
 
 ## License
