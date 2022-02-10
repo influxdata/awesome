@@ -262,7 +262,7 @@ csv.from(csv: csvData, mode: "raw")
 
 [Next Section]({{site.url}}/docs/part-2/querying-and-data-transformations){: .btn .btn-purple}
 
-#### Further Reading
+## Further Reading
 1. [Flux Specification](https://github.com/influxdata/flux/blob/master/docs/SPEC.md)
 2. [Get started with Flux](https://docs.influxdata.com/flux/v0.x/get-started/)
 3. [Flux Documentation](https://docs.influxdata.com/flux/v0.x/)

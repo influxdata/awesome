@@ -110,5 +110,5 @@ curl -X 'POST' \
 
 [Next Section]({{site.url}}/docs/part-3/monitoring-and-managing-influxdb){: .btn .btn-purple}
 
-#### Further Reading
+## Further Reading
 1. [https://www.influxdata.com/blog/tldr-influxdb-tech-tips-api-invokable-scripts-influxdb-cloud/](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-api-invokable-scripts-influxdb-cloud/)

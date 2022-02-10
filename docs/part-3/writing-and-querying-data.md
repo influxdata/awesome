@@ -713,7 +713,7 @@ Note that in this case, the client code always waits before resuming from where 
 
 [Next Section]({{site.url}}/docs/part-3/telegraf){: .btn .btn-purple}
 
-#### Further Reading
+## Further Reading
 1. [Getting Started with the InfluxDB API and Postman](https://www.influxdata.com/blog/getting-started-influxdb-2-0-api-postman/)
 2. [https://www.influxdata.com/blog/visualizing-time-series-data-with-highcharts-library-influxdb/](https://www.influxdata.com/blog/visualizing-time-series-data-with-highcharts-library-influxdb/)
 3. 

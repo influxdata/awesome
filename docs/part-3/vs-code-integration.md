@@ -136,6 +136,6 @@ Now you can inject the parameters when you invoke the script via the API, like i
 }'
 ```
 
-#### Further Reading
+## Further Reading
 1. [Using the Flux VS Code Extension for IoT Application Development](https://www.influxdata.com/blog/using-flux-vs-code-extension-iot-application-development/)
 2. 

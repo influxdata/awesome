@@ -371,7 +371,7 @@ Telegraf requires Go version 1.17 or newer, the Makefile requires GNU make.
 
 [Next Section]({{site.url}}/docs/part-3/tasks){: .btn .btn-purple}
 
-### Further Reader 
+## Further Readering 
 1. [JSON to InfluxDB with Telegraf and Starlark](https://www.influxdata.com/blog/json-to-influxdb-with-telegraf-and-starlark/)
 2. [MQTT Topic and Payload Parsing with Telegraf](https://www.influxdata.com/blog/mqtt-topic-payload-parsing-telegraf/)
 3. [TL;DR InfluxDB Tech Tips — Time Series Forecasting with Telegraf](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-time-series-forecasting-with-telegraf/)

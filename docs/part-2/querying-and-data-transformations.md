@@ -12908,7 +12908,7 @@ Use the to() function to write the data to a destination bucket. Destination buc
 
 [Next Section]({{site.url}}/docs/part-2/deletes){: .btn .btn-purple}
 
-#### Further Reading
+## Further Reading
 1. [TL;DR InfluxDB Tech Tips: Multiple Aggregations with yield() in Flux](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-multiple-aggregations-yield-flux/)
 2. [TL;DR InfluxDB Tech Tips – Aggregating across Tags or Fields and Ungrouping](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-aggregating-across-tags-or-fields-and-ungrouping/)
 3. [TL;DR InfluxDB Tech Tips: Parameterized Flux Queries with InfluxDB](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-parameterized-flux-queries-with-influxdb/)

@@ -256,6 +256,6 @@ Including as much of this information in a post will help us assist you better a
 
 [Part 3]({{site.url}}/docs/part-2/part-3){: .btn .btn-purple}
 
-#### Further Reading
+## Further Reading
 1. [TL;DR InfluxDB Tech Tips – Optimizing Flux Performance in InfluxDB Cloud](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-optimizing-flux-performance-in-influxdb-cloud/)
 2. 
