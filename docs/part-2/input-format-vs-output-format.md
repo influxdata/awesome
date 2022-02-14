@@ -17,7 +17,7 @@ nav_order: 2
 
 ---
 
-The InfluxDB input format is line protocol. The InfluxDB output format is Annotated CSV. InfluxDB users are sometimes initially confused because using line protocol can be similar to writing a single table, but then when they query the same data, the query returns multiple tables in CSV. This is because line protocol is ingested by InfluxDB it is seperated into series. Understanding these subtle relationship between the ingestion format and time series is important for good schema design and for using InfluxDB optimally.   
+The InfluxDB input format is line protocol. The InfluxDB output format is Annotated CSV. InfluxDB users are sometimes initially confused because using line protocol can be similar to writing a single table, but then when they query the same data, the query returns multiple tables in CSV. This is because as the data formatted in line protocol is ingested by InfluxDB it is seperated into series. Understanding these subtle relationship between the ingestion format and time series is important for good schema design and for using InfluxDB optimally.   
 
 
 ## Line Protocol
