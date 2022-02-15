@@ -57,7 +57,7 @@ from(bucket: "bucket1")
 
 We can zero in a bit on the function my_filter_function and tease apart the components a bit more.  
 
-Because Flux is a functional language, functions are first class objects. So the first step is to specify the identifier (“my_filter_function”) and the assignment operator (“=”). The next part is the parameter list, in this case simple “r”, for row. Followed by the lambda operator(“ =>”). Finally, the function body itself. 
+Because Flux is a functional language, functions are first class objects. So the first step is to specify the identifier (“afilter_function”) and the assignment operator (“=”). The next part is the parameter list, in this case a simple “r”, for row. Followed by the lambda operator(“ =>”). Finally, the function body itself. 
 
 
 ```js
