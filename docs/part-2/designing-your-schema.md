@@ -100,12 +100,12 @@ _D<sub>n </sub>_= _the number of “device_id” tag values_
 
 _F = the number of field keys _
 
-Assuming your customers continue to grow, you can see how cardinality may “explode”.  For example, if you start with 5 customers each with 5 devices, each with 1 field, total cardinality is 5 * 5 * 1, or a mere 25. However, if you end up with 100,000 customer, with 10 devices each, each with 5 fields, you end up with 100,000 * 10 * 5, or 5,000,000. Whoops, you blew your cardinality limit!
+Assuming your customers continue to grow, you can see how cardinality may “explode”.  For example, if you start with 5 customers each with 5 devices, each with 1 field, total cardinality is 5 * 5 * 1, or a mere 25. However, if you end up with 100,000 customers, with 10 devices each, each with 5 fields, you end up with 100,000 * 10 * 5, or 5,000,000. Whoops, you blew your cardinality limit!
 
 
 ### Causes 
 
-The most common schema design mistakes that can lead to runaway cardinality are: \
+The most common schema design mistakes that can lead to runaway cardinality are: 
 
 
 **Mistake 1**: Log messages as tags.
