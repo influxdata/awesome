@@ -5,7 +5,6 @@ description: "Part 2: Input Format vs Output Format"
 parent: Part 2
 nav_order: 2
 ---
-
 # Input Format vs Output Format
 {: .no_toc }
 
@@ -1188,7 +1187,7 @@ Answer 1: (1 sensor_id tag x 8 unique tag values) x (3 fields) = 4 x 3 = **24**
 
 Question 2: How many series will be created by the NOAA National Buoy Center Data given the schema above (assuming no tags are dependent tags)? 
 
-Answer 2: (1 station_id tag x 113 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_owner tag x 57 unique tag values) x (1 station_pgm tag x 6 unique tag values) x (1 station_type tag x 47 unique tag values) x (21 fields) = 113 x 828 x 56 x 6 x 47 x 21 = **31028816448**
+Answer 2: (1 station_id tag x 113 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_owner tag x 57 unique tag values) x (1 station_pgm tag x 6 unique tag values) x (1 station_type tag x 47 unique tag values) x (21 fields) = 113 x 828 x 56 x 6 x 47 x 21 = **31028816448**
 
 Question 3: How would the following line protocol form the Air sensor sample dataset be organized into tables on disk? And how many points are in each series?  
 
