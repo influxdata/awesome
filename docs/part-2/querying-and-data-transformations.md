@@ -746,7 +746,7 @@ However, this won’t work for field2, as that field name exists in measurement2
 
 ```js
 |> filter(fn: (r) => r._measurement == "measurement1")
-|> filter(fn: (r) => r._field == "field1")
+|> filter(fn: (r) => r._field == "field2")
 ```
 
 
@@ -872,7 +872,7 @@ If you only wanted to return the second table with the points that lack the “t
 
 ### Filtering by Field Value
 
-Filtering by measurement(s), tag(s), or field(s) remove entire tables from the response. You can also filter out individual rows in tables. The most common way to do this is to filter by value.
+Filtering by measurement(s), tag(s), or field(s) removes entire tables from the response. You can also filter out individual rows in tables. The most common way to do this is to filter by value.
 
 For example, if we take our few rows of air sensor data, and first filter by field:
 
@@ -971,7 +971,7 @@ If we also add a filter for value, we can filter out individual rows. For exampl
 
 ```js
 |> filter(fn: (r) => r._field == "field1")
-|> filter(fn: (r) => r._value < 2.0)
+|> filter(fn: (r) => r._value >= 2.0)
 ```
 
 
