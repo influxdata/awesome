@@ -66,7 +66,7 @@ A dependent tag is scoped by another tag. Dependent tags don’t influence the s
 ```js
 measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" unixtime1
 measurement1,tag1="tagvalue2",tag2="tagvalue4"  field1=2i,field2=2,field3="b" unixtime2
-measurement1,tag1="tagvalue1",tag2="tagvalue2" field1=1i,field2=1,field3="a" unixtime3
+measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" unixtime3
 measurement1,tag1="tagvalue2",tag2="tagvalue4"  field1=2i,field2=2,field3="b" unixtime4
 ```
 
