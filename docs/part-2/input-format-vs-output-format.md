@@ -1010,7 +1010,7 @@ As a result, the first series contains two points because those two points have 
   </tr>
 </table>
 
-
+<table>
   <tr>
    <td>_measurement
 
@@ -1051,6 +1051,7 @@ As a result, the first series contains two points because those two points have 
 
    </td>
   </tr>
+ </table>
 
 ## Real World Data
 
