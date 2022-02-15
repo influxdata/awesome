@@ -50,7 +50,7 @@ from(bucketID: "497b48e409406cc7")
 ```
 
 
-Typically, developers will address a bucket by its name for a few reasons. First, of course the bucket name is much more readable, the role of the bucket can be encoded in the name. Additionally, there may be times when deleting a bucket and creating a new one with the same name is the most expedient way to delete data. Addressing the bucket by its id has the advantage of being immutable. Someone can change the bucket name, and the query usin the id will continue working.
+Typically, developers will address a bucket by its name for a few reasons. First, of course the bucket name is much more readable, the role of the bucket can be encoded in the name. Additionally, there may be times when deleting a bucket and creating a new one with the same name is the most expedient way to delete data. Addressing the bucket by its id has the advantage of being immutable. Someone can change the bucket name, and the query using the id will continue working.
 
 There are cases that will be described below where you use a different kind of “from”, for example `sql.from()` or `csv.from()` or `array.from()` to bring in data from other sources.
 
@@ -188,7 +188,7 @@ The start and stop parameters also accept integers. For example, you have alread
 
 The integer represents the nanoseconds that have transpired since Thursday, January 1, 1970 12:00:00 AM, GMT, also known as “Unix Time.”
 
-This is extremely useful, as many systems with which you may want to integrate natively use Unix Time. For example, , 12:00 AM, GMT is represented as `1609480800000` in Unix time. However, in this case, notice that the time here is represented as **milliseconds**, not nanoseconds. To perform this conversion, simply multiply the milliseconds by 1,000,000, or you can define the precision when you write the data to the database.
+This is extremely useful, as many systems with which you may want to integrate natively use Unix Time. For example, Fri Jan 01 2021 06:00:00 GMT+0000 is represented as `1609480800000` in Unix time. However, in this case, notice that the time here is represented as **milliseconds**, not nanoseconds. To perform this conversion, simply multiply the milliseconds by 1,000,000, or you can define the precision when you write the data to the database.
 
 So, for all of the data starting from Jan 1, 2021:
 
