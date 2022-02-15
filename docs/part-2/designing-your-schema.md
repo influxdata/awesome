@@ -82,7 +82,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
 
 ## Runaway Cardinality 
 
-While calculating series cardinality can be challenging. Accidentally, overestimating your series cardinality shouldn’t be a real concern of yours–afterall InfluxDB has tools which calculate your cardinality for you (more on that later). However, you do need to make sure to avoid runaway cardinality. Runaway series cardinality occurs when you load your tags or measurements with data that is potentially unbounded.  To illustrate a runaway series cardinality scenario, consider the following hypothetical situation in which we’re building an IoT application on top of InfluxDB. For this hypothetical IoT application example we’re gathering the following data:
+While calculating series cardinality can be challenging, accidentally overestimating your series cardinality shouldn’t be a real concern of yours – after all, InfluxDB has tools which calculate your cardinality for you (more on that later). However, you do need to make sure to avoid runaway cardinality. Runaway series cardinality occurs when you load your tags or measurements with data that is potentially unbounded.  To illustrate a runaway series cardinality scenario, consider the following hypothetical situation in which we’re building an IoT application on top of InfluxDB. For this hypothetical IoT application example we’re gathering the following data:
 
 
 
