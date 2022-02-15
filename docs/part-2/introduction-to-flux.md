@@ -143,7 +143,7 @@ from(bucket: "bucket1")
 
 As discussed above, a function body is defined with a set of parameters, the lambda operator, and the function operations. Additionally, when calling a function, all parameters are required named parameters. However, pipe forwarding has an implicit argument being passed between the functions, which is the stream of tables that was modified by the previous function.
 
-A function that can be to the right of the pipe forward operator declares this with a special designation in it’s parameter list, the “pipe receive literal.” 
+A function that can be to the right of the pipe forward operator declares this with a special designation in its parameter list, the “pipe receive literal.” 
 
 
 ```js
