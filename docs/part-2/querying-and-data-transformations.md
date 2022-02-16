@@ -5762,7 +5762,7 @@ from(bucket: "bucket1")
   </tr>
 </table>
 
-The boundary for the window period, as defined by either the `period` or `every` paramenter, is not based on execution time or the timestamps of any points returned by the range function. Instead windowing occurs at the top of the second, minute, hour, month, year. Additoinally, The window boundaries or groupings won't exceed the timestamps of the data you return from the range function. For example, imagine the following scenario:
+The boundary for the window period, as defined by either the `period` or `every` paramenter, is not based on execution time or the timestamps of any points returned by the range function. Instead windowing occurs at the top of the second, minute, hour, month, year. Additionally, The window boundaries or groupings won't exceed the timestamps of the data you return from the range function. For example, imagine the following scenario:
 You query for data with `|> range(start: 2022-01-20T20:18:00.000Z, stop: 2022-01-20T21:19:25.000Z)` and your last record has a timestamp in that range of `2022-01-20T20:19:20.000Z`. You're `every`/`period`duration is 30s. Then your last window group will have a _start value of `2022-01-20T20:19:00.000Z` and a _stop of value of `2022-01-20T20:19:30.000Z`. Notice how window grouping does not extend until the stop value specified by the range function. Instead, the grouping stops to include the final point. 
 
 Windowing is performed for two main reasons:
@@ -6080,7 +6080,7 @@ The result after the first yield, “after sum” looks like:
 The sum() function is an aggregator so the _time column is removed because there isn’t a timestamp associated with the sum of two values. Keep in mind that in this example the timestamps in the _time column in the “after group” output happen to be the same, but this aggregation across fields within time windows would work even if the timestamps were different. The _time column isn’t a part of the group key. 
 
 ### Windowing back in time
-When you apply the window() function, you group data on forward in time or create window bounds that align with the start of your data. You can't windown back it time, but you can produce the same effect by using the [offset parameter](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/#offset). This parameter specifies the duration to shift the window boundaries by. You can use the offset parameter to make the windows always align with the current time which effectively groups the data backwards in time. 
+When you apply the window() function, you group data on forward in time or create window bounds that align with the start of your data. You can't window back it time, but you can produce the same effect by using the [offset parameter](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/#offset). This parameter specifies the duration to shift the window boundaries by. You can use the offset parameter to make the windows always align with the current time which effectively groups the data backwards in time. 
 ```js
 option offset = duration(v: int(v: now()))
 
@@ -6091,7 +6091,7 @@ data = from(bucket: "bucket1")
 
 data 
   |> aggregateWindow(every: 30s, fn: mean, createEmpty: false, offset: offset)
-  |> yield(name: "offset effectively windowning backward in time")
+  |> yield(name: "offset effectively windowing backward in time")
 ```
 
 Alternatively, you could calculate the duration difference between your actual start time and the required start time so that your windows align with stop time instead. Then you could add that duration to the start with the offset parameter. The previous approach is the recommended approach, but examining multiple approaches lends us an appreciation for the power and flexibility that Flux provides. 
@@ -6101,7 +6101,7 @@ data = from(bucket: "bucket1")
   |> filter(fn: (r) => r["_measurement"] == "measurement1")
 
 lastpoint = data |> last() |> findRecord(fn: (key) => true , idx:0 )
-// the first point is 2021-08-19T19:24:15.000Z
+// the last point is 2021-08-19T19:24:15.000Z
 firstpoint = data |> first() |> findRecord(fn: (key) => true , idx:0 )
 // the first point is 2021-08-19T19:23:40.000Z
 
