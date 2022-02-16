@@ -8293,7 +8293,7 @@ from(bucket: "noaa")
 </table>
 
 
-That last step of collapsing all the data for each table into a mean is what Flux calls “aggregation.”
+That second-last step of collapsing all the data for each table into a mean is what Flux calls “aggregation.”
 
 The following sections cover some of the most common Flux aggregations.
 
@@ -8597,7 +8597,7 @@ from(bucket: "noaa")
 
 ### count()
 
-The [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/) function` `returns the number of rows in a table. This can be particularly useful for counting events. In this case, it is used to count the number of the different station types reporting in:
+The [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/) function returns the number of rows in a table. This can be particularly useful for counting events. In this case, it is used to count the number of the different station types reporting in:
 
 
 ```js
@@ -8878,7 +8878,7 @@ This is because they’re accustomed to being able to perform `SELECT min("field
 
 ```js
 data
-|> filter(fn: (r) => r["_measurement"] == "Measurement1" and r["tag1"] == "tagvalue1" and r["_field"] == "field1" )
+|> filter(fn: (r) => r["_measurement"] == "measurement1" and r["_field"] == "field1" )
 |> min()
 |> yield(name: "min") 
 
