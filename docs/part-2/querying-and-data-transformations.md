@@ -1219,7 +1219,7 @@ In addition to retrieving data from disk, Flux is a powerful data transformation
 
 To review, when you write data to InfluxDB, the storage engine persists it in tables, where each table is defined by a “group key.” The group key used to persist the data is a measurement name, a unique set of tag values, and a field name.
 
-Consider the following example of 6 tables with two rows each, all containing the same measurement, but there are:
+Consider the following example of 12 tables with two rows each, all containing the same measurement, but there are:
 
 
 
