@@ -2611,7 +2611,7 @@ We know that there are 2 tag values for tag1 (tagvalue1 and tagvalue4), so we ca
 </table>
 
 
-If we group by both tags, then we can predict that their will then be 6 tables because, as described above, there are three unique combinations of tag values:
+If we group by both tags, then we can predict that there will be 6 tables because, as described above, there are three unique combinations of tag values:
 
 
 ```js
