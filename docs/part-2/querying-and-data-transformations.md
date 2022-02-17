@@ -9957,7 +9957,7 @@ Which yields the following result:
    </td>
    <td>0.5101148636678805
    </td>
-   <td>0.5101148636678805
+   <td>0.5301148636678805
    </td>
    <td>TLM0100
    </td>
@@ -9975,7 +9975,7 @@ Which yields the following result:
    </td>
    <td>0.5050389571399865
    </td>
-   <td>0.5050389571399865
+   <td>0.5070389571399865
    </td>
    <td>TLM0100
    </td>
