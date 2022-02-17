@@ -10189,11 +10189,11 @@ data
 
 ### The rows.map() function
 
-The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like beofre: 
+The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like before: 
 
 ```js
 data
-|> rows.map( fn: (r) => ({r with _measurement: "in group key so it's ignored"}))
+|> rows.map(fn: (r) => ({r with _measurement: "in group key so it's ignored"}))
 |> rows.map(fn: (r) => ({ r with r._value: r._value + 0.02}))
 ```
 
