@@ -9824,7 +9824,7 @@ To perform an in-column transformation make sure to reuse a column name in the f
 
 ```js
 data
-|> map(fn: (r) => ({ r with r._value: r._value + 0.02}))
+|> map(fn: (r) => ({ r with _value: r._value + 0.02}))
 ```
 
 
