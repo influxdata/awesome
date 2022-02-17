@@ -10279,18 +10279,19 @@ The [findRecord()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/findrec
 * `fn`: The predicate function for returning the table with matching keys, provided by the user. 
 * `idx`: The index of the record you want to extract.
 
-The easiest way to use the fromRecord() function is to query our data so that you have only one row in your output that contains the scalar value you want to extract. This way you can just set the fn parameter to true idx to 0. 
+The easiest way to use the fromRecord() function is to query our data so that you have only one row in your output that contains the scalar value you want to extract. This way you can just set the fn parameter to true and idx to 0. 
 
 
 ```js
 data = from(buket : "bucket1")
 	|> range(start: 0)
 	|> filter(fn:(r) => r._measurement == "measurement1" and r._field =  "field1")
-
+	|> yield(name: "data")
+	
 meanRecord = data
 |> mean() 
-|> findRecord( fn: (key) => true,
-      		idx: 0)
+|> findRecord(fn: (key) => true,
+      	      idx: 0)
 
 data |> map(fn: (r) => ({ value_mult_by_mean: r._value * meanRecord._value }))
      |> yield(name: "final result")
