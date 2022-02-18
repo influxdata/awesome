@@ -10784,7 +10784,7 @@ Here is a simple example of how to uses the reduce() function to calculate the s
 ```js
 data = from(bucket: "bucket1")
 |> range(start:0)
-|> filter(fn: (r) => r["_measurement"] == "Measurement1" and r["_field"] == "field1" )
+|> filter(fn: (r) => r["_measurement"] == "measurement1" and r["_field"] == "field1" )
 
 data
 |> reduce(
@@ -11006,7 +11006,7 @@ data
 Using the Air Sensor sample dataset we can manipulate the _time column from RFC339 to Unix and back into RFC339 again, storing the results in separate columns: 
 ```js
 from(bucket: "Air sensor sample dataset")
-  |> range(start:0)`
+  |> range(start:0)
   |> filter(fn: (r) => r["_measurement"] == "airSensors")
   |> filter(fn: (r) => r["_field"] == "co")
   |> filter(fn: (r) => r["sensor_id"] == "TLM0100")
