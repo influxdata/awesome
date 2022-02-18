@@ -12893,10 +12893,10 @@ Materialized views or downsampling is the process of converting high resolution 
 * [Flux built-in selector transformations](https://docs.influxdata.com/flux/v0.x/function-types/#selectors) like max(), min(), median(), etc. 
 
 To downsample the data temperature from the Air Sensor sample dataset, you might perform the following query:  \
-`from(bucket: "airsensor")`
 
 
 ```js
+from(bucket: "airsensor")
   |> range(start: -10d)
   |> filter(fn: (r) => r["_measurement"] == "airSensors")
   |> aggregateWindow(every:1d, fn: mean, createEmpty: false)
