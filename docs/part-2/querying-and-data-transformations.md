@@ -12809,10 +12809,10 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 #### csv.from() 
 
 Use the [csv.from()](https://docs.influxdata.com/flux/v0.x/stdlib/csv/from/#csv) function from stdlib to retrieve a Raw CSV from a URL. For example you can use the csv.from() function to parse CSV data from API and write it to InfluxDB in a task. A great example of this can be found in the Earthquake Feed Ingestion task from the [Earthquake Command Center Community](https://github.com/influxdata/community-templates/tree/master/earthquake_usgs) Template.  Here is the relevant Flux from that task: 
-`onedayago = strings.trimSuffix(v: string(v: date.truncate(t: experimental.subDuration(d: 1d, from: now()), unit: 1m)), suffix: ".000000000Z")`
 
 
 ```js
+onedayago = strings.trimSuffix(v: string(v: date.truncate(t: experimental.subDuration(d: 1d, from: now()), unit: 1m)), suffix: ".000000000Z")
 csv_data_url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=" + onedayago + "&includedeleted=true&orderby=time-asc"
 csv_data = string(v: http.get(url: csv_data_url).body)
 states = ["Alaska", "California", "CA", "Hawaii", "Idaho", "Kansas", "New Mexico", "Nevada", "North Carolina", "Oklahoma", "Oregon", "Washington", "Utah"]
