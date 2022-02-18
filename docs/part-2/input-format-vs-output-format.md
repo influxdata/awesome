@@ -5,7 +5,6 @@ description: "Part 2: Input Format vs Output Format"
 parent: Part 2
 nav_order: 2
 ---
-
 # Input Format vs Output Format
 {: .no_toc }
 
@@ -17,7 +16,7 @@ nav_order: 2
 
 ---
 
-The InfluxDB input format is line protocol. The InfluxDB output format is Annotated CSV. InfluxDB users are sometimes initially confused because using line protocol can be similar to writing a single table, but then when they query the same data, the query returns multiple tables in CSV. This is because line protocol is ingested by InfluxDB it is seperated into series. Understanding these subtle relationship between the ingestion format and time series is important for good schema design and for using InfluxDB optimally.   
+The InfluxDB input format is line protocol. The InfluxDB output format is Annotated CSV. InfluxDB users are sometimes initially confused because using line protocol can be similar to writing a single table, but then when they query the same data, the query returns multiple tables in CSV. This is because as the data formatted in line protocol is ingested by InfluxDB it is seperated into series. Understanding this subtle relationship between the ingestion format and time series is important for good schema design and for using InfluxDB optimally.   
 
 
 ## Line Protocol
@@ -628,7 +627,7 @@ When simply querying for this data, without adding any additional Flux transform
 ```
 
 
-Notice how the resulting annotated CSV contains 6 tables in the output. This is evident by the row separation and also by the value of the `table` column in the last stream of the table which is equal to 5 (remember annotated CSV counts the table results from 0). Group keys have been added to the data to produce these tables so that each table represents a series by default. Remember a column is part of a group key if all of the values in that column are identical within a single table. For example, the `time `column is assigned a `#group `annotation of ​​`false.` Setting the `#group `annotation to ​​`false` allows the different timestamps of points across a single series to be included in the same table. Conversely, the `_measurement `column is assigned a `#group `annotation of ​​`true.` The `_measurement` column is assigned a `#group `annotation of ​​`true`. Setting the `#group `annotation to ​​`true` enforces that all of the records in that table have the same measurement value. Remember, a series is identified by a unique combination of measurements, tag sets, and fields. If a table is to represent a single series, the table must contain records with the same measurement, tag sets, and fields across all of the rows. 
+Notice how the resulting annotated CSV contains 6 tables in the output. This is evident by the row separation and also by the value of the `table` column in the last stream of the table which is equal to 5 (remember annotated CSV counts the table results from 0). Group keys have been added to the data to produce these tables so that each table represents a series by default. Remember a column is part of a group key if all of the values in that column are identical within a single table. For example, the `time `column is assigned a `#group `annotation of ​​`false.` Setting the `#group `annotation to ​​`false` allows the different timestamps of points across a single series to be included in the same table. Conversely, the `_measurement `column is assigned a `#group `annotation of ​​`true.` Setting the `#group `annotation to ​​`true` enforces that all of the records in that table have the same measurement value. Remember, a series is identified by a unique combination of measurements, tag sets, and fields. If a table is to represent a single series, the table must contain records with the same measurement, tag sets, and fields across all of the rows. 
 
 **Important note:** You can use Flux to manipulate the group keys and the resulting number of tables in the the output Annotated CSV table stream. We’ll learn about how to do this in later chapters. 
 
@@ -1010,7 +1009,7 @@ As a result, the first series contains two points because those two points have 
   </tr>
 </table>
 
-
+<table>
   <tr>
    <td>_measurement
 
@@ -1051,6 +1050,7 @@ As a result, the first series contains two points because those two points have 
 
    </td>
   </tr>
+ </table>
 
 ## Real World Data
 
@@ -1187,7 +1187,7 @@ Answer 1: (1 sensor_id tag x 8 unique tag values) x (3 fields) = 4 x 3 = **24**
 
 Question 2: How many series will be created by the NOAA National Buoy Center Data given the schema above (assuming no tags are dependent tags)? 
 
-Answer 2: (1 station_id tag x 113 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_owner tag x 57 unique tag values) x (1 station_pgm tag x 6 unique tag values) x (1 station_type tag x 47 unique tag values) x (21 fields) = 113 x 828 x 56 x 6 x 47 x 21 = **31028816448**
+Answer 2: (1 station_id tag x 113 unique tag values) x (1 station_name tag x 828 unique tag values) x (1 station_owner tag x 57 unique tag values) x (1 station_pgm tag x 6 unique tag values) x (1 station_type tag x 47 unique tag values) x (21 fields) = 113 x 828 x 56 x 6 x 47 x 21 = **31028816448**
 
 Question 3: How would the following line protocol form the Air sensor sample dataset be organized into tables on disk? And how many points are in each series?  
 
@@ -1198,7 +1198,7 @@ airSensors,sensor_id=TLM0101 temperature=71.80350992863588,humidity=34.864121891
 airSensors,sensor_id=TLM0102 temperature=72.02673296407973,humidity=34.91147650009415,co=0.4941631223400505 1626537623000000000
 airSensors,sensor_id=TLM0103 temperature=71.34822444566278,humidity=35.19576623496297,co=0.4046734235304059 1626537623000000000
 airSensors,sensor_id=TLM0200 temperature=73.57230556533555,humidity=35.77102288427073,co=0.5317633226995193 1626537623000000000
-airSensors,sensor_id=TLM0201 temperature=c,humidity=35.17327249047271,co=0.5000439017037601 1626537623000000000
+airSensors,sensor_id=TLM0201 temperature=72.57230556533555,humidity=35.17327249047271,co=0.5000439017037601 1626537623000000000
 airSensors,sensor_id=TLM0202 temperature=75.28582430811852,humidity=35.668729783597556,co=0.48071553398947864 1626537623000000000
 airSensors,sensor_id=TLM0203 temperature=74.75927935923579,humidity=35.89268792033798,co=0.4089308476612381 1626537623000000000
 airSensors,sensor_id=TLM0100 temperature=71.2194835668512,humidity=35.12891266051405,co=0.4958773037139102 1626537633000000000
