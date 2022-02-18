@@ -10691,7 +10691,7 @@ data = from(bucket: "Air sensor sample dataset")
 tempTime = data 
   |> filter(fn: (r) => r["_field"] == "temperature")
   |> filter(fn: (r) => r["_value"] >= 72.2)
-  |> findRecord(fn: (key) => true, column: "_time")
+  |> findColumn(fn: (key) => true, column: "_time")
 
 data 
 |> range(start: tempTime[0]) 
