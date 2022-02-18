@@ -11040,7 +11040,7 @@ from(bucket: "Air sensor sample dataset")
   |> filter(fn: (r) => r["_field"] == "co")
   |> filter(fn: (r) => r["sensor_id"] == "TLM0100")
   |> limit(n:5)
-  |> map(fn: (r) => ({r with duration_from_now: string(duration(unix_now - uint(v: r._time)))}))
+  |> map(fn: (r) => ({r with duration_from_now: string(v: duration(v: unix_now - uint(v: r._time)))}))
 ```
 
 
