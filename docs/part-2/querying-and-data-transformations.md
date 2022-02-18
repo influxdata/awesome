@@ -11015,7 +11015,7 @@ from(bucket: "Air sensor sample dataset")
 ```
 
 
-**Important Note**: the time() function requires that the unix timestamp must be in nanosecond precision. 
+**Important Note**: the time() function requires that the unix timestamp be in nanosecond precision.
 
 
 ### Calculating durations 
