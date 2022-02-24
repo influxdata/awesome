@@ -57,7 +57,7 @@ from(bucket: "bucket1")
 
 We can zero in a bit on the function my_filter_function and tease apart the components a bit more.  
 
-Because Flux is a functional language, functions are first class objects. So the first step is to specify the identifier (“my_filter_function”) and the assignment operator (“=”). The next part is the parameter list, in this case simple “r”, for row. Followed by the lambda operator(“ =>”). Finally, the function body itself. 
+Because Flux is a functional language, functions are first class objects. So the first step is to specify the identifier (“afilter_function”) and the assignment operator (“=”). The next part is the parameter list, in this case a simple “r”, for row. Followed by the lambda operator(“ =>”). Finally, the function body itself. 
 
 
 ```js
@@ -143,7 +143,7 @@ from(bucket: "bucket1")
 
 As discussed above, a function body is defined with a set of parameters, the lambda operator, and the function operations. Additionally, when calling a function, all parameters are required named parameters. However, pipe forwarding has an implicit argument being passed between the functions, which is the stream of tables that was modified by the previous function.
 
-A function that can be to the right of the pipe forward operator declares this with a special designation in it’s parameter list, the “pipe receive literal.” 
+A function that can be to the right of the pipe forward operator declares this with a special designation in its parameter list, the “pipe receive literal.” 
 
 
 ```js
