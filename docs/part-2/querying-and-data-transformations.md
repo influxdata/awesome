@@ -94,10 +94,10 @@ So, for example, if there is data that is timestamped precisely 1 minute ago, an
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -2m, stop: -1m)
 
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m)
 ```
 
@@ -106,10 +106,10 @@ When a `stop` argument is not supplied Flux simply substitutes `now()`. So the f
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m, stop: now())
 
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m)
 ```
 
@@ -118,7 +118,7 @@ However, this is not true when the start time is in the future. This can happen 
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1m)
 ```
 
@@ -127,7 +127,7 @@ Simply support a stop duration that is later than the start to ensure that it wo
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1m, stop: 2m)
 ```
 
@@ -194,7 +194,7 @@ So, for all of the data starting from Jan 1, 2021:
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1609480800000000000)
 ```
 
@@ -224,7 +224,7 @@ So, to get data from the start of some day to now:
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 2021-07-27)
 ```
 
@@ -242,7 +242,7 @@ By adding the “T” you can get arbitrarily fine grained resolution as well. F
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 2021-07-27T00:00:00.0000000001Z)
 ```
 
@@ -251,7 +251,7 @@ If you only care about seconds, you can leave off the fraction:
 
 
 ```js
-bucket(name: "bucket1") 
+from(name: "bucket1") 
 |> range(start: 2021-07-27T00:00:01Z)
 ```
 
