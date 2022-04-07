@@ -184,9 +184,9 @@ You cannot ask Flux to operate on one table, but not others. Nor can you ask Flu
 ![ui]({{site.url}}/assets/images/part-2/introduction-to-flux/image-26.png)
 
 
-## Flux Supports Only Very Limited Looping
+## Flux Supports Looping with Map Semantics
 
-Flux more or less does not allow looping. The closest thing to a loop capability is the [map()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/map/) function which applies a function to each record. In Flux, many of the things that you expect to accomplish in a loop, you accomplish rather by using successive functions that apply the transformations to the data. 
+Traditional languages support looping constructs using things like for loops, etc.... Flux uses [map()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/map/) to achieve the aims of loops in other languages, by applying a function to each row of each table in a stream.
 
 
 ## Dot vs. Bracket Notation
