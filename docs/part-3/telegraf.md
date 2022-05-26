@@ -46,7 +46,7 @@ To install Telegraf, visit the downloads page for Influxdata and select the plat
 
 
 ```
-brew install influxdb
+brew install telegraf 
 ```
 
 
@@ -173,7 +173,7 @@ To configure each input plugin and output plugin correctly, you’ll need to fol
 
 
 
-* debug. This option allows you to run Telegraf in debug mode to receive detailed logs. The default is false, or uninabled. To enable debug mode set the debug option to true. 
+* debug. This option allows you to run Telegraf in debug mode to receive detailed logs. The default is false, or unenabled. To enable debug mode set the debug option to true. 
 * interval. This option specifies how frequently data is being collected. You might need to change this value if you want to collect data at an interval other than the 10s default. 
 * flush_interval. This option specifies how frequently data is flushed for outputs. Do not set this below the interval value. This might change if you change the interval. 
 * metric_batch_size: This option lets you adjust the size of your metric batch. You might want to increase this for high-ingest workloads. 
@@ -280,7 +280,7 @@ def apply(metric):
 ```
 
 
-First load the json with the load() function and specify the path to the json and the file type. Next create a function to apply to each json from the file. Use the decode() method to decode the JSON string from the field value that contains it. We use the Metric() function to assign a measurement name.f The resulting line protocol looks like: \
+First load the json with the load() function and specify the path to the json and the file type. Next create a function to apply to each json from the file. Use the decode() method to decode the JSON string from the field value that contains it. We use the Metric() function to assign a measurement name.f The resulting line protocol looks like:
 
 ```
 stats,label=hero count=14i 1637344008000000000
@@ -294,7 +294,7 @@ Notice how the measurement name and the other tags are dropped from the line pro
 All of the execd plugins run external programs as a long-running daemon in the language of your choice. In this way the execd plugins allow you to add any functionality you want to Telegraf. If you can’t find the functionality you’re looking for already within the existing Telegraf plugins, check out the following execd plugins:
 
 
-* [Execd input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/execd),
+* [Execd input plugin](https://github.com/influxdata/telegraf/tree/master/plugins/inputs/execd)
 * [Execd output plugin](https://github.com/influxdata/telegraf/tree/master/plugins/outputs/execd)
 * [Execd processor plugin](https://github.com/influxdata/telegraf/tree/master/plugins/processors/execd) 
 
@@ -371,7 +371,7 @@ Telegraf requires Go version 1.17 or newer, the Makefile requires GNU make.
 
 [Next Section]({{site.url}}/docs/part-3/tasks){: .btn .btn-purple}
 
-## Further Readering 
+## Further Reading 
 1. [JSON to InfluxDB with Telegraf and Starlark](https://www.influxdata.com/blog/json-to-influxdb-with-telegraf-and-starlark/)
 2. [MQTT Topic and Payload Parsing with Telegraf](https://www.influxdata.com/blog/mqtt-topic-payload-parsing-telegraf/)
 3. [TL;DR InfluxDB Tech Tips — Time Series Forecasting with Telegraf](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-time-series-forecasting-with-telegraf/)
