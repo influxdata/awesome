@@ -12,11 +12,11 @@ permalink: /
 A book on InfluxDB
 {: .fs-6 .fw-300 }
 ---
-A book on InfluxDB. Helping IoT Application Developers build on top of InfluxDB and experience time to awesome.
+A book on InfluxDB–helping IoT application developers build on top of InfluxDB and experience time to awesome.
 
 ## Status and considerations
 
-This book a is a work in progress. Please note that updates in [Clockface](https://github.com/influxdata/clockface), the Open Source UI kit for the InfluxDB UI, account for slight changes in the screenshots.
+This book is a work in progress. Please note that updates in [Clockface](https://github.com/influxdata/clockface), the Open Source UI kit for the InfluxDB UI, account for slight changes in the screenshots.
 
 ## Table of Contents
 [Part 1]({{site.baseurl}}/docs/part-1){: .btn .btn-purple}
