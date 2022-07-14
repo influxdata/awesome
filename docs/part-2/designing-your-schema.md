@@ -66,7 +66,7 @@ A dependent tag is scoped by another tag. Dependent tags don’t influence the s
 ```js
 measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" unixtime1
 measurement1,tag1="tagvalue2",tag2="tagvalue4"  field1=2i,field2=2,field3="b" unixtime2
-measurement1,tag1="tagvalue1",tag2="tagvalue2" field1=1i,field2=1,field3="a" unixtime3
+measurement1,tag1="tagvalue1",tag2="tagvalue3" field1=1i,field2=1,field3="a" unixtime3
 measurement1,tag1="tagvalue2",tag2="tagvalue4"  field1=2i,field2=2,field3="b" unixtime4
 ```
 
@@ -82,7 +82,7 @@ Again, each series is identified by their unique tag keys, tag values, and field
 
 ## Runaway Cardinality 
 
-While calculating series cardinality can be challenging. Accidentally, overestimating your series cardinality shouldn’t be a real concern of yours–afterall InfluxDB has tools which calculate your cardinality for you (more on that later). However, you do need to make sure to avoid runaway cardinality. Runaway series cardinality occurs when you load your tags or measurements with data that is potentially unbounded.  To illustrate a runaway series cardinality scenario, consider the following hypothetical situation in which we’re building an IoT application on top of InfluxDB. For this hypothetical IoT application example we’re gathering the following data:
+While calculating series cardinality can be challenging, accidentally overestimating your series cardinality shouldn’t be a real concern of yours – after all, InfluxDB has tools which calculate your cardinality for you (more on that later). However, you do need to make sure to avoid runaway cardinality. Runaway series cardinality occurs when you load your tags or measurements with data that is potentially unbounded.  To illustrate a runaway series cardinality scenario, consider the following hypothetical situation in which we’re building an IoT application on top of InfluxDB. For this hypothetical IoT application example we’re gathering the following data:
 
 
 
@@ -100,12 +100,12 @@ _D<sub>n </sub>_= _the number of “device_id” tag values_
 
 _F = the number of field keys _
 
-Assuming your customers continue to grow, you can see how cardinality may “explode”.  For example, if you start with 5 customers each with 5 devices, each with 1 field, total cardinality is 5 * 5 * 1, or a mere 25. However, if you end up with 100,000 customer, with 10 devices each, each with 5 fields, you end up with 100,000 * 10 * 5, or 5,000,000. Whoops, you blew your cardinality limit!
+Assuming your customers continue to grow, you can see how cardinality may “explode”.  For example, if you start with 5 customers each with 5 devices, each with 1 field, total cardinality is 5 * 5 * 1, or a mere 25. However, if you end up with 100,000 customers, with 10 devices each, each with 5 fields, you end up with 100,000 * 10 * 5, or 5,000,000. Whoops, you blew your cardinality limit!
 
 
 ### Causes 
 
-The most common schema design mistakes that can lead to runaway cardinality are: \
+The most common schema design mistakes that can lead to runaway cardinality are: 
 
 
 **Mistake 1**: Log messages as tags.

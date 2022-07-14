@@ -12,14 +12,14 @@ permalink: /
 A book on InfluxDB
 {: .fs-6 .fw-300 }
 ---
-A book on InfluxDB. Helping IoT Application Developers build on top of InfluxDB and experience time to awesome.
+A book on InfluxDB–helping IoT application developers build on top of InfluxDB and experience time to awesome.
 
 ## Status and considerations
 
-This book a is a work in progress. Please note that updates in [Clockface](https://github.com/influxdata/clockface), the Open Source UI kit for the InfluxDB UI, account for slight changes in the screenshots. 
+This book is a work in progress. Please note that updates in [Clockface](https://github.com/influxdata/clockface), the Open Source UI kit for the InfluxDB UI, account for slight changes in the screenshots.
 
 ## Table of Contents
-[Part 1]({{site.baseurl}}/docs/part-1){: .btn .btn-purple} 
+[Part 1]({{site.baseurl}}/docs/part-1){: .btn .btn-purple}
 - [Introduction to InfluxDB]({{site.baseurl}}/docs/part-1/introduction-to-influxdb)
 - [Introduction to InfluxDB Tools]({{site.baseurl}}/docs/part-1/introduction-to-influxdb-tools)
 - [Setting Up InfluxDB]({{site.baseurl}}/docs/part-1/setting-up-influxdb)
@@ -31,7 +31,7 @@ This book a is a work in progress. Please note that updates in [Clockface](https
 - [Introduction to Flux]({{site.baseurl}}/docs/part-2/introduction-to-flux)
 - [Querying and Data Transformations]({{site.baseurl}}/docs/part-2/querying-and-data-transformations)
 - [Deletes]({{site.baseurl}}/docs/part-2/deletes)
-- [Optimizing Flux performance]({{site.baseurl}}/docs/part-2/optimizing-flux-performace)
+- [Optimizing Flux performance]({{site.baseurl}}/docs/part-2/optimizing-flux-performance)
 
 [Part 3]({{site.baseurl}}/docs/part-3){: .btn .btn-purple}
 - [Writing and Querying Data]({{site.baseurl}}/docs/part-3/writing-and-querying-data)
@@ -43,4 +43,3 @@ This book a is a work in progress. Please note that updates in [Clockface](https
 - [Monitoring and Managing InfluxDB]({{site.baseurl}}/docs/part-3/monitoring-and-managing-influxdb)
 - [Reference]({{site.baseurl}}/docs/part-3/reference)
 - [Additional Reading]({{site.baseurl}}/docs/part-3/additional-reading)
-

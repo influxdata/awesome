@@ -37,7 +37,7 @@ We’ll discuss each of these recommendations in detail in the following section
 
 ## Taking advantage of pushdown patterns
 
-In order to provide context for the optimization guidelines, let’s first take a moment to understand how Flux works. Flux is able to query data efficiently because some functions push down the data transformation workload to storage rather than performing the transformations in memory. Combinations of functions that do this work are called pushdown patterns. It’s best to try and use pushdown patterns whenever you can optimize your Flux query. To learn more about pushdown patterns and how Flux works, please read “Solution 2: Learning about memory optimizations and new pushdown patterns to optimize your Flux scripts” from [Top 5 Hurdles for Intermediate Flux Users and Resources for Optimizing Flux](https://www.influxdata.com/blog/top-5-hurdles-for-intermediate-flux-users-and-resources-for-optimizing-flux/).
+In order to provide context for the optimization guidelines, let’s first take a moment to understand how Flux works. Flux is able to query data efficiently because some functions push down the data transformation workload to storage rather than performing the transformations in memory. Combinations of functions that do this work are called pushdown patterns. It’s best to try and use pushdown patterns whenever you can in order to optimize your Flux query. To learn more about pushdown patterns and how Flux works, please read “Solution 2: Learning about memory optimizations and new pushdown patterns to optimize your Flux scripts” from [Top 5 Hurdles for Intermediate Flux Users and Resources for Optimizing Flux](https://www.influxdata.com/blog/top-5-hurdles-for-intermediate-flux-users-and-resources-for-optimizing-flux/).
 
 
 ## Using schema mutations properly
@@ -254,7 +254,7 @@ When asking for help with optimizing the performance of your Flux script, whethe
 Including as much of this information in a post will help us assist you better and more quickly. The above points also apply to issues with hitting memory limits.
 
 
-[Part 3]({{site.url}}/docs/part-2/part-3){: .btn .btn-purple}
+[Part 3]({{site.url}}/docs/part-3){: .btn .btn-purple}
 
 ## Further Reading
 1. [TL;DR InfluxDB Tech Tips – Optimizing Flux Performance in InfluxDB Cloud](https://www.influxdata.com/blog/tldr-influxdb-tech-tips-optimizing-flux-performance-in-influxdb-cloud/)

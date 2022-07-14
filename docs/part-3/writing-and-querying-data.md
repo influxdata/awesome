@@ -29,7 +29,7 @@ However your overall application is architected, InfluxDB likely provides toolin
 * Client Libraries: A big part of prioritizing developer happiness is making sure that InfluxDB is easy to work with regardless of a developer’s language preference. That’s why InfluxDB has 13 client libraries to choose from. 
 * Telegraf: Telegraf is perfect for anyone with stringent write requirements who doesn’t want to write a collection server with batching and retry features for over 200 input data sources. 
 
-In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is an agent that can be installed directly on systems, and will be covered in a seperate chapter. 
+In this chapter we’ll focus on writing data with every method in the list above except Telegraf. Telegraf is an agent that can be installed directly on systems, and will be covered in a separate chapter. 
 
 
 ## Writing Line Protocol Data
@@ -300,7 +300,7 @@ Use the `--header `option to: ` `
 
 * Specify or supply a measurement for each line to be written.
 * Define which columns are fields and the types of those fields.
-* DefiSpecify or define the tag columns. are tags, and the 
+* Specify or define the tag columns. are tags, and the 
 * Specify the format of the timestamp.
 
 Specifically, the `#datatype` annotation must passed into the `--header` option with the following types:

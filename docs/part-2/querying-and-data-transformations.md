@@ -50,7 +50,7 @@ from(bucketID: "497b48e409406cc7")
 ```
 
 
-Typically, developers will address a bucket by its name for a few reasons. First, of course the bucket name is much more readable, the role of the bucket can be encoded in the name. Additionally, there may be times when deleting a bucket and creating a new one with the same name is the most expedient way to delete data. Addressing the bucket by its id has the advantage of being immutable. Someone can change the bucket name, and the query usin the id will continue working.
+Typically, developers will address a bucket by its name for a few reasons. First, of course the bucket name is much more readable, the role of the bucket can be encoded in the name. Additionally, there may be times when deleting a bucket and creating a new one with the same name is the most expedient way to delete data. Addressing the bucket by its id has the advantage of being immutable. Someone can change the bucket name, and the query using the id will continue working.
 
 There are cases that will be described below where you use a different kind of “from”, for example `sql.from()` or `csv.from()` or `array.from()` to bring in data from other sources.
 
@@ -94,10 +94,10 @@ So, for example, if there is data that is timestamped precisely 1 minute ago, an
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -2m, stop: -1m)
 
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m)
 ```
 
@@ -106,10 +106,10 @@ When a `stop` argument is not supplied Flux simply substitutes `now()`. So the f
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m, stop: now())
 
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: -1m)
 ```
 
@@ -118,7 +118,7 @@ However, this is not true when the start time is in the future. This can happen 
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1m)
 ```
 
@@ -127,7 +127,7 @@ Simply support a stop duration that is later than the start to ensure that it wo
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1m, stop: 2m)
 ```
 
@@ -188,13 +188,13 @@ The start and stop parameters also accept integers. For example, you have alread
 
 The integer represents the nanoseconds that have transpired since Thursday, January 1, 1970 12:00:00 AM, GMT, also known as “Unix Time.”
 
-This is extremely useful, as many systems with which you may want to integrate natively use Unix Time. For example, , 12:00 AM, GMT is represented as `1609480800000` in Unix time. However, in this case, notice that the time here is represented as **milliseconds**, not nanoseconds. To perform this conversion, simply multiply the milliseconds by 1,000,000, or you can define the precision when you write the data to the database.
+This is extremely useful, as many systems with which you may want to integrate natively use Unix Time. For example, Fri Jan 01 2021 06:00:00 GMT+0000 is represented as `1609480800000` in Unix time. However, in this case, notice that the time here is represented as **milliseconds**, not nanoseconds. To perform this conversion, simply multiply the milliseconds by 1,000,000, or you can define the precision when you write the data to the database.
 
 So, for all of the data starting from Jan 1, 2021:
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 1609480800000000000)
 ```
 
@@ -224,7 +224,7 @@ So, to get data from the start of some day to now:
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 2021-07-27)
 ```
 
@@ -242,7 +242,7 @@ By adding the “T” you can get arbitrarily fine grained resolution as well. F
 
 
 ```js
-bucket(name: "bucket1") 
+from(bucket: "bucket1") 
 |> range(start: 2021-07-27T00:00:00.0000000001Z)
 ```
 
@@ -251,7 +251,7 @@ If you only care about seconds, you can leave off the fraction:
 
 
 ```js
-bucket(name: "bucket1") 
+from(name: "bucket1") 
 |> range(start: 2021-07-27T00:00:01Z)
 ```
 
@@ -746,7 +746,7 @@ However, this won’t work for field2, as that field name exists in measurement2
 
 ```js
 |> filter(fn: (r) => r._measurement == "measurement1")
-|> filter(fn: (r) => r._field == "field1")
+|> filter(fn: (r) => r._field == "field2")
 ```
 
 
@@ -872,7 +872,7 @@ If you only wanted to return the second table with the points that lack the “t
 
 ### Filtering by Field Value
 
-Filtering by measurement(s), tag(s), or field(s) remove entire tables from the response. You can also filter out individual rows in tables. The most common way to do this is to filter by value.
+Filtering by measurement(s), tag(s), or field(s) removes entire tables from the response. You can also filter out individual rows in tables. The most common way to do this is to filter by value.
 
 For example, if we take our few rows of air sensor data, and first filter by field:
 
@@ -971,7 +971,7 @@ If we also add a filter for value, we can filter out individual rows. For exampl
 
 ```js
 |> filter(fn: (r) => r._field == "field1")
-|> filter(fn: (r) => r._value < 2.0)
+|> filter(fn: (r) => r._value >= 2.0)
 ```
 
 
@@ -1219,7 +1219,7 @@ In addition to retrieving data from disk, Flux is a powerful data transformation
 
 To review, when you write data to InfluxDB, the storage engine persists it in tables, where each table is defined by a “group key.” The group key used to persist the data is a measurement name, a unique set of tag values, and a field name.
 
-Consider the following example of 6 tables with two rows each, all containing the same measurement, but there are:
+Consider the following example of 12 tables with two rows each, all containing the same measurement, but there are:
 
 
 
@@ -2611,7 +2611,7 @@ We know that there are 2 tag values for tag1 (tagvalue1 and tagvalue4), so we ca
 </table>
 
 
-If we group by both tags, then we can predict that their will then be 6 tables because, as described above, there are three unique combinations of tag values:
+If we group by both tags, then we can predict that there will be 6 tables because, as described above, there are three unique combinations of tag values:
 
 
 ```js
@@ -5762,7 +5762,7 @@ from(bucket: "bucket1")
   </tr>
 </table>
 
-The boundary for the window period, as defined by either the `period` or `every` paramenter, is not based on execution time or the timestamps of any points returned by the range function. Instead windowing occurs at the top of the second, minute, hour, month, year. Additoinally, The window boundaries or groupings won't exceed the timestamps of the data you return from the range function. For example, imagine the following scenario:
+The boundary for the window period, as defined by either the `period` or `every` paramenter, is not based on execution time or the timestamps of any points returned by the range function. Instead windowing occurs at the top of the second, minute, hour, month, year. Additionally, The window boundaries or groupings won't exceed the timestamps of the data you return from the range function. For example, imagine the following scenario:
 You query for data with `|> range(start: 2022-01-20T20:18:00.000Z, stop: 2022-01-20T21:19:25.000Z)` and your last record has a timestamp in that range of `2022-01-20T20:19:20.000Z`. You're `every`/`period`duration is 30s. Then your last window group will have a _start value of `2022-01-20T20:19:00.000Z` and a _stop of value of `2022-01-20T20:19:30.000Z`. Notice how window grouping does not extend until the stop value specified by the range function. Instead, the grouping stops to include the final point. 
 
 Windowing is performed for two main reasons:
@@ -6080,7 +6080,7 @@ The result after the first yield, “after sum” looks like:
 The sum() function is an aggregator so the _time column is removed because there isn’t a timestamp associated with the sum of two values. Keep in mind that in this example the timestamps in the _time column in the “after group” output happen to be the same, but this aggregation across fields within time windows would work even if the timestamps were different. The _time column isn’t a part of the group key. 
 
 ### Windowing back in time
-When you apply the window() function, you group data on forward in time or create window bounds that align with the start of your data. You can't windown back it time, but you can produce the same effect by using the [offset parameter](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/#offset). This parameter specifies the duration to shift the window boundaries by. You can use the offset parameter to make the windows always align with the current time which effectively groups the data backwards in time. 
+When you apply the window() function, you group data on forward in time or create window bounds that align with the start of your data. You can't window back it time, but you can produce the same effect by using the [offset parameter](https://docs.influxdata.com/flux/v0.x/stdlib/universe/window/#offset). This parameter specifies the duration to shift the window boundaries by. You can use the offset parameter to make the windows always align with the current time which effectively groups the data backwards in time. 
 ```js
 option offset = duration(v: int(v: now()))
 
@@ -6091,7 +6091,7 @@ data = from(bucket: "bucket1")
 
 data 
   |> aggregateWindow(every: 30s, fn: mean, createEmpty: false, offset: offset)
-  |> yield(name: "offset effectively windowning backward in time")
+  |> yield(name: "offset effectively windowing backward in time")
 ```
 
 Alternatively, you could calculate the duration difference between your actual start time and the required start time so that your windows align with stop time instead. Then you could add that duration to the start with the offset parameter. The previous approach is the recommended approach, but examining multiple approaches lends us an appreciation for the power and flexibility that Flux provides. 
@@ -6101,7 +6101,7 @@ data = from(bucket: "bucket1")
   |> filter(fn: (r) => r["_measurement"] == "measurement1")
 
 lastpoint = data |> last() |> findRecord(fn: (key) => true , idx:0 )
-// the first point is 2021-08-19T19:24:15.000Z
+// the last point is 2021-08-19T19:24:15.000Z
 firstpoint = data |> first() |> findRecord(fn: (key) => true , idx:0 )
 // the first point is 2021-08-19T19:23:40.000Z
 
@@ -8293,7 +8293,7 @@ from(bucket: "noaa")
 </table>
 
 
-That last step of collapsing all the data for each table into a mean is what Flux calls “aggregation.”
+That second-last step of collapsing all the data for each table into a mean is what Flux calls “aggregation.”
 
 The following sections cover some of the most common Flux aggregations.
 
@@ -8597,7 +8597,7 @@ from(bucket: "noaa")
 
 ### count()
 
-The [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/) function` `returns the number of rows in a table. This can be particularly useful for counting events. In this case, it is used to count the number of the different station types reporting in:
+The [count()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/count/) function returns the number of rows in a table. This can be particularly useful for counting events. In this case, it is used to count the number of the different station types reporting in:
 
 
 ```js
@@ -8878,7 +8878,7 @@ This is because they’re accustomed to being able to perform `SELECT min("field
 
 ```js
 data
-|> filter(fn: (r) => r["_measurement"] == "Measurement1" and r["tag1"] == "tagvalue1" and r["_field"] == "field1" )
+|> filter(fn: (r) => r["_measurement"] == "measurement1" and r["_field"] == "field1" )
 |> min()
 |> yield(name: "min") 
 
@@ -9824,7 +9824,7 @@ To perform an in-column transformation make sure to reuse a column name in the f
 
 ```js
 data
-|> map(fn: (r) => ({ r with r._value: r._value + 0.02}))
+|> map(fn: (r) => ({ r with _value: r._value + 0.02}))
 ```
 
 
@@ -9957,7 +9957,7 @@ Which yields the following result:
    </td>
    <td>0.5101148636678805
    </td>
-   <td>0.5101148636678805
+   <td>0.5301148636678805
    </td>
    <td>TLM0100
    </td>
@@ -9975,7 +9975,7 @@ Which yields the following result:
    </td>
    <td>0.5050389571399865
    </td>
-   <td>0.5050389571399865
+   <td>0.5070389571399865
    </td>
    <td>TLM0100
    </td>
@@ -10189,11 +10189,11 @@ data
 
 ### The rows.map() function
 
-The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like beofre: 
+The [rows.map()](https://docs.influxdata.com/flux/v0.x/stdlib/contrib/jsternberg/rows/map/) function is a simplified version of the map() function. It is much more efficient but also more limited than the map() function. Remember the map() function can modify group keys. However, the rows.map() function cannot. Attempts to modify columns in the group key are ignored. For example, if we tried to change the measurement name with the rows.map() function it would be unsuccessful. However we could adjust the field value like before: 
 
 ```js
 data
-|> rows.map( fn: (r) => ({r with _measurement: "in group key so it's ignored"}))
+|> rows.map(fn: (r) => ({r with _measurement: "in group key so it's ignored"}))
 |> rows.map(fn: (r) => ({ r with r._value: r._value + 0.02}))
 ```
 
@@ -10279,18 +10279,19 @@ The [findRecord()](https://docs.influxdata.com/flux/v0.x/stdlib/universe/findrec
 * `fn`: The predicate function for returning the table with matching keys, provided by the user. 
 * `idx`: The index of the record you want to extract.
 
-The easiest way to use the fromRecord() function is to query our data so that you have only one row in your output that contains the scalar value you want to extract. This way you can just set the fn parameter to true idx to 0. 
+The easiest way to use the fromRecord() function is to query our data so that you have only one row in your output that contains the scalar value you want to extract. This way you can just set the fn parameter to true and idx to 0. 
 
 
 ```js
 data = from(buket : "bucket1")
 	|> range(start: 0)
 	|> filter(fn:(r) => r._measurement == "measurement1" and r._field =  "field1")
-
+	|> yield(name: "data")
+	
 meanRecord = data
 |> mean() 
-|> findRecord( fn: (key) => true,
-      		idx: 0)
+|> findRecord(fn: (key) => true,
+      	      idx: 0)
 
 data |> map(fn: (r) => ({ value_mult_by_mean: r._value * meanRecord._value }))
      |> yield(name: "final result")
@@ -10690,7 +10691,7 @@ data = from(bucket: "Air sensor sample dataset")
 tempTime = data 
   |> filter(fn: (r) => r["_field"] == "temperature")
   |> filter(fn: (r) => r["_value"] >= 72.2)
-  |> findRecord(fn: (key) => true, column: "_time")
+  |> findColumn(fn: (key) => true, column: "_time")
 
 data 
 |> range(start: tempTime[0]) 
@@ -10783,7 +10784,7 @@ Here is a simple example of how to uses the reduce() function to calculate the s
 ```js
 data = from(bucket: "bucket1")
 |> range(start:0)
-|> filter(fn: (r) => r["_measurement"] == "Measurement1" and r["_field"] == "field1" )
+|> filter(fn: (r) => r["_measurement"] == "measurement1" and r["_field"] == "field1" )
 
 data
 |> reduce(
@@ -11005,7 +11006,7 @@ data
 Using the Air Sensor sample dataset we can manipulate the _time column from RFC339 to Unix and back into RFC339 again, storing the results in separate columns: 
 ```js
 from(bucket: "Air sensor sample dataset")
-  |> range(start:0)`
+  |> range(start:0)
   |> filter(fn: (r) => r["_measurement"] == "airSensors")
   |> filter(fn: (r) => r["_field"] == "co")
   |> filter(fn: (r) => r["sensor_id"] == "TLM0100")
@@ -11014,7 +11015,7 @@ from(bucket: "Air sensor sample dataset")
 ```
 
 
-**Important Note**: the time() function requires that the unix timestamp must be in nanosecond precision. 
+**Important Note**: the time() function requires that the unix timestamp be in nanosecond precision.
 
 
 ### Calculating durations 
@@ -11039,7 +11040,7 @@ from(bucket: "Air sensor sample dataset")
   |> filter(fn: (r) => r["_field"] == "co")
   |> filter(fn: (r) => r["sensor_id"] == "TLM0100")
   |> limit(n:5)
-  |> map(fn: (r) => ({r with duration_from_now: string(duration(unix_now - uint(v: r._time)))}))
+  |> map(fn: (r) => ({r with duration_from_now: string(v: duration(v: unix_now - uint(v: r._time)))}))
 ```
 
 
@@ -12808,10 +12809,10 @@ csv.from(url: "https://influx-testdata.s3.amazonaws.com/noaa.csv")
 #### csv.from() 
 
 Use the [csv.from()](https://docs.influxdata.com/flux/v0.x/stdlib/csv/from/#csv) function from stdlib to retrieve a Raw CSV from a URL. For example you can use the csv.from() function to parse CSV data from API and write it to InfluxDB in a task. A great example of this can be found in the Earthquake Feed Ingestion task from the [Earthquake Command Center Community](https://github.com/influxdata/community-templates/tree/master/earthquake_usgs) Template.  Here is the relevant Flux from that task: 
-`onedayago = strings.trimSuffix(v: string(v: date.truncate(t: experimental.subDuration(d: 1d, from: now()), unit: 1m)), suffix: ".000000000Z")`
 
 
 ```js
+onedayago = strings.trimSuffix(v: string(v: date.truncate(t: experimental.subDuration(d: 1d, from: now()), unit: 1m)), suffix: ".000000000Z")
 csv_data_url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=csv&starttime=" + onedayago + "&includedeleted=true&orderby=time-asc"
 csv_data = string(v: http.get(url: csv_data_url).body)
 states = ["Alaska", "California", "CA", "Hawaii", "Idaho", "Kansas", "New Mexico", "Nevada", "North Carolina", "Oklahoma", "Oregon", "Washington", "Utah"]
@@ -12892,10 +12893,10 @@ Materialized views or downsampling is the process of converting high resolution 
 * [Flux built-in selector transformations](https://docs.influxdata.com/flux/v0.x/function-types/#selectors) like max(), min(), median(), etc. 
 
 To downsample the data temperature from the Air Sensor sample dataset, you might perform the following query:  \
-`from(bucket: "airsensor")`
 
 
 ```js
+from(bucket: "airsensor")
   |> range(start: -10d)
   |> filter(fn: (r) => r["_measurement"] == "airSensors")
   |> aggregateWindow(every:1d, fn: mean, createEmpty: false)
