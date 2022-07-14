@@ -66,7 +66,7 @@ Defining your query and applying an aggregate function. Here we are creating a C
 To [configure your threshold check](https://docs.influxdata.com/influxdb/cloud/monitor-alert/checks/create/#configure-the-check), you must specify the **Properties**, **Status Message Template**, and **Thresholds** of your check. 
 
 
-![threshold check]{{site.url}}/assets/images/part-3/checks-and-notifications/4-threshold-check-2.gif "image_tooltip")
+![threshold check]({{site.url}}/assets/images/part-3/checks-and-notifications/4-threshold-check-2.gif "image_tooltip")
  
 Configuring your threshold check. Here we are setting a usage_system level to “CRIT” if the value exceeds 5. The check is scheduled to run every 5s with an offset of 0s and a status message that will read “Check: CPU Check is: CRIT” when the usage_system surpasses the threshold value. 
 
