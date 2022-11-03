@@ -150,5 +150,1164 @@ Instead of an example with specific values such as:
 1i == 1.0
 ```
 
+# Introducing the IOx data model
+
+InfluxDB is getting a major upgrade with the new *IOx data model*.
+
+Read this section to gain a firm understanding of the new InfluxDB data model using an IOx bucket, with a particular emphasis on how the *IOx data model* differs from the *TSM data model*.
+
+**Note:** IOx is still in testing. Stay tuned on [influxdata.com](https://www.influxdata.com/) to hear when we officially roll out the new IOx data model to all InfluxDB Cloud production clusters.
+
+## Similarities Between the TSM and IOx Data Model
+
+* [Data elements](#data-elements)
+* [Flux compatibility](#flux-compatibility)
+* [Line protocol compatibility](#line-protocol-compatibility)
+
+### Data Elements
+
+IOx retains the same data elements that users are accustomed to in InfluxDB, namely:
+
+* Buckets for storing data.
+* Measurements for grouping like data together.
+* Tag sets, in conjunction with a timestamp, identify a unique row in a table.
+* Fields for storing actual data.
+* Timestamps, of course, for ordering data by the time dimension.
+
+Current documentation for these elements is available [here](https://awesome.influxdata.com/docs/part-2/influxdb-data-model/#influxdb-data-elements), and will be updated to reflect any changes related to IOx.
+
+### Flux Compatibility
+
+Users who have existing Flux scripts for their application that are working well for them can be reassured that those scripts will continue working unmodified. Throughout the development of IOx such backward compatibility was a consistent focus. However, users should note that with some slight changes to their Flux, to be described later, they will be able to achieve significant performance improvements using IOx.
+
+### Line Protocol Compatibility
+
+Similar to Flux, significant effort has been invested to ensure that InfluxDB Line Protocol compatibility is retained. Therefore, the documentation on line protocol available [here](https://awesome.influxdata.com/docs/part-2/input-format-vs-output-format/#line-protocol) remains relevant with the caveat that users should think about the disk persistence and the output format using Table Flux differently if they want to take full advantage of IOx. This document will pick up the story there, the model for persisting data to disk.
+
+## From Line Protocol to Tables on Disk
+
+In previous versions of InfluxDB, it was most useful to envision the database storing data as a series, with each series in a separate table. The IOx data model is arguably more intuitive, because it builds tables that are returned by Table Flux.
+
+IOx, like TSM before it, is a “schema on write” database engine. This means you are free to write data with new measurements, tags, tag values, and fields after deploying your application, and IOx will accept those writes and persist them as tables. Note that there are some important caveats regarding schema on write, for example, you cannot change the type of a field by merely writing a value with a new type.
+
+A table in IOx is defined by a measurement name. Columns in the table include:
+
+* Tag names
+* Field names
+* A single time column
+
+Therefore, rows contain:
+
+* Tag values
+* Field values
+* A single timestamp
+
+Rows are identified by their tag values and time stamp. This becomes relevant to understanding when looking at Upserts.
+
+In the following examples, we'll explore how tables are created on writes in IOx.
+
+### Line Protocol, Fields, and Tables
+
+The simplest line protocol is one measurement and one field with a value. In lieu of providing a timestamp, we can allow the database to add the timestamp by omitting it from the line protocol:
+
+```
+measurement1 field1=1i
+```
+
+This will be persisted by IOx as a table:
+
+<table>
+  <tr>
+   <td colspan="2" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+</table>
+
+As you can see in the above example, the table is defined by the measurement name, and contains a single column, called “field1” and a single row of data. Writing more similar data will grow the table as expected. If we write another line of line protocol:
+
+```
+measurement1 field1=2i
+```
+
+<table>
+  <tr>
+   <td colspan="2" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+</table>
+
+If we write a third line of line protocol, this time with a different field name, IOx will add the field to the table, and null the previous writes.
+
+```
+measurement1 field2=3i
+```
+
+<table>
+  <tr>
+   <td colspan="3" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>null
+   </td>
+   <td>3i
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+</table>
+
+IOx still supports writing multiple fields in a single line of line protocol, of course, so we can write some line protocol like this:
+
+```
+measurement1 field1=4i,field2=4i
+```
+
+<table>
+  <tr>
+   <td colspan="3" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>null
+   </td>
+   <td>3i
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>4i
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+</table>
+
+## Adding Tags
+
+On the surface, it may appear that tags and fields are equivalent in IOx. For example, a simple bit of line protocol with a single tag and field will result in a table with 3 columns, one for the tag, one for the field, and one for the time. Consider the following line protocol and the ensuing table.
+
+```
+measurement1,tag1=tagvalue1 field1=1i
+```
+
+<table>
+  <tr>
+   <td colspan="3" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+</table>
+
+In a departure from the previous data model, adding a new tag value gets added to the same table:
+
+```
+measurement1,tag1=tagvalue2 field1=2i
+```
+
+<table>
+  <tr>
+   <td colspan="3" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+</table>
+
+Now, if we do a new write, but with a different tag name, similar to adding a field, this will update the table with a new column for the tag, and missing tag values will be set to null.
+
+```
+measurement1,tag2=tagvalue3 field1=3i
+```
+
+<table>
+  <tr>
+   <td colspan="4" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+</table>
+
+We can continue adding to the measurement1 table in this manner by introducing new tags and fields as needed.
+
+```
+measurement1,tag1=tagvalue1,tag2=tagvalue3,tag3=tagvalue4 field1=4i,field2=true
+```
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+</table>
+
+It’s still possible to write a minimal line of line protocol, and add that to the table:
+
+```
+measurement1 field1=1i
+```
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
+## Timestamps
+
+As discussed above, a row is identified by a combination of timestamps and tag values. As such, duplicate timestamps are valid, so long as the tag values are different. For example, we can add multiple rows with timestamp5 by varying the tag values. Consider this line protocol, which has a duplicate timestamp.
+
+```
+measurement1,tag1=tagvalue1 field1=1i timestamp5
+```
+
+Remembering that a row is defined by its tag values, despite the timestamp and the field being identical, this still represents a new row:
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
+
+When you send a line of line protocol, the write takes into account the **entire** set of tag values. So long as a single tag value is different, even if all the fields and the timestamp are identical, the write will still result in a new row.
+
+For example, the following row is identical to an existing row, except that the value for tag3 is tagvalue5 instead of tagvalue4. Therefore, this will result in a new row being added.
+
+
+```
+measurement1,tag1=tagvalue1,tag2=tagvalue3,tag3=tagvalue5 field1=4i,field2=true timestamp4
+```
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue5
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
+## Upserts
+
+It is useful to think of all writes to InfluxDB as Upserts. The term “Upsert” means that the write will “Update or Insert” on write. It will update if it matches an existing record, or will insert a new record if no existing records match.
+
+Because Upserts match on the timestamp and the tag values, it is not possible to update a tag value! Only field values can be updated.
+
+This line of line protocol includes no tags, a duplicate timestamp, and a duplicate field name, but a different field value. So, this matches a timestamp and the tag set (which happens to be empty). Therefore, this will result in an update to the table.
+
+
+```
+measurement1 field1=2i timestamp5
+```
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue5
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
+
+The following line protocol also matches an existing timestamp, and a tag set, so it will result in an update. While only one of the fields is present in the line protocol, the row is still matched, so the field will be updated.
+
+
+```
+measurement1,tag1=tagvalue1,tag2=tagvalue3,tag3=tagvalue5 field2=false timestamp4
+```
+
+<table>
+  <tr>
+   <td colspan="6" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>false
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue5
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
+A new field can be introduced similarly. The following line protocol matches the timestamp and all tag values for the existing row, so the row will be updated, along with the new field value. As expected, all existing rows without the new field will be set to null for that field.
+
+```
+measurement1,tag1=tagvalue1,tag2=tagvalue3,tag3=tagvalue5 field3=0.0 timestamp4
+```
+
+<table>
+  <tr>
+   <td colspan="7" ><b>Name: measurement1</b>
+   </td>
+  </tr>
+  <tr>
+   <td><strong>field1</strong>
+   </td>
+   <td><strong>field2</strong>
+   </td>
+   <td><strong>field3</strong>
+   </td>
+   <td><strong>tag1</strong>
+   </td>
+   <td><strong>tag2</strong>
+   </td>
+   <td><strong>tag3</strong>
+   </td>
+   <td><strong>time</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp1
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue2
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp2
+   </td>
+  </tr>
+  <tr>
+   <td>3i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>null
+   </td>
+   <td>timestamp3
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>true
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue4
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>4i
+   </td>
+   <td>false
+   </td>
+   <td>0.0
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>tagvalue3
+   </td>
+   <td>tagvalue5
+   </td>
+   <td>timestamp4
+   </td>
+  </tr>
+  <tr>
+   <td>2i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+  <tr>
+   <td>1i
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>tagvalue1
+   </td>
+   <td>null
+   </td>
+   <td>null
+   </td>
+   <td>timestamp5
+   </td>
+  </tr>
+</table>
+
 [Next Section]({{site.url}}/docs/part-2/input-format-vs-output-format){: .btn .btn-purple}
 
