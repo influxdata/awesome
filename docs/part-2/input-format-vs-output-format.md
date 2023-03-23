@@ -1183,7 +1183,7 @@ Now that we understand the schema of the 2 real world data sets, [Air Sensor Dat
 
 Question 1: How many series will be created by the Air Sensor Data given the schema above? 
 
-Answer 1: (1 sensor_id tag x 8 unique tag values) x (3 fields) = 4 x 3 = **24**
+Answer 1: (1 sensor_id tag x 8 unique tag values) x (3 fields) = 8 x 3 = **24**
 
 Question 2: How many series will be created by the NOAA National Buoy Center Data given the schema above (assuming no tags are dependent tags)? 
 
